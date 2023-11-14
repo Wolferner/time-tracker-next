@@ -2,8 +2,11 @@
 
 import React, { useState } from "react";
 import styles from './InfoBlock.module.css'
-import { Icon } from "@mui/icons-material";
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import CloseIcon from '@mui/icons-material/Close';
 
 const InfoBlock = () =>{
 
@@ -19,7 +22,7 @@ const InfoBlock = () =>{
 
 
             <div>
-            <a href="" className={`${styles.settings}  secondary-content`} onClick={showStateHandler}><i className="material-icons small " >settings</i></a>
+            <a href="" className={`${styles.settings}  secondary-content`} onClick={showStateHandler}><SettingsApplicationsIcon/></a>
             </div>
 
             <div className= {`${styles.rowContent} ${isHiden ?styles.disabled : styles.enabled} row`}>
@@ -28,26 +31,26 @@ const InfoBlock = () =>{
                     <div className="row" id="info_label">
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                            {/* <Icon >Adb</Icon> */}
+                            <AccountBoxIcon/>
                             <input id="icon_prefix" type="text" className="validate"/>
                             <label htmlFor="icon_prefix">Customer</label>
                         </div>
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                         
+                            <BackupTableIcon/>
                             <input id="icon_project" type="text" className="validate"/>
                             <label htmlFor="icon_project">Project</label>
                         </div>
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                          
+                            <AccountTreeIcon/>
                             <input id="icon_incident" type="text" className="validate"/>
                             <label htmlFor="icon_incident">INC</label>
                         </div>
 
                         <div className="chip col">
                             Tag
-                            <i className="close material-icons">close</i>
+                            <CloseIcon/>
                         </div>
 
                     </div>

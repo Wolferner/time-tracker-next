@@ -6,20 +6,24 @@ import styles from './Task.module.css'
 
 const Task = (props) =>{
 
-    const [text, setText] = useState(props.description)
-const [isEditing, setIsEditing] = useState(false)
+    const [text, setText] = useState('')
+    const [isEditing, setIsEditing] = useState(false)
 
-const togleHandler = ()=>{
-    setIsEditing(!isEditing)
-}
-const changeTextHandler = (event) =>{
-    setText(event.target.value)
-}
+    if (props.placedin==='card'){
+        setText(props.description)
+    }
+
+    const togleHandler = ()=>{
+        setIsEditing(!isEditing)
+    }
+    const changeTextHandler = (event) =>{
+        setText(event.target.value)
+    }
 
     return(
 
-        <div className={`${styles.Task} ${props.placedin === 'header'? styles.taskHeader:''} row`}  >
-            <div className={`${styles.card} col s12 m6 card blue-grey darken-1`}>
+        <div className={`${styles.Task} ${props.className}  row`}  >
+            <div className={`${styles.card} ${props.className}  card blue-grey darken-1`}>
                 
                     <div className={`${styles.textArea} card-content white-text`}>
                         <input placeholder='Your Title' className="card-title">{props.title}</input>

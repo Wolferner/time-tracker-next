@@ -3,6 +3,7 @@
 import React from 'react'
 import styles from './Workspace.module.css'
 import Task from '../Task/Task'
+import InfoBlock from '@/app/components/InfoBlock/InfoBlock'
 // import WsSearching from './WsSearching/WsSearching'
 // import TimeLine from './TimeLine/TimeLine'
 
@@ -82,9 +83,10 @@ const datas = [
 const Workspace = (props) =>{
 
     return(
-        <div className={`Workspace ${props.className} row `}>
+        <div className={`${styles.Workspace} ${props.className} row `}>
             <div className={` col s12 `} >
-                <Task placedin='header' >
+                <Task >
+                    <InfoBlock/>
 
                 </Task >
             </div>

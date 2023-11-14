@@ -1,3 +1,5 @@
+'use client'
+
 import styles from '../MenuItem/MenuItem.module.css'
 
 const MenuItem = (props) =>{

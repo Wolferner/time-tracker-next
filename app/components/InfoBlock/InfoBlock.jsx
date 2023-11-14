@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import styles from './InfoBlock.module.css'
+import { Icon } from "@mui/icons-material";
+
 
 const InfoBlock = () =>{
 
@@ -14,6 +16,8 @@ const InfoBlock = () =>{
 
     return(
         <div>
+
+
             <div>
             <a href="" className={`${styles.settings}  secondary-content`} onClick={showStateHandler}><i className="material-icons small " >settings</i></a>
             </div>
@@ -24,19 +28,19 @@ const InfoBlock = () =>{
                     <div className="row" id="info_label">
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                            <i className=" material-icons  prefix">account_circle</i>
+                            {/* <Icon >Adb</Icon> */}
                             <input id="icon_prefix" type="text" className="validate"/>
                             <label htmlFor="icon_prefix">Customer</label>
                         </div>
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                            <i className=" material-icons prefix">insert_chart</i>
+                         
                             <input id="icon_project" type="text" className="validate"/>
                             <label htmlFor="icon_project">Project</label>
                         </div>
 
                         <div className={`${styles.inputBox} input-field col s12`}>
-                            <i className=" material-icons prefix">lightbulb_outline</i>
+                          
                             <input id="icon_incident" type="text" className="validate"/>
                             <label htmlFor="icon_incident">INC</label>
                         </div>

@@ -1,5 +1,8 @@
+'use client'
+
 import React from 'react'
 import styles from './Workspace.module.css'
+import Task from '../Task/Task'
 // import WsSearching from './WsSearching/WsSearching'
 // import TimeLine from './TimeLine/TimeLine'
 
@@ -80,8 +83,10 @@ const Workspace = () =>{
 
     return(
         <div className={`${styles.main} row `}>
-            <div className={`${styles.wsHeader} col s12 `} >
-                {/* <WorkspaceHeader/> */}
+            <div className={` col s12 `} >
+                <Task  >
+
+                </Task >
             </div>
             <div className={`col s12 `}>
                 <p>Favorits</p>

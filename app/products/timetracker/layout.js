@@ -22,7 +22,7 @@ export default function Layout({ children }) {
 
         </div>
 
-        <div className={` modalWindow col s11`}>
+        <div className={` modalWindow col s9`}>
             {children}
         </div>
 

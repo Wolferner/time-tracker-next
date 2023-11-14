@@ -18,20 +18,20 @@ const changeTextHandler = (event) =>{
 
     return(
 
-        <div className={`${styles.Task} row`}>
+        <div className={`${styles.Task} ${props.placedin === 'header'? styles.taskHeader:''} row`}  >
             <div className={`${styles.card} col s12 m6 card blue-grey darken-1`}>
                 
                     <div className={`${styles.textArea} card-content white-text`}>
-                        <input className="card-title">{props.title}</input>
+                        <input placeholder='Your Title' className="card-title">{props.title}</input>
 
                         {isEditing 
                         ?  (<div className={`${styles.cardContent} input-field col s12`}>
                                 <textarea id="textarea1" className=" materialize-textarea" 
-                                onChange={changeTextHandler}  onBlur={togleHandler} value={props.description} placeholder='Your text must be here' />
+                                onChange={changeTextHandler}  onBlur={togleHandler} value={text} placeholder='Your text must be here' />
                             </div>)
 
                         :  (<div onClick={togleHandler} className={`${styles.cardContent} col s12`} >
-                                {props.description}
+                                {text? text: "Your text must be here" }
                             </div>)}
                     </div>
 

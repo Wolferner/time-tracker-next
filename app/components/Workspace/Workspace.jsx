@@ -79,12 +79,12 @@ const datas = [
 ]
 
 
-const Workspace = () =>{
+const Workspace = (props) =>{
 
     return(
-        <div className={`${styles.main} row `}>
+        <div className={`Workspace ${props.className} row `}>
             <div className={` col s12 `} >
-                <Task  >
+                <Task placedin='header' >
 
                 </Task >
             </div>

@@ -1,0 +1,9 @@
+.menuBox2{
+    background-color: #607d8b;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: -57px; /* UBRATJ*/
+    position: fixed;
+
+}

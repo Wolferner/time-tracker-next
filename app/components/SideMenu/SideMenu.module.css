@@ -1,0 +1,34 @@
+.menuBox1{
+    background-color: #455a64;
+    max-width: 80px;
+    display: flex;
+    min-width: 40px;
+    min-height: 100vh;
+    height: 100%;
+    flex-direction: column;  /*row*/
+    justify-content: space-between;
+    flex-grow: 1;
+    align-content: center;
+    position: fixed;
+}
+
+.menuBox1 li{
+    display: flex;
+    flex-direction: column; /*row */
+    align-items: center;
+}
+
+
+.menuStart{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;   /*row*/
+    justify-content: flex-start;
+}
+
+.menuEnd{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;  /*row*/
+    justify-content: flex-end;
+}

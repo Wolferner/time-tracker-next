@@ -1,6 +1,7 @@
 'use client'
 
 import styles from './TextElement.module.css'
+import Link from 'next/link'
 
 const TextElement = (props) =>{
 
@@ -13,7 +14,7 @@ switch(url){
         <div className= {`${styles.collectionHeader} collection-item collection-header  transparent`} ><span>{props.children}</span></div>)
     default:
         return(
-        <a href={url} className={`${styles.collectionItems} collection-item transparent`} >{props.children}</a>)
+        <Link href={url} className={`${styles.collectionItems} collection-item transparent`} >{props.children}</Link>)
 }  
 }
 

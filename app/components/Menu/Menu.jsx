@@ -16,18 +16,18 @@ const Menu = () => {
             </MenuItem>
 
             <MenuItem>
-            <TextElement >Analytics</TextElement>
-            <TextElement url='s'>Reports</TextElement>
-            <TextElement url='s'>Insight</TextElement>
+                <TextElement >Analytics</TextElement>
+                <TextElement url='s'>Reports</TextElement>
+                <TextElement url='s'>Insight</TextElement>
             </MenuItem>
 
             <MenuItem>
-            <TextElement >Manage</TextElement>
-            <TextElement url='s'>clients</TextElement>
-            <TextElement url='s'>Work</TextElement>
-            <TextElement url='s'>Team</TextElement>
-            <TextElement url='s'>Autamation</TextElement>
-            <TextElement url='s'>Integration</TextElement>
+                <TextElement >Manage</TextElement>
+                <TextElement url='s'>clients</TextElement>
+                <TextElement url='s'>Work</TextElement>
+                <TextElement url='s'>Team</TextElement>
+                <TextElement url='s'>Autamation</TextElement>
+                <TextElement url='s'>Integration</TextElement>
             </MenuItem>
         </div>
     )

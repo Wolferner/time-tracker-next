@@ -1,7 +1,8 @@
 "use client"
 
-import React,{useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import styles from './Task.module.css'
+import TaskContext from '@/app/lib/TasksContext'
 
 
 const Task = (props) =>{
@@ -9,7 +10,7 @@ const Task = (props) =>{
     const [text, setText] = useState('')
     const [isEditing, setIsEditing] = useState(false)
     const [title, setTitle] = useState('')
-
+    const taskCtx = useContext(TaskContext)
 
     const togleHandler = ()=>{
         setIsEditing(!isEditing)
@@ -20,6 +21,20 @@ const Task = (props) =>{
     const changeTitleHandler = (event) =>{
         setTitle(event.target.value)
     }
+
+    useEffect(()=>{
+        if(taskCtx.startSending){
+            taskCtx.updateTaskData({
+                title:title,
+                description: text,
+            })
+            // console.log(taskCtx.taskData)
+            setText('')
+            setTitle('')
+        }
+    },[taskCtx.startSending])
+
+
     return(
 
         <div className={`${styles.Task} ${props.className}  row`}  >

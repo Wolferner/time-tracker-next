@@ -116,7 +116,20 @@ const Workspace = (props) =>{
         }
  
         useEffect(()=>{
-            console.log(taskData)
+            const isDataReady = ()=>{
+                return(
+                    taskData.title !== '' 
+                    && taskData.description !== '' 
+                    && taskData.timeStart !== ''
+                    && taskData.aditionalInfo.customer !== ''
+                    && taskData.aditionalInfo.inc !== ""
+                    && taskData.aditionalInfo.project !== ""
+                    && taskData.aditionalInfo.customer !== ""
+                )
+            }
+            if(isDataReady()){
+                console.log(taskData)
+            }
         },[taskData])
     
 

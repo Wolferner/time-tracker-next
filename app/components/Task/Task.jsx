@@ -8,10 +8,8 @@ const Task = (props) =>{
 
     const [text, setText] = useState('')
     const [isEditing, setIsEditing] = useState(false)
+    const [title, setTitle] = useState('')
 
-    if (props.placedin==='card'){
-        setText(props.description)
-    }
 
     const togleHandler = ()=>{
         setIsEditing(!isEditing)
@@ -19,15 +17,16 @@ const Task = (props) =>{
     const changeTextHandler = (event) =>{
         setText(event.target.value)
     }
-
+    const changeTitleHandler = (event) =>{
+        setTitle(event.target.value)
+    }
     return(
 
         <div className={`${styles.Task} ${props.className}  row`}  >
             <div className={`${styles.card} ${props.className}  card blue-grey darken-1`}>
                 
                     <div className={`${styles.textArea} card-content white-text`}>
-                        <input placeholder='Your Title' className="card-title">{props.title}</input>
-
+                        <input placeholder='Your Title' className="card-title" onChange={changeTitleHandler} value={title}/>
                         {isEditing 
                         ?  (<div className={`${styles.cardContent} input-field col s12`}>
                                 <textarea id="textarea1" className=" materialize-textarea" 

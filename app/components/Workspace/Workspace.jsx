@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './Workspace.module.css'
 import Task from '../Task/Task'
 import InfoBlock from '@/app/components/InfoBlock/InfoBlock'
+import TaskTime from '../TaskTime/TaskTime'
 // import WsSearching from './WsSearching/WsSearching'
 // import TimeLine from './TimeLine/TimeLine'
 
@@ -87,7 +88,7 @@ const Workspace = (props) =>{
             <div className={` col s12 `} >
                 <Task >
                     <InfoBlock/>
-
+                    <TaskTime place=''/>
                 </Task >
             </div>
             <div className={`col s12 `}>

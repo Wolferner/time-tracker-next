@@ -18,7 +18,7 @@ const InfoBlock = () =>{
     }
 
     return(
-        <div>
+        <div className={`${styles.InfoBlock}`}>
 
 
             <div>

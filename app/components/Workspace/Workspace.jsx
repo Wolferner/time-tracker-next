@@ -152,10 +152,10 @@ const Workspace = (props) =>{
                         <TaskTime place=''/>
                     </Task >
                 </div>
-                <div className={`col s12 `}>
+                {/* <div className={`col s12 `}>
                     <p>Favorits</p>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque ratione explicabo vitae. Suscipit mollitia odit amet assumenda blanditiis, ad aliquam quae corrupti enim beatae incidunt veritatis nostrum accusamus ut animi.</p>
-                </div>
+                </div> */}
                 <div className={`col s12 `}>
                     {/* <WsSearching/> */}
                 </div>

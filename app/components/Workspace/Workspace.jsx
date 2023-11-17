@@ -9,6 +9,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import TaskContext from '@/app/lib/TasksContext'
 
+
+
 const datas = [
     {
         id: "item-1",
@@ -125,6 +127,8 @@ const Workspace = (props) =>{
                     && taskData.aditionalInfo.inc !== ""
                     && taskData.aditionalInfo.project !== ""
                     && taskData.aditionalInfo.customer !== ""
+
+                    
                 )
             }
             if(isDataReady()){

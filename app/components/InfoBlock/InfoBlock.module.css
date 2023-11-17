@@ -1,0 +1,51 @@
+.InfoBlock{
+    
+}
+
+
+.formCont{
+    /* padding: 0px 30px !important; */
+    margin-left: 0 !important;
+    width: 300px !important;
+
+}
+
+/* div > i{
+    font-size: 1.75rem !important;
+} */
+
+
+.inputBox{
+    /* margin: 5px; */
+
+}
+
+.rowContent{
+    display: flex !important;
+    outline: 1px dotted gray;
+    justify-content: left;
+    padding-left: 15px;
+    /* align-self: flex-start; */
+    
+}
+
+.settings{
+
+    /* display: flex;
+    align-items: center;
+    margin-right: 10px !important; */
+}
+
+.enabled{
+
+    
+  transition: height 0.5s ease;
+  overflow: hidden
+
+}
+
+.disabled{
+    overflow: hidden;
+    height: 50px;
+    transition: height 0.5s ease;
+}

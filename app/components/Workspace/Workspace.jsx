@@ -1,7 +1,15 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import styles from './Workspace.module.css'
-// import WsSearching from './WsSearching/WsSearching'
-// import TimeLine from './TimeLine/TimeLine'
+import Task from '../Task/Task'
+import InfoBlock from '@/app/components/InfoBlock/InfoBlock'
+import TaskTime from '../TaskTime/TaskTime'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import TaskContext from '@/app/lib/TasksContext'
+
+
 
 const datas = [
     {
@@ -76,24 +84,87 @@ const datas = [
 ]
 
 
-const Workspace = () =>{
+const Workspace = (props) =>{
+
+    const [taskData, setTaskData] = useState({
+        title:'',
+        description:'',
+        timeStart:'',
+        timeEnd:'',
+        duration:0,
+        type:'',
+        aditionalInfo:{
+            customer:'',
+            project:'',
+            inc:'',
+        },
+    })
+    
+    const[startSending, setStartSending] = useState(false)
+
+
+        const updateTaskData = (newData) =>{
+            setTaskData(prevTaskData => ({
+                ...prevTaskData,
+                ...newData,
+                aditionalInfo: {
+                    ...prevTaskData.aditionalInfo,
+                    ...newData.aditionalInfo
+                }
+            }))
+        }
+        const updateStartSending =(value) =>{
+            setStartSending(value)
+        }
+ 
+        useEffect(()=>{
+            const isDataReady = ()=>{
+                return(
+                    taskData.title !== '' 
+                    && taskData.description !== '' 
+                    && taskData.timeStart !== ''
+                    && taskData.aditionalInfo.customer !== ''
+                    && taskData.aditionalInfo.inc !== ""
+                    && taskData.aditionalInfo.project !== ""
+                    && taskData.aditionalInfo.customer !== ""
+
+                    
+                )
+            }
+            if(isDataReady()){
+                console.log(taskData)
+            }
+        },[taskData])
+    
 
     return(
-        <div className={`${styles.main} row `}>
-            <div className={`${styles.wsHeader} col s12 `} >
-                {/* <WorkspaceHeader/> */}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TaskContext.Provider value={{
+                taskData:taskData,
+                updateTaskData,
+                startSending:startSending,
+                updateStartSending,
+            }}>
+            <div className={`${styles.Workspace} ${props.className} row `}>
+                <div className={` col s12 `} >
+                    <Task >
+                        <InfoBlock/>
+                        <TaskTime place=''/>
+                    </Task >
+                </div>
+                {/* <div className={`col s12 `}>
+                    <p>Favorits</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque ratione explicabo vitae. Suscipit mollitia odit amet assumenda blanditiis, ad aliquam quae corrupti enim beatae incidunt veritatis nostrum accusamus ut animi.</p>
+                </div> */}
+                <div className={`col s12 `}>
+                    {/* <WsSearching/> */}
+                </div>
+                <div className={`col s12 `}>
+                    {/* <TimeLine datas={datas}/> */}
+                </div>
             </div>
-            <div className={`col s12 `}>
-                <p>Favorits</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque ratione explicabo vitae. Suscipit mollitia odit amet assumenda blanditiis, ad aliquam quae corrupti enim beatae incidunt veritatis nostrum accusamus ut animi.</p>
-            </div>
-            <div className={`col s12 `}>
-                {/* <WsSearching/> */}
-            </div>
-            <div className={`col s12 `}>
-                {/* <TimeLine datas={datas}/> */}
-            </div>
-        </div>
+            </TaskContext.Provider>
+        </LocalizationProvider>
     )
 }
 

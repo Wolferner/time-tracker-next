@@ -1,0 +1,7 @@
+.SideBar{
+    display: flex;
+    margin: 0px ;
+    padding: 0px;
+    min-height: 100vh;
+    /* min-width: 1px ; */
+}

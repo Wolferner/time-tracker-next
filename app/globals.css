@@ -22,3 +22,7 @@
 .test{
     flex:1
 }
+
+.outline{
+    outline: 1px 1px 1px red ;
+}

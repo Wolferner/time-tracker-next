@@ -8,6 +8,7 @@ import TaskTime from '../TaskTime/TaskTime'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import TaskContext from '@/app/lib/TasksContext'
+import TimeLine from '../TimeLine/TimeLine'
 
 
 
@@ -160,7 +161,7 @@ const Workspace = (props) =>{
                     {/* <WsSearching/> */}
                 </div>
                 <div className={`col s12 `}>
-                    {/* <TimeLine datas={datas}/> */}
+                    <TimeLine datas={datas}/>
                 </div>
             </div>
             </TaskContext.Provider>

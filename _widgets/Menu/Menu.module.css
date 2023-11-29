@@ -1,0 +1,9 @@
+.menuBox2{
+    background-color: #607d8b;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* margin-left: -57px;  */
+    /* position: fixed; */
+
+}

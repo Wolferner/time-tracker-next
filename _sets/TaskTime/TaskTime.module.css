@@ -1,0 +1,14 @@
+.timer{
+    display: flex;
+
+}
+
+.btns{
+    display: flex;
+}
+
+.TaskTime{
+    display: flex;
+    justify-content: space-between;
+    
+}

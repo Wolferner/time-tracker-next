@@ -1,0 +1,30 @@
+/* .card{
+    margin-left: 0px !important;
+    width: 350px;
+    min-width: 350px;
+    max-width: 450px;
+
+}
+
+.inheader{
+    width: 100% !important;
+    max-width: 100%;
+}
+
+
+.Task{
+    display: flex;
+    margin: 0;
+    width: 100% ;
+    padding-left: 20px;
+} */
+
+
+.cardContent{
+    word-wrap: break-word;
+    min-height: 40px;
+}
+
+.textArea{
+    overflow: auto;
+}

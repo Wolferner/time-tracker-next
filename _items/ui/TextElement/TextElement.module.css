@@ -1,0 +1,15 @@
+.collectionItems{
+    border:none !important;
+}
+
+.collectionItems:hover{
+    background-color: #424242 !important;
+}
+
+
+.collectionHeader{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #b2ebf2;
+    border:none !important;
+}

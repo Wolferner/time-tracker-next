@@ -1,61 +1,43 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import styles from "@/02 widgets/Task/Task.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "@/03 sets/TitleDescriptionSet/TitleDescriptionSet.module.css";
+import TextField from "@/04 items/ui/TextField/TextField";
+import TextDescription from "@/04 items/ui/TextDescriprtion/TextDescription";
 
-const TitleDescriptionSet = ({ onGetTextData }) => {
+const TitleDescriptionSet = ({ onBlurCallback }) => {
   console.log("TitleDescription Render");
-  const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
-  const togleHandler = () => {
-    setIsEditing(!isEditing);
-  };
+  const [titleDescription, setTitleDescription] = useState({
+    title: "",
+    description: "",
+  });
 
-  const descriptionChangeHandler = (event) => {
-    setDescription(event.target.value);
-  };
+  const [titleInput, setTitleInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
 
-  const titleChangeHandler = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const formBlurHandler = () => {
-    onGetTextData({
-      type: "TEXT",
-      title: title,
-      description: description,
+  useEffect(() => {
+    setTitleDescription((prev) => {
+      return { ...prev, title: titleInput, description: descriptionInput };
     });
+
+    onBlurCallback(titleDescription);
+  }, [titleInput, descriptionInput]);
+
+  const getTitleHandler = (title) => {
+    setTitleInput(title);
+  };
+  const getDescriptionHandler = (description) => {
+    setDescriptionInput(description);
   };
 
   return (
-    <form
-      className={`${styles.textArea} card-content white-text`}
-      onBlur={formBlurHandler}
-    >
-      <input
-        placeholder="Your Title"
-        className="card-title"
-        onChange={titleChangeHandler}
-        value={title}
+    <form className={`${styles.TitleDescriptionSet} card-content white-text`}>
+      <TextField placeholder="Yor Title" onBlurCallback={getTitleHandler} />
+      <TextDescription
+        placeholder="Your text must be here"
+        onBlurCallback={getDescriptionHandler}
       />
-      {isEditing ? (
-        <div className={`${styles.cardContent} input-field col s12`}>
-          <textarea
-            id="textarea1"
-            className=" materialize-textarea"
-            onChange={descriptionChangeHandler}
-            onBlur={togleHandler}
-            value={description}
-            placeholder="Your text must be here"
-          />
-        </div>
-      ) : (
-        <div onClick={togleHandler} className={`${styles.cardContent} col s12`}>
-          {description ? description : "Your text must be here"}
-        </div>
-      )}
     </form>
   );
 };

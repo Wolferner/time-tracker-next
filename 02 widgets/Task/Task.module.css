@@ -18,13 +18,3 @@
     width: 100% ;
     padding-left: 20px;
 } */
-
-
-.cardContent{
-    word-wrap: break-word;
-    min-height: 40px;
-}
-
-.textArea{
-    overflow: auto;
-}

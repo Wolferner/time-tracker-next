@@ -7,44 +7,36 @@ import dayjs from "dayjs";
 // import TaskContext from "@/app/lib/TasksContext";
 import TaskTime from "@/03 sets/TaskTime/TaskTime";
 
-const sendingTaskReducer = (state, action) => {
-  switch (action.type) {
-    case "Date":
-      return { ...state, date: action.date };
-    case "TEXT":
-      return { ...state, title: action.title, description: action.description };
-    default:
-      return state;
-  }
-};
-
 const Task = (props) => {
   console.log("Task Render");
-  // const taskCtx = useContext(TaskContext);
 
-  //   useEffect(() => {
-  //     if (taskCtx.startSending) {
-  //       taskCtx.updateTaskData({
-  //         title: title,
-  //         description: text,
-  //       });
-  //       // console.log(taskCtx.taskData)
-  //       setText("");
-  //       setTitle("");
-  //     }
-  //   }, [taskCtx.startSending]);
-
-  const [task, dispatchTask] = useReducer(sendingTaskReducer, {
+  const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    date: dayjs(),
+    timeStart: "",
+    timeEnd: "",
+    duration: 0,
+    type: "",
   });
 
-  const blurTitleDescriptionHandler = (titleDescriprtion) => {
-    dispatchTask(titleDescriprtion);
+  // useEffect =
+  //   (() => {
+  //     try {
+  //     } catch (error) {}
+  //   },
+  //   []);
+
+  const changeTitleHandler = (titleDescriprtion) => {
+    setTaskData((prevTaskData) => ({
+      ...prevTaskData,
+      ...titleDescriprtion,
+    }));
   };
-  const getButtonActionHandler = (date) => {
-    dispatchTask(date);
+  const getDateHandler = (date) => {
+    setTaskData((prevTaskData) => ({
+      ...prevTaskData,
+      ...date,
+    }));
   };
 
   return (
@@ -52,8 +44,13 @@ const Task = (props) => {
       <div
         className={`${styles.card} ${props.className}  card blue-grey darken-1`}
       >
-        <TitleDescriptionSet onGetTextData={blurTitleDescriptionHandler} />
-        <TaskTime place="" onGetButtonData={getButtonActionHandler} />
+        <TitleDescriptionSet
+          onBlurCallback={changeTitleHandler}
+          input={{ placeholder: "someText", id: "dd" }}
+          description={{}}
+        />
+
+        <TaskTime place="" onGetDate={getDateHandler} />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

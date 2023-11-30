@@ -8,7 +8,7 @@ import StopIcon from "@mui/icons-material/Stop";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 
-const TaskTime = ({ place, onGetButtonData }) => {
+const TaskTime = ({ place, onGetDate }) => {
   console.log("TaskTime Render");
   const [togleButtons, setTogleButtons] = useState();
   const [dateTimeValue, setDateTimeValue] = useState(dayjs());
@@ -21,15 +21,21 @@ const TaskTime = ({ place, onGetButtonData }) => {
     }
   }, [place]);
 
-  const playTimeHandler = (event) => {
-    onGetButtonData({ type: "DATE", value: dateTimeValue });
+  const sendDateHandler = () => {
+    onGetDate({ timeStart: dateTimeValue });
   };
-  const pauseTimeHandler = (event) => {};
-  const stopTimeHandler = (event) => {};
+
+  const playTimeHandler = (event) => {
+    onGetDate({ timeStart: dateTimeValue });
+  };
 
   return (
     <div className={`${styles.TaskTime} `}>
-      <DateTimePicker value={dateTimeValue} onChange={setDateTimeValue} />
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={setDateTimeValue}
+        onBlur={sendDateHandler}
+      />
 
       <div className={`${styles.btns}`}>
         <a
@@ -47,7 +53,7 @@ const TaskTime = ({ place, onGetButtonData }) => {
               href="#"
               className="btn-floating btn-small waves-effect waves-light red hidden"
               // disabled={!taskCtx.startSending}
-              onClick={pauseTimeHandler}
+              // onClick={}
             >
               <PauseIcon />
             </a>
@@ -55,7 +61,7 @@ const TaskTime = ({ place, onGetButtonData }) => {
               href="#"
               className="btn-floating btn-small waves-effect waves-light red"
               // disabled={!taskCtx.startSending}
-              onClick={stopTimeHandler}
+              // onClick={}
             >
               <StopIcon />
             </a>

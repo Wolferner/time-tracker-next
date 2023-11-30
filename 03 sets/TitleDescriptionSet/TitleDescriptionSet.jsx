@@ -1,7 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import styles from "./Task.module.css";
+"use client";
 
-const TitleDescriptionSet = ({ onGetTitle, onGetDescription }) => {
+import React, { useContext, useEffect, useState } from "react";
+import styles from "@/02 widgets/Task/Task.module.css";
+
+const TitleDescriptionSet = ({ onGetTextData }) => {
+  console.log("TitleDescription Render");
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -12,15 +15,25 @@ const TitleDescriptionSet = ({ onGetTitle, onGetDescription }) => {
 
   const descriptionChangeHandler = (event) => {
     setDescription(event.target.value);
-    onGetDescription();
   };
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
 
+  const formBlurHandler = () => {
+    onGetTextData({
+      type: "TEXT",
+      title: title,
+      description: description,
+    });
+  };
+
   return (
-    <form className={`${styles.textArea} card-content white-text`}>
+    <form
+      className={`${styles.textArea} card-content white-text`}
+      onBlur={formBlurHandler}
+    >
       <input
         placeholder="Your Title"
         className="card-title"

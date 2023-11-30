@@ -1,4 +1,4 @@
-import TimeLine from "@/01 products/TimeTracker/TimeLine/TimeLine/TimeLine";
+import TimeLine from "@/01 products/TimeTracker/TimeLine/TimeLine";
 
 export const metadata = {
   title: "Main Page",

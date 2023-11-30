@@ -1,15 +1,13 @@
-'use client'
+"use client";
 
-import styles from '../MenuItem/MenuItem.module.css'
+import styles from "./MenuItem.module.css";
 
-const MenuItem = (props) =>{
-
-
-    return(
+const MenuItem = (props) => {
+  return (
     <div className={`${styles.collections} collection with-header`}>
-        {props.children}
+      {props.children}
     </div>
-    )
-}
+  );
+};
 
-export default MenuItem
+export default MenuItem;

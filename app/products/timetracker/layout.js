@@ -1,31 +1,24 @@
-import GridBox from "@/app/components/GridBox/GridBox"
-import SideBar from "@/app/components/SideBar/SideBar"
-import SideMenu from "@/app/components/SideMenu/SideMenu"
-import Menu from "@/app/components/Menu/Menu"
-
-
+import GridBox from "@/04 items/layout/GridBox/GridBox";
+import SideBar from "@/04 items/layout/SideBar/SideBar";
+import SideMenu from "@/02 widgets/SideMenu/SideMenu";
+import Menu from "@/02 widgets/Menu/Menu";
 
 export const metadata = {
-  title: 'TimeTracker App',
-}
+  title: "TimeTracker App",
+};
 
 export default function Layout({ children }) {
   return (
-      <GridBox>
+    <GridBox>
+      <SideBar gridRatio={1} position={"left"} className="SideBar">
+        <SideMenu className="SideMenu" />
+      </SideBar>
 
-        <SideBar gridRatio={1} position = {'left'} className='SideBar'>
-            <SideMenu className='SideMenu'/>
-        </SideBar>
+      <div className={`Menu col s2`}>
+        <Menu />
+      </div>
 
-        <div className={`Menu col s2`}>
-            <Menu/>
-
-        </div>
-
-        <div className={` modalWindow col s9`}>
-            {children}
-        </div>
-
-      </GridBox>
-  )
+      <div className={` modalWindow col s9`}>{children}</div>
+    </GridBox>
+  );
 }

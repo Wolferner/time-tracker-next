@@ -2,10 +2,12 @@
 
 import React, { useContext, useEffect, useState, useReducer } from "react";
 import styles from "@/02 widgets/Task/Task.module.css";
-import TitleDescriptionSet from "@/03 sets/TitleDescriptionSet/TitleDescriptionSet";
 import dayjs from "dayjs";
 // import TaskContext from "@/app/lib/TasksContext";
-import TaskTime from "@/03 sets/TaskTime/TaskTime";
+import TextField from "@/04 items/ui/TextField/TextField";
+import TextDescription from "@/04 items/ui/TextDescriprtion/TextDescription";
+import Time from "@/04 items/ui/Time/Time";
+import MediaButtons from "@/04 items/ui/MediaButtons/MediaButtons";
 
 const Task = (props) => {
   console.log("Task Render");
@@ -18,13 +20,6 @@ const Task = (props) => {
     duration: 0,
     type: "",
   });
-
-  // useEffect =
-  //   (() => {
-  //     try {
-  //     } catch (error) {}
-  //   },
-  //   []);
 
   const changeTitleHandler = (titleDescriprtion) => {
     setTaskData((prevTaskData) => ({
@@ -44,13 +39,11 @@ const Task = (props) => {
       <div
         className={`${styles.card} ${props.className}  card blue-grey darken-1`}
       >
-        <TitleDescriptionSet
-          onBlurCallback={changeTitleHandler}
-          input={{ placeholder: "someText", id: "dd" }}
-          description={{}}
-        />
+        <TextField />
+        <TextDescription />
+        <Time />
+        <MediaButtons />
 
-        <TaskTime place="" onGetDate={getDateHandler} />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

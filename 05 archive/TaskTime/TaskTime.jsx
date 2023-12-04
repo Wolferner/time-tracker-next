@@ -8,7 +8,7 @@ import StopIcon from "@mui/icons-material/Stop";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 
-const TaskTime = ({ place, onGetDate }) => {
+const TaskTime = ({ place, onGetDate, onPressButton }) => {
   console.log("TaskTime Render");
   const [togleButtons, setTogleButtons] = useState();
   const [dateTimeValue, setDateTimeValue] = useState(dayjs());
@@ -26,7 +26,13 @@ const TaskTime = ({ place, onGetDate }) => {
   };
 
   const playTimeHandler = (event) => {
-    onGetDate({ timeStart: dateTimeValue });
+    onPressButton({ type: "PLAY" });
+  };
+  const pauseTimeHandler = (event) => {
+    onPressButton({ type: "PAUSE" });
+  };
+  const stopTimeHandler = (event) => {
+    onPressButton({ type: "STOP" });
   };
 
   return (
@@ -53,7 +59,7 @@ const TaskTime = ({ place, onGetDate }) => {
               href="#"
               className="btn-floating btn-small waves-effect waves-light red hidden"
               // disabled={!taskCtx.startSending}
-              // onClick={}
+              onClick={pauseTimeHandler}
             >
               <PauseIcon />
             </a>
@@ -61,7 +67,7 @@ const TaskTime = ({ place, onGetDate }) => {
               href="#"
               className="btn-floating btn-small waves-effect waves-light red"
               // disabled={!taskCtx.startSending}
-              // onClick={}
+              onClick={stopTimeHandler}
             >
               <StopIcon />
             </a>

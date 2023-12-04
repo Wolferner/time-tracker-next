@@ -15,22 +15,34 @@ const Task = (props) => {
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    timeStart: "",
-    timeEnd: "",
+    timeStart: null,
+    timeEnd: null,
     duration: 0,
     type: "",
   });
 
-  const changeTitleHandler = (titleDescriprtion) => {
-    setTaskData((prevTaskData) => ({
-      ...prevTaskData,
-      ...titleDescriprtion,
+  const dataSendHandler = (value) => {
+    if (value.type === "PLAY") {
+      console.log(taskData);
+    }
+  };
+
+  const getTitleHandler = (titleValue) => {
+    setTaskData((prev) => ({
+      ...prev,
+      ...titleValue,
     }));
   };
-  const getDateHandler = (date) => {
-    setTaskData((prevTaskData) => ({
-      ...prevTaskData,
-      ...date,
+  const getDescriptionHandler = (descriptionValue) => {
+    setTaskData((prev) => ({
+      ...prev,
+      ...descriptionValue,
+    }));
+  };
+  const getDateHandler = (dateValue) => {
+    setTaskData((prev) => ({
+      ...prev,
+      ...dateValue,
     }));
   };
 
@@ -39,10 +51,18 @@ const Task = (props) => {
       <div
         className={`${styles.card} ${props.className}  card blue-grey darken-1`}
       >
-        <TextField />
-        <TextDescription />
-        <Time />
-        <MediaButtons />
+        <TextField
+          placeholder=""
+          classNames=""
+          onBlurCallback={getTitleHandler}
+        />
+        <TextDescription
+          placeholder=""
+          classNames=""
+          onBlurCallback={getDescriptionHandler}
+        />
+        <Time onDateChange={getDateHandler} />
+        <MediaButtons onPressButton={dataSendHandler} place="" classNames="" />
 
         <div className={`card-action`}>{props.children}</div>
       </div>

@@ -21,7 +21,7 @@ const MediaButtons = ({ onPressButton, place, classNames }) => {
         href="#"
         className="btn-floating btn-small waves-effect waves-light red"
         // disabled={taskCtx.startSending}
-        onClick={onPressButton({ type: "PLAY" })}
+        onClick={() => onPressButton({ type: "PLAY" })}
       >
         <PlayArrowIcon />
       </a>
@@ -32,7 +32,7 @@ const MediaButtons = ({ onPressButton, place, classNames }) => {
             href="#"
             className="btn-floating btn-small waves-effect waves-light red hidden"
             // disabled={!taskCtx.startSending}
-            onClick={onPressButton({ type: "PAUSE" })}
+            onClick={() => onPressButton({ type: "PAUSE" })}
           >
             <PauseIcon />
           </a>
@@ -40,7 +40,7 @@ const MediaButtons = ({ onPressButton, place, classNames }) => {
             href="#"
             className="btn-floating btn-small waves-effect waves-light red"
             // disabled={!taskCtx.startSending}
-            onClick={onPressButton({ type: "STOP" })}
+            onClick={() => onPressButton({ type: "STOP" })}
           >
             <StopIcon />
           </a>

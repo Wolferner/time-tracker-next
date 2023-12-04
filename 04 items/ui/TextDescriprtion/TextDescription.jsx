@@ -9,21 +9,31 @@ const TextDescription = ({ placeholder, classNames, onBlurCallback }) => {
     setTextAreaDescription(event.target.value);
   };
 
-  const togleHandler = () => {
-    setIsEditing(!isEditing);
+  const sendTextHandler = () => {
+    setIsEditing((prevState) => {
+      return !prevState;
+    });
     onBlurCallback({
       description: textAreaDescription,
+    });
+  };
+
+  const togleHandler = () => {
+    setIsEditing((prevState) => {
+      return !prevState;
     });
   };
   return (
     <>
       {isEditing ? (
-        <div className={`${styles.TextDescriprtion} input-field col s12`}>
+        <div
+          className={`${styles.TextDescriprtion} ${classNames} input-field col s12`}
+        >
           <textarea
             id="textarea1"
             className=" materialize-textarea"
             onChange={descriptionChangeHandler}
-            onBlur={togleHandler}
+            onBlur={sendTextHandler}
             value={textAreaDescription}
             placeholder={placeholder}
           />
@@ -31,7 +41,7 @@ const TextDescription = ({ placeholder, classNames, onBlurCallback }) => {
       ) : (
         <div
           onClick={togleHandler}
-          className={`${styles.TextDescriprtion} col s12`}
+          className={`${styles.TextDescriprtion} ${classNames} col s12`}
         >
           {textAreaDescription ? textAreaDescription : "Your text must be here"}
         </div>

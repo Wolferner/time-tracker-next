@@ -12,18 +12,21 @@ import MediaButtons from "@/04 items/ui/MediaButtons/MediaButtons";
 const Task = (props) => {
   console.log("Task Render");
 
-  const [taskData, setTaskData] = useState({
+  const initialDataState = {
     title: "",
     description: "",
-    timeStart: null,
+    timeStart: dayjs(),
     timeEnd: null,
     duration: 0,
     type: "",
-  });
+  };
+
+  const [taskData, setTaskData] = useState(initialDataState);
 
   const dataSendHandler = (value) => {
     if (value.type === "PLAY") {
       console.log(taskData);
+      setTaskData(initialDataState);
     }
   };
 
@@ -55,11 +58,13 @@ const Task = (props) => {
           placeholder=""
           classNames=""
           onBlurCallback={getTitleHandler}
+          value={taskData.title}
         />
         <TextDescription
           placeholder=""
           classNames=""
           onBlurCallback={getDescriptionHandler}
+          value={taskData.description}
         />
         <Time onDateChange={getDateHandler} />
         <MediaButtons onPressButton={dataSendHandler} place="" classNames="" />

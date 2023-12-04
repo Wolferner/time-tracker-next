@@ -6,14 +6,22 @@ import dayjs from "dayjs";
 const Time = ({ onDateChange }) => {
   const [dateTimeValue, setDateTimeValue] = useState(dayjs());
 
-  const dateTimeHandler = (newValue) => {
+  const dateChangeHandler = (newValue) => {
     setDateTimeValue(dayjs(newValue));
     onDateChange({ timeStart: dayjs(newValue) });
   };
 
+  // const dateTimeHandler = () => {
+  //   onDateChange({ timeStart: dateTimeValue });
+  // };
+
   return (
     <>
-      <DateTimePicker value={dateTimeValue} onChange={dateTimeHandler} />
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={dateChangeHandler}
+        // onBlur={dateTimeHandler}
+      />
     </>
   );
 };

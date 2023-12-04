@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TextDescription.module.css";
 
-const TextDescription = ({ placeholder, classNames, onBlurCallback }) => {
+const TextDescription = ({
+  placeholder,
+  classNames,
+  onBlurCallback,
+  value,
+}) => {
+  console.log("Description render");
   const [isEditing, setIsEditing] = useState(false);
   const [textAreaDescription, setTextAreaDescription] = useState("");
+
+  useEffect(() => {
+    setTextAreaDescription(value);
+  }, [value]);
 
   const descriptionChangeHandler = (event) => {
     setTextAreaDescription(event.target.value);

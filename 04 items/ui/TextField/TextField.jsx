@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TextField.module.css";
 
-const TextField = ({ placeholder, classNames, onBlurCallback }) => {
+const TextField = ({ placeholder, classNames, onBlurCallback, value }) => {
+  console.log("Field rendered");
   const [inputTitle, setInputTitle] = useState("");
+
+  useEffect(() => {
+    setInputTitle(value);
+  }, [value]);
 
   const titleChangeHandler = (event) => {
     setInputTitle(event.target.value);

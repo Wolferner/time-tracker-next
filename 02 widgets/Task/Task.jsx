@@ -8,6 +8,7 @@ import TextField from "@/04 items/ui/TextField/TextField";
 import TextDescription from "@/04 items/ui/TextDescriprtion/TextDescription";
 import Time from "@/04 items/ui/Time/Time";
 import MediaButtons from "@/04 items/ui/MediaButtons/MediaButtons";
+import InfoBlock from "./ui/InfoBlock/InfoBlock";
 
 const Task = (props) => {
   console.log("Task Render");
@@ -68,7 +69,7 @@ const Task = (props) => {
         />
         <Time onDateChange={getDateHandler} />
         <MediaButtons onPressButton={dataSendHandler} place="" classNames="" />
-
+        <InfoBlock />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

@@ -12,13 +12,15 @@ import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-const InfoBlock = () => {
-  const taskCtx = useContext(TaskContext);
+const InfoBlock = ({ value, onBlurCallback }) => {
+  const initialState = {
+    customer: "",
+    project: "",
+    inc: "",
+    tags: [],
+  };
   const [isHiden, setIsHiden] = useState(false);
-  const [customerInput, setCustomerInput] = useState("");
-  const [projectInput, setProjectInput] = useState("");
-  const [incInput, setIncInput] = useState("");
-  const [tagInput, setTagInput] = useState([]);
+  const [infoBlockData, setInfoBlockData] = useState(initialState);
 
   const showStateHandler = (event) => {
     event.preventDefault();
@@ -26,34 +28,42 @@ const InfoBlock = () => {
   };
 
   const customerChangeHandler = (event) => {
-    setCustomerInput(event.target.value);
+    setInfoBlockData((prev) => {
+      return { ...prev, customer: event.target.value };
+    });
   };
   const projectChangeHandler = (event) => {
-    setProjectInput(event.target.value);
+    setInfoBlockData((prev) => {
+      return { ...prev, project: event.target.value };
+    });
   };
   const incChangeHandler = (event) => {
-    setIncInput(event.target.value);
+    setInfoBlockData((prev) => {
+      return { ...prev, inc: event.target.value };
+    });
   };
   const tagChangeHandler = (event, allTags) => {
-    setTagInput(allTags);
+    setInfoBlockData((prev) => {
+      return { ...prev, tags: allTags };
+    });
   };
 
-  useEffect(() => {
-    if (taskCtx.startSending) {
-      taskCtx.updateTaskData({
-        aditionalInfo: {
-          customer: customerInput,
-          project: projectInput,
-          inc: incInput,
-          tags: tagInput,
-        },
-      });
-      setCustomerInput("");
-      setProjectInput("");
-      setIncInput("");
-      setTagInput([]);
-    }
-  }, [taskCtx.startSending]);
+  // useEffect(() => {
+  //   if (taskCtx.startSending) {
+  //     taskCtx.updateTaskData({
+  //       aditionalInfo: {
+  //         customer: customerInput,
+  //         project: projectInput,
+  //         inc: incInput,
+  //         tags: tagInput,
+  //       },
+  //     });
+  //     setCustomerInput("");
+  //     setProjectInput("");
+  //     setIncInput("");
+  //     setTagInput([]);
+  //   }
+  // }, [taskCtx.startSending]);
 
   return (
     <div className={`${styles.InfoBlock}`}>
@@ -82,7 +92,7 @@ const InfoBlock = () => {
                 type="text"
                 className="validate"
                 onChange={customerChangeHandler}
-                value={customerInput}
+                value={infoBlockData.customer}
               />
               <label htmlFor="icon_prefix">Customer</label>
             </div>
@@ -94,7 +104,7 @@ const InfoBlock = () => {
                 type="text"
                 className="validate"
                 onChange={projectChangeHandler}
-                value={projectInput}
+                value={infoBlockData.project}
               />
               <label htmlFor="icon_project">Project</label>
             </div>
@@ -106,7 +116,7 @@ const InfoBlock = () => {
                 type="text"
                 className="validate"
                 onChange={incChangeHandler}
-                value={incInput}
+                value={infoBlockData.inc}
               />
               <label htmlFor="icon_incident">INC</label>
             </div>
@@ -114,7 +124,7 @@ const InfoBlock = () => {
             <div className="col">
               <Autocomplete
                 onChange={tagChangeHandler}
-                value={tagInput}
+                value={infoBlockData.tags}
                 multiple
                 id="tags-filled"
                 options={top100Films.map((option) => option.title)}
@@ -141,8 +151,6 @@ const InfoBlock = () => {
                   />
                 )}
               />
-              {/* Tag
-                            <CloseIcon/> */}
             </div>
           </div>
         </form>

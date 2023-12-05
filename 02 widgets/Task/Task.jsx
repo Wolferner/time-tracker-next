@@ -3,7 +3,6 @@
 import React, { useContext, useEffect, useState, useReducer } from "react";
 import styles from "@/02 widgets/Task/Task.module.css";
 import dayjs from "dayjs";
-// import TaskContext from "@/app/lib/TasksContext";
 import TextField from "@/04 items/ui/TextField/TextField";
 import TextDescription from "@/04 items/ui/TextDescriprtion/TextDescription";
 import Time from "@/04 items/ui/Time/Time";
@@ -20,6 +19,12 @@ const Task = (props) => {
     timeEnd: null,
     duration: 0,
     type: "",
+    additionalInfo: {
+      customer: "",
+      project: "",
+      inc: "",
+      tags: [],
+    },
   };
 
   const [taskData, setTaskData] = useState(initialDataState);
@@ -49,6 +54,15 @@ const Task = (props) => {
       ...dateValue,
     }));
   };
+  const getInfoHandler = (infoValue) => {
+    setTaskData((prev) => ({
+      ...prev,
+      additionalInfo: {
+        ...prev.additionalInfo,
+        ...infoValue,
+      },
+    }));
+  };
 
   return (
     <div className={`${styles.Task} ${props.className}  row`}>
@@ -69,7 +83,10 @@ const Task = (props) => {
         />
         <Time onDateChange={getDateHandler} />
         <MediaButtons onPressButton={dataSendHandler} place="" classNames="" />
-        <InfoBlock />
+        <InfoBlock
+          onBlurCallback={getInfoHandler}
+          value={taskData.additionalInfo}
+        />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import styles from "./TextDescription.module.css";
 
@@ -7,7 +9,7 @@ const TextDescription = ({
   onBlurCallback,
   value,
 }) => {
-  console.log("Description render");
+  // console.log("Description render");
   const [isEditing, setIsEditing] = useState(false);
   const [textAreaDescription, setTextAreaDescription] = useState("");
 

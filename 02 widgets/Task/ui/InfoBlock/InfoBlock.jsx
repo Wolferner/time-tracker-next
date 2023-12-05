@@ -11,7 +11,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
 const InfoBlock = ({ value, onBlurCallback }) => {
-  console.log("infoBlock render");
+  // console.log("infoBlock render");
   const initialState = {
     customer: "",
     project: "",

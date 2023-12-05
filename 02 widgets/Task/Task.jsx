@@ -12,7 +12,7 @@ import InfoBlock from "./ui/InfoBlock/InfoBlock";
 const Task = (props) => {
   console.log("Task Render");
 
-  const initialDataState = {
+  const initialDataState = () => ({
     title: "",
     description: "",
     timeStart: dayjs(),
@@ -25,7 +25,7 @@ const Task = (props) => {
       inc: "",
       tags: [],
     },
-  };
+  });
 
   const [taskData, setTaskData] = useState(initialDataState);
 
@@ -36,32 +36,21 @@ const Task = (props) => {
     }
   };
 
-  const getTitleHandler = (titleValue) => {
-    setTaskData((prev) => ({
-      ...prev,
-      ...titleValue,
-    }));
-  };
-  const getDescriptionHandler = (descriptionValue) => {
-    setTaskData((prev) => ({
-      ...prev,
-      ...descriptionValue,
-    }));
-  };
-  const getDateHandler = (dateValue) => {
-    setTaskData((prev) => ({
-      ...prev,
-      ...dateValue,
-    }));
-  };
-  const getInfoHandler = (infoValue) => {
-    setTaskData((prev) => ({
-      ...prev,
-      additionalInfo: {
-        ...prev.additionalInfo,
-        ...infoValue,
-      },
-    }));
+  const getDataHandler = (field, fieldsValue) => {
+    if (field === "additionalInfo") {
+      setTaskData((prev) => ({
+        ...prev,
+        additionalInfo: {
+          ...prev.additionalInfo,
+          ...fieldsValue,
+        },
+      }));
+    } else {
+      setTaskData((prev) => ({
+        ...prev,
+        ...fieldsValue,
+      }));
+    }
   };
 
   return (
@@ -72,19 +61,27 @@ const Task = (props) => {
         <TextField
           placeholder=""
           classNames=""
-          onBlurCallback={getTitleHandler}
+          onBlurCallback={(fieldsValue) => getDataHandler("title", fieldsValue)}
           value={taskData.title}
         />
         <TextDescription
           placeholder=""
           classNames=""
-          onBlurCallback={getDescriptionHandler}
+          onBlurCallback={(fieldsValue) =>
+            getDataHandler("description", fieldsValue)
+          }
           value={taskData.description}
         />
-        <Time onDateChange={getDateHandler} />
+        <Time
+          onDateChange={(fieldsValue) =>
+            getDataHandler("timeStart", fieldsValue)
+          }
+        />
         <MediaButtons onPressButton={dataSendHandler} place="" classNames="" />
         <InfoBlock
-          onBlurCallback={getInfoHandler}
+          onBlurCallback={(fieldsValue) =>
+            getDataHandler("additionalInfo", fieldsValue)
+          }
           value={taskData.additionalInfo}
         />
         <div className={`card-action`}>{props.children}</div>

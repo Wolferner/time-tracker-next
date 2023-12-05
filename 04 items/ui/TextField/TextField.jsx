@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import styles from "./TextField.module.css";
 
 const TextField = ({ placeholder, classNames, onBlurCallback, value }) => {
-  console.log("Field rendered");
+  // console.log("Field rendered");
   const [inputTitle, setInputTitle] = useState("");
 
   useEffect(() => {

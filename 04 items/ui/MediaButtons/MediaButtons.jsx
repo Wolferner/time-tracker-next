@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./MediaButtons.module.css";
 import { useState, useEffect } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";

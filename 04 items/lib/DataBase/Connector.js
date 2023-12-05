@@ -2,9 +2,7 @@ const {
   getJsonData,
   addJsonData,
   delJsonData,
-} = require("@/app/lib/DataBase/node-json-db");
-
-from;
+} = require("@/04 items/lib/DataBase/node-json-db");
 
 const loadData = (dataBaseName, dataBase) => {
   try {

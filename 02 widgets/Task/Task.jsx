@@ -8,11 +8,13 @@ import TextDescription from "@/04 items/ui/TextDescriprtion/TextDescription";
 import Time from "@/04 items/ui/Time/Time";
 import MediaButtons from "@/04 items/ui/MediaButtons/MediaButtons";
 import InfoBlock from "./ui/InfoBlock/InfoBlock";
+import { addNewTask } from "./database/Task.data.js";
 
 const Task = (props) => {
   console.log("Task Render");
 
   const initialDataState = () => ({
+    id: dayjs(),
     title: "",
     description: "",
     timeStart: dayjs(),
@@ -29,10 +31,16 @@ const Task = (props) => {
 
   const [taskData, setTaskData] = useState(initialDataState);
 
-  const dataSendHandler = (value) => {
-    if (value.type === "PLAY") {
-      console.log(taskData);
-      setTaskData(initialDataState);
+  const dataSendHandler = async (value) => {
+    try {
+      if (value.type === "PLAY") {
+        await addNewTask(JSON.stringify(taskData));
+
+        console.log(taskData);
+        setTaskData(initialDataState);
+      }
+    } catch (error) {
+      console.log(`Problem with posting Task  error: ${error}`);
     }
   };
 

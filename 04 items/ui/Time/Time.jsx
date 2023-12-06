@@ -9,7 +9,10 @@ const Time = ({ onDateChange }) => {
 
   const dateChangeHandler = (newValue) => {
     setDateTimeValue(dayjs(newValue));
-    onDateChange({ timeStart: dayjs(newValue) });
+    onDateChange({
+      timeStart: dayjs(newValue).toISOString(),
+      id: dayjs(newValue).toISOString(),
+    });
   };
 
   // const dateTimeHandler = () => {

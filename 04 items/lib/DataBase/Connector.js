@@ -1,16 +1,40 @@
-const {
+"use server";
+
+import {
   getJsonData,
   addJsonData,
-  delJsonData,
-} = require("@/04 items/lib/DataBase/Connectors/node-json-db");
+} from "@/04 items/lib/DataBase/Connectors/node-json-db";
+import dayjs from "dayjs";
 
-const loadData = (dataBaseName, dataBase) => {
+export const saveTask = async (dataBaseName, data) => {
   try {
     if (dataBaseName === "node-json-db") {
-      return getJsonData(dataBase);
+      const task = JSON.parse(data);
+      const date = dayjs(task.id);
+      const year = date.format("YYYY");
+      const month = date.format("MM");
+      const day = date.format("DD");
+
+      const path = `/userTasks/${year}/${month}/${day}`;
+
+      let currentTasks = [];
+      // console.log(data);
+      // console.log(path);
+      try {
+        currentTasks = await getJsonData(path);
+        // console.log(currentTasks);
+      } catch (error) {
+        console.log(`problem to get data in func  saveData  ${error}`);
+        currentTasks = [];
+      }
+      // console.log(currentTasks);
+
+      currentTasks.push(task);
+
+      await addJsonData(path, currentTasks);
     } else {
       console.log(
-        "Need to use argument dataBaseName : loadData( dataBaseName, dataBase )"
+        "Need to use argument dataBaseName : saveData( dataBaseName, data )"
       );
     }
   } catch (error) {
@@ -18,46 +42,21 @@ const loadData = (dataBaseName, dataBase) => {
   }
 };
 
-const saveData = (dataBaseName, dataBase, data) => {
-  try {
-    if (dataBaseName === "node-json-db") {
-      addJsonData(dataBase, data);
-    } else {
-      console.log(
-        "Need to use argument dataBaseName : saveData( dataBaseName, dataBase, data )"
-      );
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const saveData = async (dataBaseName, data) =>{
+//   try{
+//     if(dataBaseName === "node-json-db" ){
+//       try{
 
-const updateData = (dataBaseName, dataBase, data) => {
-  try {
-    if (dataBaseName === "node-json-db") {
-      addJsonData(dataBase, data);
-    } else {
-      console.log(
-        "Need to use argument dataBaseName : updateData( dataBaseName, dataBase, data )"
-      );
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+//       }catch(error){
 
-const delData = (dataBaseName, dataBase) => {
-  try {
-    if (dataBaseName === "node-json-db") {
-      delJsonData(dataBase);
-    } else {
-      console.log(
-        "Need to use argument dataBaseName : delData( dataBaseName, dataBase )"
-      );
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-module.exports = { loadData, saveData, delData, updateData };
+//       }
+//       await addJsonData(path, currentTasks)
+//     }else{
+//       console.log(
+//         "Need to use argument dataBaseName : saveData( dataBaseName, data )"
+//       );
+//     }
+//   } catch(error) {
+//     console.log(error)
+//   }
+// }

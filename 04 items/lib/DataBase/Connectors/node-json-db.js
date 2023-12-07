@@ -1,22 +1,19 @@
+"use server";
+
 import { JsonDB } from "node-json-db";
 import { Config } from "node-json-db/dist/lib/JsonDBConfig";
 
-export const userDb = new JsonDB(new Config(`UserDB-1`, true, false, "/"));
+const userDb = new JsonDB(new Config(`UserDB-1`, true, false, "/"));
 
-// const getJsonData = (dataBase) => {
-//   return userDb.getData(`/${dataBase}`);
-// };
+export const getJsonData = async (path) => {
+  const response = await userDb.getData(path);
+  return response;
+};
 
-// const addJsonData = (dataBase, data) => {
-//   userDb.push(`/${dataBase}[]`, data);
-// };
-
-// const delJsonData = (dataBase) => {
-//   userDb.delete(`/${dataBase}`);
-// };
-
-// userDb.push('/userTasks[]', )
-
-// console.log('baza sozdana')
-
-// module.exports = { getJsonData, addJsonData, delJsonData };
+export const addJsonData = async (path, data) => {
+  try {
+    await userDb.push(path, data);
+  } catch (error) {
+    console.log(`oshibka v addJsonData -  node-json-db.js!!! error: ${error}`);
+  }
+};

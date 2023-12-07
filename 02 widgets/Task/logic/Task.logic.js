@@ -1,9 +1,10 @@
-import { addNewTask } from "../database/Task.data";
+import { addNewTask } from "../data/Task.data";
 
 export const dataSendHandler =
   (taskData, setTaskData, initialDataState) => async (value) => {
     try {
       if (value.type === "PLAY") {
+        // console.log(addNewTask);
         await addNewTask(JSON.stringify(taskData));
 
         console.log(taskData);

@@ -11,6 +11,7 @@ import InfoBlock from "./ui/InfoBlock/InfoBlock";
 import { addNewTask } from "./data/Task.data.js";
 import { dataSendHandler, getDataHandler } from "./logic/Task.logic";
 import ProjectTracker from "./ui/ProjectTracker/ProjectTracker";
+import IncidentTracker from "./ui/IncidentTracker/IncidentTracker";
 
 const Task = (props) => {
   console.log("Task Render");
@@ -72,6 +73,7 @@ const Task = (props) => {
           value={taskData.additionalInfo}
         />
         <ProjectTracker />
+        <IncidentTracker />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

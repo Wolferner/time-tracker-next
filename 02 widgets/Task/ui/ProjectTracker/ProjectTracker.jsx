@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 const ProjectTracker = ({ value, onBlurCallback }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [clientData, setClientData] = useState({
+  const [projectData, setClientData] = useState({
     client: "",
     project: "",
     sub_project: "",
@@ -31,12 +31,12 @@ const ProjectTracker = ({ value, onBlurCallback }) => {
   };
 
   const formBlurHandler = () => {
-    onBlurCallback(clientData);
+    onBlurCallback(projectData);
   };
   return (
     <form onBlur={formBlurHandler}>
       <span onClick={togleVisibility}>
-        <h3>Project Tracker</h3>
+        <h6>Project Tracker</h6>
         {isVisible ? <RemoveIcon /> : <AddIcon />}
       </span>
       {isVisible && (

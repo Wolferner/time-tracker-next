@@ -1,14 +1,26 @@
 import { useState, useEffect } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import Switch from "@mui/material/Switch";
+import { FormControlLabel } from "@mui/material";
 
 const IncidentTracker = ({ value, onBlurCallback }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [clientData, setClientData] = useState({
-    client: "",
-    project: "",
-    sub_project: "",
+  const [incidentData, setIncidentData] = useState({
+    inc: "",
+    incTitle: "",
+    incDescription: "",
+    businessName: "",
+    businessSurename: "",
+    businessEmail: "",
+    supportName: "",
+    supportSurename: "",
+    supportEmail: "",
+    rfc: "",
+    crq: "",
+    charm: "",
   });
+  const [isSystemChanges, setIsSystemChanges] = useState(false);
 
   // useEffect(() => {
   //   setClientData({
@@ -25,18 +37,24 @@ const IncidentTracker = ({ value, onBlurCallback }) => {
   };
 
   const changeFieldHandler = (data, fieldName) => {
-    setClientData((prev) => {
+    setIncidentData((prev) => {
       return { ...prev, [fieldName]: data };
     });
   };
 
   const formBlurHandler = () => {
-    onBlurCallback(clientData);
+    onBlurCallback(incidentData);
+  };
+
+  const systemChangesHandler = () => {
+    setIsSystemChanges((prev) => {
+      return !prev;
+    });
   };
   return (
     <form onBlur={formBlurHandler}>
       <span onClick={togleVisibility}>
-        <h3>Incident Tracker</h3>
+        <h6>Incident Tracker</h6>
         {isVisible ? <RemoveIcon /> : <AddIcon />}
       </span>
       {isVisible && (
@@ -44,98 +62,111 @@ const IncidentTracker = ({ value, onBlurCallback }) => {
           <fieldset>
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "client")
+                changeFieldHandler(event.target.value, "inc")
               }
-              placeholder="Client"
+              placeholder="Incident #"
               type="text"
-            ></input>
+            />
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "project")
+                changeFieldHandler(event.target.value, "incTitle")
               }
-              placeholder="Project"
+              placeholder="Title"
               type="text"
-            ></input>
-            <input
+            />
+            <textarea
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "incDescription")
               }
-              placeholder="Sub-Project"
-              type="text"
-            ></input>
+              placeholder="Description"
+            />
           </fieldset>
+
           <fieldset>
             <legend>Business</legend>
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "businessName")
               }
-              placeholder="Sub-Project"
+              placeholder="Name"
               type="text"
-            ></input>
+            />
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "businessSurename")
               }
-              placeholder="Sub-Project"
+              placeholder="Surename"
               type="text"
-            ></input>
+            />
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "businessEmail")
               }
-              placeholder="Sub-Project"
+              placeholder="E-mail"
               type="text"
-            ></input>
+            />
           </fieldset>
+
           <fieldset>
             <legend>Support Team</legend>
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "supportName")
               }
-              placeholder="Sub-Project"
+              placeholder="Name"
               type="text"
-            ></input>
+            />
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "supportSurename")
               }
-              placeholder="Sub-Project"
+              placeholder="Surename"
               type="text"
-            ></input>
+            />
             <input
               onChange={(event) =>
-                changeFieldHandler(event.target.value, "sub_project")
+                changeFieldHandler(event.target.value, "supportEmail")
               }
-              placeholder="Sub-Project"
+              placeholder="E-mail"
               type="text"
-            ></input>
+            />
           </fieldset>
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isSystemChanges}
+                onChange={systemChangesHandler}
+                name="isSystemChanges"
+              />
+            }
+            label=" System Changes"
+          />
+
           {isSystemChanges && (
             <fieldset>
               <legend>System Changes</legend>
               <input
                 onChange={(event) =>
-                  changeFieldHandler(event.target.value, "RFC")
+                  changeFieldHandler(event.target.value, "rfc")
                 }
-                placeholder="Sub-Project"
+                placeholder="RFC"
                 type="text"
-              ></input>
+              />
               <input
                 onChange={(event) =>
-                  changeFieldHandler(event.target.value, "sub_project")
+                  changeFieldHandler(event.target.value, "crq")
                 }
-                placeholder="Sub-Project"
+                placeholder="CRQ"
                 type="text"
-              ></input>
+              />
               <input
                 onChange={(event) =>
-                  changeFieldHandler(event.target.value, "sub_project")
+                  changeFieldHandler(event.target.value, "charm")
                 }
-                placeholder="Sub-Project"
+                placeholder="Charm"
                 type="text"
-              ></input>
+              />
             </fieldset>
           )}
         </>

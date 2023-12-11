@@ -2,13 +2,13 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./InfoBlock.module.css";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import BackupTableIcon from "@mui/icons-material/BackupTable";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
+
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import ProjectTracker from "../ProjectTracker/ProjectTracker";
+import IncidentTracker from "../IncidentTracker/IncidentTracker";
 
 const InfoBlock = ({ value, onBlurCallback }) => {
   // console.log("infoBlock render");
@@ -16,6 +16,17 @@ const InfoBlock = ({ value, onBlurCallback }) => {
     customer: "",
     project: "",
     inc: "",
+    incTitle: "",
+    incDescription: "",
+    businessName: "",
+    businessSurename: "",
+    businessEmail: "",
+    supportName: "",
+    supportSurename: "",
+    supportEmail: "",
+    rfc: "",
+    crq: "",
+    charm: "",
     tags: [],
   };
   const [isHiden, setIsHiden] = useState(false);
@@ -23,10 +34,22 @@ const InfoBlock = ({ value, onBlurCallback }) => {
 
   useEffect(() => {
     setInfoBlockData({
-      customer: value.customer,
+      client: value.customer,
       project: value.project,
+      sub_project: value.sub_project,
       inc: value.inc,
       tags: value.tags,
+      incTitle: value.incTitle,
+      incDescription: value.incDescription,
+      businessName: value.businessName,
+      businessSurename: value.businessSurename,
+      businessEmail: value.businessEmail,
+      supportName: value.supportName,
+      supportSurename: value.supportSurename,
+      supportEmail: value.supportEmail,
+      rfc: value.rfc,
+      crq: value.crq,
+      charm: value.charm,
     });
   }, [value]);
 
@@ -35,8 +58,8 @@ const InfoBlock = ({ value, onBlurCallback }) => {
     setIsHiden(!isHiden);
   };
 
-  const inputChangeHander = (fieldName, value) => {
-    setInfoBlockData((prev) => ({ ...prev, [fieldName]: value }));
+  const inputChangeHander = (value) => {
+    setInfoBlockData((prev) => ({ ...prev, ...value }));
   };
 
   const formBlurHandler = () => {
@@ -44,98 +67,55 @@ const InfoBlock = ({ value, onBlurCallback }) => {
   };
 
   return (
-    <div className={`${styles.InfoBlock}`}>
-      <div>
-        <a
-          href=""
-          className={`${styles.settings}  secondary-content`}
-          onClick={showStateHandler}
-        >
-          <SettingsApplicationsIcon />
-        </a>
-      </div>
+    <div className={`${styles.InfoBlock} row`}>
+      <a onClick={showStateHandler}>
+        <h6>Additional Info</h6>
+        <SettingsApplicationsIcon />
+      </a>
 
-      <div
-        className={`${styles.rowContent} ${
-          isHiden ? styles.disabled : styles.enabled
-        } row`}
-      >
+      {!isHiden && (
         <form
           onBlur={formBlurHandler}
           className={`${styles.formCont} col s12 m6`}
         >
-          <h6>Additional Info</h6>
-          <div className="row" id="info_label">
-            <div className={`${styles.inputBox} input-field col s12`}>
-              <AccountBoxIcon />
-              <input
-                id="icon_prefix"
-                type="text"
-                className="validate"
-                onChange={(e) => inputChangeHander("customer", e.target.value)}
-                value={infoBlockData.customer}
-              />
-              <label htmlFor="icon_prefix">Customer</label>
-            </div>
+          <ProjectTracker
+            onBlurCallback={inputChangeHander}
+            value={infoBlockData}
+          />
 
-            <div className={`${styles.inputBox} input-field col s12`}>
-              <BackupTableIcon />
-              <input
-                id="icon_project"
-                type="text"
-                className="validate"
-                onChange={(e) => inputChangeHander("project", e.target.value)}
-                value={infoBlockData.project}
-              />
-              <label htmlFor="icon_project">Project</label>
-            </div>
-
-            <div className={`${styles.inputBox} input-field col s12`}>
-              <AccountTreeIcon />
-              <input
-                id="icon_incident"
-                type="text"
-                className="validate"
-                onChange={(e) => inputChangeHander("inc", e.target.value)}
-                value={infoBlockData.inc}
-              />
-              <label htmlFor="icon_incident">INC</label>
-            </div>
-
-            <div className="col">
-              <Autocomplete
-                onChange={(e, allTags) => inputChangeHander("tags", allTags)}
-                value={infoBlockData.tags}
-                multiple
-                id="tags-filled"
-                options={top100Films.map((option) => option.title)}
-                freeSolo
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => {
-                    const { key, ...otherProps } = getTagProps({ index });
-                    return (
-                      <Chip
-                        variant="outlined"
-                        key={key}
-                        label={option}
-                        {...otherProps}
-                      />
-                    );
-                  })
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="filled"
-                    label="freeSolo"
-                    placeholder="Favorites"
-                  />
-                )}
-              />
-            </div>
+          <div>
+            <Autocomplete
+              onChange={(e, allTags) => inputChangeHander("tags", allTags)}
+              value={infoBlockData.tags}
+              multiple
+              id="tags-filled"
+              options={top100Films.map((option) => option.title)}
+              freeSolo
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => {
+                  const { key, ...otherProps } = getTagProps({ index });
+                  return (
+                    <Chip
+                      variant="outlined"
+                      key={key}
+                      label={option}
+                      {...otherProps}
+                    />
+                  );
+                })
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="filled"
+                  label="Your Tags"
+                  placeholder=""
+                />
+              )}
+            />
           </div>
         </form>
-      </div>
+      )}
     </div>
   );
 };

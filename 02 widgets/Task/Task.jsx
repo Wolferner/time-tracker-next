@@ -72,8 +72,6 @@ const Task = (props) => {
           }
           value={taskData.additionalInfo}
         />
-        <ProjectTracker />
-        <IncidentTracker />
         <div className={`card-action`}>{props.children}</div>
       </div>
     </div>

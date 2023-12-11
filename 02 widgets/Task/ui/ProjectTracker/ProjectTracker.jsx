@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
@@ -10,13 +11,13 @@ const ProjectTracker = ({ value, onBlurCallback }) => {
     sub_project: "",
   });
 
-  // useEffect(() => {
-  //   setClientData({
-  //     client: value.client,
-  //     project: value.project,
-  //     sub_project: value.sub_project,
-  //   });
-  // }, [value]);
+  useEffect(() => {
+    setClientData({
+      client: value.client,
+      project: value.project,
+      sub_project: value.sub_project,
+    });
+  }, [value]);
 
   const togleVisibility = () => {
     setIsVisible((prev) => {

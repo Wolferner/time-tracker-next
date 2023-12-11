@@ -74,7 +74,7 @@ const InfoBlock = ({ value, onBlurCallback }) => {
       </a>
 
       {!isHiden && (
-        <form
+        <div
           onBlur={formBlurHandler}
           className={`${styles.formCont} col s12 m6`}
         >
@@ -82,7 +82,10 @@ const InfoBlock = ({ value, onBlurCallback }) => {
             onBlurCallback={inputChangeHander}
             value={infoBlockData}
           />
-
+          <IncidentTracker
+            onBlurCallback={inputChangeHander}
+            value={infoBlockData}
+          />
           <div>
             <Autocomplete
               onChange={(e, allTags) => inputChangeHander("tags", allTags)}
@@ -114,7 +117,7 @@ const InfoBlock = ({ value, onBlurCallback }) => {
               )}
             />
           </div>
-        </form>
+        </div>
       )}
     </div>
   );

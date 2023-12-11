@@ -23,13 +23,13 @@ const IncidentTracker = ({ value, onBlurCallback }) => {
   });
   const [isSystemChanges, setIsSystemChanges] = useState(false);
 
-  // useEffect(() => {
-  //   setClientData({
-  //     client: value.client,
-  //     project: value.project,
-  //     sub_project: value.sub_project,
-  //   });
-  // }, [value]);
+  //   useEffect(() => {
+  //     setClientData({
+  //       client: value.client,
+  //       project: value.project,
+  //       sub_project: value.sub_project,
+  //     });
+  //   }, [value]);
 
   const togleVisibility = () => {
     setIsVisible((prev) => {

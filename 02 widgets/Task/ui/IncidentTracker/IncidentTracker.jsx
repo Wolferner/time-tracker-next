@@ -23,13 +23,22 @@ const IncidentTracker = ({ value, onBlurCallback }) => {
   });
   const [isSystemChanges, setIsSystemChanges] = useState(false);
 
-  //   useEffect(() => {
-  //     setClientData({
-  //       client: value.client,
-  //       project: value.project,
-  //       sub_project: value.sub_project,
-  //     });
-  //   }, [value]);
+  useEffect(() => {
+    setIncidentData({
+      inc: value.inc,
+      incTitle: value.incTitle,
+      incDescription: value.incDescription,
+      businessName: value.businessName,
+      businessSurename: value.businessSurename,
+      businessEmail: value.businessEmail,
+      supportName: value.supportName,
+      supportSurename: value.supportSurename,
+      supportEmail: value.supportEmail,
+      rfc: value.rfc,
+      crq: value.crq,
+      charm: value.charm,
+    });
+  }, [value]);
 
   const togleVisibility = () => {
     setIsVisible((prev) => {

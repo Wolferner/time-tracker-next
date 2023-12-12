@@ -57,7 +57,7 @@ const InfoBlock = ({ value, onBlurCallback }) => {
     event.preventDefault();
     setIsHiden(!isHiden);
   };
-
+  // nado perepisatj chtobi pravelno podhvativalisj tagi
   const inputChangeHander = (value) => {
     setInfoBlockData((prev) => ({ ...prev, ...value }));
   };
@@ -93,19 +93,17 @@ const InfoBlock = ({ value, onBlurCallback }) => {
               multiple
               id="tags-filled"
               options={top100Films.map((option) => option.title)}
+              defaultValue={[top100Films[0].title]}
               freeSolo
               renderTags={(value, getTagProps) =>
-                value.map((option, index) => {
-                  const { key, ...otherProps } = getTagProps({ index });
-                  return (
-                    <Chip
-                      variant="outlined"
-                      key={key}
-                      label={option}
-                      {...otherProps}
-                    />
-                  );
-                })
+                value.map((option, index) => (
+                  <Chip
+                    key={index}
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
               }
               renderInput={(params) => (
                 <TextField
@@ -116,6 +114,19 @@ const InfoBlock = ({ value, onBlurCallback }) => {
                 />
               )}
             />
+            {/* <Autocomplete
+              onChange={(e, allTags) => inputChangeHander("tags", allTags)}
+              value={infoBlockData.tags}
+              multiple
+              id="tags-outlined"
+              options={top100Films}
+              getOptionLabel={(option) => option.title}
+              defaultValue={[top100Films[0]]}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField {...params} label="Your Tags" placeholder="" />
+              )}
+            /> */}
           </div>
         </div>
       )}

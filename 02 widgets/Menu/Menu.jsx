@@ -23,7 +23,9 @@ const Menu = () => {
 
       <MenuItem>
         <TextElement>Manage</TextElement>
-        <TextElement url="s">clients</TextElement>
+        <TextElement url="/products/timetracker/clients">Clients</TextElement>
+        <TextElement url="s">Projects</TextElement>
+        <TextElement url="s">Categories</TextElement>
         <TextElement url="s">Work</TextElement>
         <TextElement url="s">Team</TextElement>
         <TextElement url="s">Autamation</TextElement>

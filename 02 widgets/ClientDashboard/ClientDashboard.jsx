@@ -1,60 +1,73 @@
 "use client";
 
 import styles from "./ClientDashboard.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@/04 items/ui/TextField/TextField";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CreateClientForm from "./ui/CreateClientForm/CreateClientForm";
 import Button from "@mui/material/Button";
-
-const clientTable = [
-  {
-    clientId: 1,
-    name: "some name",
-    regNumber: 21,
-    email: "sdasd@sdsad.lk",
-    phone: 123213213,
-    status: "archived",
-    note: "sdfsdfsd",
-    priority: "important",
-  },
-  {
-    clientId: 1,
-    name: "some name",
-    regNumber: 21,
-    email: "sdasd@sdsad.lk",
-    phone: 123213213,
-    status: "archived",
-    note: "sdfsdfsd",
-    priority: "important",
-  },
-];
+import EditClientForm from "./ui/EditClientForm/EditClientForm";
+import {
+  deleteCurrentClient,
+  getAllClients,
+} from "./data/ClientDashboard.data";
 
 const ClientDashboard = () => {
-  const [isShownForm, setIsShownForm] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [isShownForm, setIsShownForm] = useState(false);
+  const [isShowEditingWindow, setIsShownEditingWindow] = useState(false);
+  const [currentClient, setCurrentClient] = useState(null);
+  const [clientsTable, setClientsTable] = useState([]);
+  const [clientDeleted, setClientDeleted] = useState(false);
 
-  const editClientHandler = (index) => {};
-  const deleteClientHandler = (index) => {};
-  const createClientHandler = () => {
-    setIsShownForm((prev) => {
-      return !prev;
-    });
+  const fetchClients = async () => {
+    try {
+      const response = await getAllClients();
+      const dataArray = Object.keys(response).map((key) => response[key]);
+      setClientsTable(dataArray);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  useEffect(() => {
+    fetchClients();
+  }, [isShownForm, isShowEditingWindow, clientDeleted]);
+
+  const editClientHandler = (client) => {
+    setCurrentClient(client);
+    setIsShownEditingWindow(true);
+  };
+
+  const hideEditClientWindowHandler = () => {
+    setIsShownEditingWindow(false);
+  };
+
   const hideFormHandler = () => {
     setIsShownForm((prev) => {
       return !prev;
     });
   };
+
+  const deleteClientHandler = (id) => {
+    deleteCurrentClient(id);
+    setClientDeleted((prev) => !prev);
+  };
   const searchInputHandler = (value) => {
-    setSearchInput(value);
+    setSearchInput(value.title);
   };
 
   return (
     <div className="row">
       {isShownForm && <CreateClientForm onHideForm={hideFormHandler} />}
+      {isShowEditingWindow && (
+        <EditClientForm
+          data={currentClient}
+          onHideWindow={hideEditClientWindowHandler}
+        />
+      )}
       <div className="container">
         <div className="col s12">
           <TextField
@@ -62,10 +75,9 @@ const ClientDashboard = () => {
             value={searchInput}
             onBlurCallback={searchInputHandler}
           />
-          <Button onClick={createClientHandler} variant="contained">
+          <Button onClick={hideFormHandler} variant="contained">
             Create New
           </Button>
-          {/* <button onClick={createClientHandler}> Create New</button> */}
         </div>
         <div className="col s12">
           <table>
@@ -84,15 +96,15 @@ const ClientDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {clientTable.map((client, index) => (
+              {clientsTable.map((client, index) => (
                 <tr key={index}>
                   <td>
                     <IconButton
-                      onClick={editClientHandler(index)}
-                      aria-label="delete"
+                      onClick={() => editClientHandler(client)}
+                      aria-label="edit"
                       size="small"
                     >
-                      <DeleteIcon fontSize="inherit" />
+                      <EditIcon fontSize="inherit" />
                     </IconButton>
                   </td>
                   <td>{client.clientId}</td>
@@ -101,15 +113,15 @@ const ClientDashboard = () => {
                   <td>{client.email}</td>
                   <td>{client.phone}</td>
                   <td>{client.status}</td>
-                  <td>{client.note}</td>
                   <td>{client.priority}</td>
+                  <td>{client.note}</td>
                   <td>
                     <IconButton
-                      onClick={deleteClientHandler(index)}
-                      aria-label="edit"
+                      onClick={() => deleteClientHandler(client.clientId)}
+                      aria-label="delete"
                       size="small"
                     >
-                      <EditIcon fontSize="inherit" />
+                      <DeleteIcon fontSize="inherit" />
                     </IconButton>
                   </td>
                 </tr>

@@ -22,3 +22,11 @@ export const addJsonData = async (path, data) => {
     console.log(`oshibka v addJsonData -  node-json-db.js!!! error: ${error}`);
   }
 };
+
+export const delJsonData = async (path) => {
+  try {
+    await userDb.delete(path);
+  } catch (error) {
+    console.log(`oshibka v delJsonData -  node-json-db.js!!! error: ${error}`);
+  }
+};

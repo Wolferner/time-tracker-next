@@ -38,23 +38,18 @@ const ClientDashboard = () => {
 
   const editClientHandler = (client) => {
     setCurrentClient(client);
-    setIsShownEditingWindow(true);
-  };
-
-  const hideEditClientWindowHandler = () => {
-    setIsShownEditingWindow(false);
+    setIsShownEditingWindow((prev) => !prev);
   };
 
   const hideFormHandler = () => {
-    setIsShownForm((prev) => {
-      return !prev;
-    });
+    setIsShownForm((prev) => !prev);
   };
 
   const deleteClientHandler = (id) => {
     deleteCurrentClient(id);
     setClientDeleted((prev) => !prev);
   };
+
   const searchInputHandler = (value) => {
     setSearchInput(value.title);
   };
@@ -63,10 +58,7 @@ const ClientDashboard = () => {
     <div className="row">
       {isShownForm && <CreateClientForm onHideForm={hideFormHandler} />}
       {isShowEditingWindow && (
-        <EditClientForm
-          data={currentClient}
-          onHideWindow={hideEditClientWindowHandler}
-        />
+        <EditClientForm data={currentClient} onHideWindow={editClientHandler} />
       )}
       <div className="container">
         <div className="col s12">

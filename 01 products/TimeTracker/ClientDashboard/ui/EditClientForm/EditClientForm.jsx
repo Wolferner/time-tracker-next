@@ -29,16 +29,6 @@ const EditClientForm = ({ data, onHideWindow }) => {
     <Modal onHideForm={onHideWindow}>
       <form onSubmit={sendChangedDataHandler}>
         <div className={styles.control}>
-          <label htmlFor="clientId">Client Id</label>
-          <input
-            onChange={(e) => changeDataHandler(e.target.value, "clientId")}
-            value={changedClientData.clientId}
-            id="clientId"
-            type="number"
-          ></input>
-        </div>
-
-        <div className={styles.control}>
           <label htmlFor="name">Name</label>
           <input
             onChange={(e) => changeDataHandler(e.target.value, "name")}

@@ -1,4 +1,4 @@
-import ClientDashboard from "@/02 widgets/ClientDashboard/ClientDashboard";
+import ClientDashboard from "@/01 products/TimeTracker/ClientDashboard/ClientDashboard";
 
 export default async function Page() {
   return <ClientDashboard />;

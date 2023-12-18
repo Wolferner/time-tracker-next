@@ -1,14 +1,14 @@
 "use server";
 
 import {
-  saveClient,
-  deleteClient,
-  getClient,
+  saveData,
+  deleteData,
+  getData,
 } from "@/04 items/lib/DataBase/Connector";
 
 export const addNewClient = async (clientData) => {
   try {
-    await saveClient("node-json-db", clientData);
+    await saveData("node-json-db", "userClients", clientData);
   } catch (error) {
     console.log(`problemka v ClientDashboard.data.js!!!! error: ${error}`);
   }
@@ -17,7 +17,7 @@ export const addNewClient = async (clientData) => {
 export const deleteCurrentClient = async (clientId) => {
   try {
     console.log("work deleteCurentClient");
-    await deleteClient("node-json-db", clientId);
+    await deleteData("node-json-db", "userClients", clientId);
   } catch (error) {
     console.log(`problemka v ClientDashboard.data.js!!!! error: ${error}`);
   }
@@ -25,7 +25,7 @@ export const deleteCurrentClient = async (clientId) => {
 
 export const updateCreatedClient = async (clientData) => {
   try {
-    await saveClient("node-json-db", clientData);
+    await saveData("node-json-db", "userClients", clientData);
   } catch (error) {
     console.log(`problemka v ClientDashboard.data.js!!!! error: ${error}`);
   }
@@ -33,9 +33,11 @@ export const updateCreatedClient = async (clientData) => {
 
 export const getAllClients = async () => {
   try {
-    const response = await getClient("node-json-db");
+    const response = await getData("node-json-db", "userClients");
     return response;
   } catch (error) {
-    console.log(`problemka v ClientDashboard.data.js!!!! error: ${error}`);
+    console.log(
+      `problemka v ClientDashboard.data.js, getAllClients !!!! error: ${error}`
+    );
   }
 };

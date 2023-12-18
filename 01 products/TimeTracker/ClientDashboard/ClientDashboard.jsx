@@ -106,7 +106,7 @@ const ClientDashboard = () => {
                   <td>{client.phone}</td>
                   <td>{client.status}</td>
                   <td>{client.priority}</td>
-                  <td>{client.note}</td>
+                  <td>{client.notes}</td>
                   <td>
                     <IconButton
                       onClick={() => deleteClientHandler(client.clientId)}

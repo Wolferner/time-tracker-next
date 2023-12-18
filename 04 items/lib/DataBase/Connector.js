@@ -43,14 +43,21 @@ export const saveTask = async (dataBaseName, data) => {
   }
 };
 
-export const saveClient = async (dataBaseName, data) => {
+export const saveData = async (dataBaseName, where, data) => {
   try {
     if (dataBaseName === "node-json-db") {
-      const clientData = JSON.parse(data);
-      const clientId = clientData.clientId;
-      const path = `/userClients/${clientId}`;
+      const parsedData = JSON.parse(data);
+      let id;
+      switch (where) {
+        case "userClients":
+          id = parsedData.clientId;
+          break;
+        case "userProjects":
+          id = parsedData.project_business_id;
+      }
+      const path = `/${where}/${id}`;
 
-      await addJsonData(path, clientData);
+      await addJsonData(path, parsedData);
     } else {
       console.log(
         "Need to use argument dataBaseName : saveClient( dataBaseName, data )"
@@ -61,15 +68,15 @@ export const saveClient = async (dataBaseName, data) => {
   }
 };
 
-export const deleteClient = async (dataBaseName, dataId) => {
+export const deleteData = async (dataBaseName, where, dataId) => {
   try {
     if (dataBaseName === "node-json-db") {
-      const path = `/userClients/${dataId}`;
+      const path = `/${where}/${dataId}`;
 
       await delJsonData(path);
     } else {
       console.log(
-        "Need to use argument dataBaseName : deleteClient( dataBaseName, data )"
+        "Need to use argument dataBaseName : deleteData( dataBaseName, where ,data )"
       );
     }
   } catch {
@@ -77,16 +84,16 @@ export const deleteClient = async (dataBaseName, dataId) => {
   }
 };
 
-export const getClient = async (dataBaseName) => {
+export const getData = async (dataBaseName, where) => {
   try {
     if (dataBaseName === "node-json-db") {
-      const path = `/userClients`;
+      const path = `/${where}`;
 
-      const client = await getJsonData(path);
-      return client;
+      const response = await getJsonData(path);
+      return response;
     } else {
       console.log(
-        "Need to use argument dataBaseName : getClient( dataBaseName, data )"
+        "Need to use argument dataBaseName : getData( dataBaseName, where )"
       );
     }
   } catch {

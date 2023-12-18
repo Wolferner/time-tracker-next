@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./CreateProjectForm.module.css";
 import Modal from "@/04 items/ui/Modal/Modal";
+import { addNewProject } from "../../data/ProjectDashboard.data";
 
 const initialState = {
   project_business_id: "",
@@ -33,8 +34,8 @@ const CreateClientForm = (props) => {
       // console.log(formData);
       setFormData(initialState);
       props.onHideForm();
-    } catch {
-      console.log(`Problem with posting NewClient  error: ${error}`);
+    } catch (error) {
+      console.log(`Problem with posting NewProject  error: ${error}`);
     }
   };
   return (
@@ -48,7 +49,7 @@ const CreateClientForm = (props) => {
             }
             value={formData.project_business_id}
             id="project_business_id"
-            type="number"
+            type="text"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
@@ -70,7 +71,7 @@ const CreateClientForm = (props) => {
             onChange={(e) => changeFormDataHandler(e.target.value, "acronym")}
             value={formData.acronym}
             id="acronym"
-            type="number"
+            type="text"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
@@ -83,7 +84,7 @@ const CreateClientForm = (props) => {
             }
             value={formData.planned_hours}
             id="planned_hours"
-            type="email"
+            type="number"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
@@ -94,7 +95,7 @@ const CreateClientForm = (props) => {
             onChange={(e) => changeFormDataHandler(e.target.value, "clients")}
             value={formData.clients}
             id="clients"
-            type="number"
+            type="text"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>

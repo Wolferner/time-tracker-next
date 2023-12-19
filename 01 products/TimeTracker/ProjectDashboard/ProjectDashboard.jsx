@@ -26,7 +26,7 @@ const ProjectDashboard = () => {
     valueDeleted,
     editValueHandler,
     hideFormHandler,
-    deleteClientHandler,
+    deleteValueHandler,
   } = useModals(deleteCurrentProject);
 
   const fetchProjects = async () => {
@@ -101,7 +101,7 @@ const ProjectDashboard = () => {
                   <td>
                     <IconButton
                       onClick={() =>
-                        deleteClientHandler(project.project_business_id)
+                        deleteValueHandler(project.project_business_id)
                       }
                       aria-label="delete"
                       size="small"

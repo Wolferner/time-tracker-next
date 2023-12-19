@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useModals = (deleteFunc) => {
   const [isShownForm, setIsShownForm] = useState(false);

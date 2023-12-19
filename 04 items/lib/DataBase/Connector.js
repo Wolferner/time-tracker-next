@@ -48,14 +48,19 @@ export const saveData = async (dataBaseName, where, data) => {
     if (dataBaseName === "node-json-db") {
       const parsedData = JSON.parse(data);
       let id;
+      let path;
       switch (where) {
         case "userClients":
           id = parsedData.clientId;
+          path = `/${where}/${id}`;
           break;
         case "userProjects":
           id = parsedData.project_business_id;
+          path = `/${where}/${id}`;
+          break;
+        case "userCategories":
+          path = `/${where}`;
       }
-      const path = `/${where}/${id}`;
 
       await addJsonData(path, parsedData);
     } else {

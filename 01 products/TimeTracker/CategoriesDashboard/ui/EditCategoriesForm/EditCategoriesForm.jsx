@@ -1,27 +1,28 @@
 "use client";
 
 import Modal from "@/04 items/ui/Modal/Modal";
-import styles from "./EditProjectForm.module.css";
-import { useState } from "react";
+import styles from "./EditClientForm.module.css";
+import { useEffect, useState } from "react";
+import { updateCreatedClient } from "../../data/ClientDashboard.data";
 import Button from "@mui/material/Button";
-import { updateCreatedProject } from "../../data/ProjectDashboard.data";
 
-const EditClientForm = ({ data, onHideWindow }) => {
+const EditCategorieForm = ({ data, onHideWindow }) => {
   // console.log(` editClientComponent ${data}`);
   const initialState = {
     ...data,
   };
 
-  const [changedProjectData, setChangedProjectData] = useState(initialState);
+  const [changedCategorieData, setChangedCategorieData] =
+    useState(initialState);
 
   const changeDataHandler = (value, field) => {
-    setChangedProjectData((prev) => ({ ...prev, [field]: value }));
+    setChangedCategorieData((prev) => ({ ...prev, [field]: value }));
   };
 
   const sendChangedDataHandler = (e) => {
     e.preventDefault();
     // console.log("click");
-    updateCreatedProject(JSON.stringify(changedProjectData));
+    updateCreatedCategorie(JSON.stringify(changedCategorieData));
     onHideWindow();
   };
 
@@ -32,7 +33,7 @@ const EditClientForm = ({ data, onHideWindow }) => {
           <label htmlFor="name">Name</label>
           <input
             onChange={(e) => changeDataHandler(e.target.value, "name")}
-            value={changedProjectData.name}
+            value={changedCategorieData.name}
             id="name"
             type="text"
           ></input>
@@ -40,33 +41,34 @@ const EditClientForm = ({ data, onHideWindow }) => {
         </div>
 
         <div className={styles.control}>
-          <label htmlFor="acronym">Acronym</label>
+          <label htmlFor="regNumber">Reg.Number</label>
           <input
-            onChange={(e) => changeDataHandler(e.target.value, "acronym")}
-            value={changedProjectData.acronym}
-            id="acronym"
-            type="text"
+            onChange={(e) => changeDataHandler(e.target.value, "regNumber")}
+            value={changedCategorieData.regNumber}
+            id="regNumber"
+            type="number"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
 
         <div className={styles.control}>
-          <label htmlFor="planned_hours">Planned Hours</label>
+          <label htmlFor="email">E-Mail</label>
           <input
-            onChange={(e) => changeDataHandler(e.target.value, "planned_hours")}
-            value={changedProjectData.planned_hours}
-            id="planned_hours"
-            type="number"
+            onChange={(e) => changeDataHandler(e.target.value, "email")}
+            value={changedCategorieData.email}
+            id="email"
+            type="email"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
+
         <div className={styles.control}>
-          <label htmlFor="clients">Clients</label>
+          <label htmlFor="phone">Phone</label>
           <input
-            onChange={(e) => changeDataHandler(e.target.value, "clients")}
-            value={changedProjectData.clients}
-            id="clients"
-            type="text"
+            onChange={(e) => changeDataHandler(e.target.value, "phone")}
+            value={changedCategorieData.phone}
+            id="phone"
+            type="number"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}
         </div>
@@ -75,7 +77,7 @@ const EditClientForm = ({ data, onHideWindow }) => {
           <label htmlFor="status">Status</label>
           <input
             onChange={(e) => changeDataHandler(e.target.value, "status")}
-            value={changedProjectData.status}
+            value={changedCategorieData.status}
             id="status"
             type="text"
           ></input>
@@ -86,8 +88,19 @@ const EditClientForm = ({ data, onHideWindow }) => {
           <label htmlFor="priority">Priority</label>
           <input
             onChange={(e) => changeDataHandler(e.target.value, "priority")}
-            value={changedProjectData.priority}
+            value={changedCategorieData.priority}
             id="priority"
+            type="text"
+          ></input>
+          {/* {hasNameInputError && <p>vvedite imja</p>} */}
+        </div>
+
+        <div className={styles.control}>
+          <label htmlFor="notes">Notes</label>
+          <input
+            onChange={(e) => changeDataHandler(e.target.value, "notes")}
+            value={changedCategorieData.notes}
+            id="notes"
             type="text"
           ></input>
           {/* {hasNameInputError && <p>vvedite imja</p>} */}

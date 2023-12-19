@@ -6,7 +6,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { updateCreatedProject } from "../../data/ProjectDashboard.data";
 
-const EditClientForm = ({ data, onHideWindow }) => {
+const EditClientForm = ({ data, onHideWindow, inputArrays }) => {
   // console.log(` editClientComponent ${data}`);
   const initialState = {
     ...data,

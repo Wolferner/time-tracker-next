@@ -58,8 +58,6 @@ export const saveData = async (dataBaseName, where, data) => {
           id = parsedData.project_business_id;
           path = `/${where}/${id}`;
           break;
-        case "userCategories":
-          path = `/${where}`;
       }
 
       await addJsonData(path, parsedData);
@@ -99,6 +97,33 @@ export const getData = async (dataBaseName, where) => {
     } else {
       console.log(
         "Need to use argument dataBaseName : getData( dataBaseName, where )"
+      );
+    }
+  } catch {
+    console.log(error);
+  }
+};
+
+export const saveDataArray = async (dataBaseName, where, data) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const parsedData = JSON.parse(data);
+      const categoryType = parsedData.type;
+      const newCategory = parsedData.category;
+      let path;
+      switch (categoryType) {
+        case "taskCategories":
+          path = `/${where}/${categoryType}`;
+          break;
+        case "projectCategories":
+          path = `/${where}/${categoryType}`;
+          break;
+      }
+
+      await addJsonData(path, newCategory);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"
       );
     }
   } catch {

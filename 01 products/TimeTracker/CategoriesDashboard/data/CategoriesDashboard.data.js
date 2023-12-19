@@ -8,7 +8,7 @@ import {
 
 export const addNewCategory = async (categoriesData) => {
   try {
-    await saveData("node-json-db", "userCategories", categoriesData);
+    await saveDataArray("node-json-db", "userCategories", categoriesData);
   } catch (error) {
     console.log(
       `problemka v CategoriesDashboard.data.js  addNewCategorie!!!! error: ${error}`

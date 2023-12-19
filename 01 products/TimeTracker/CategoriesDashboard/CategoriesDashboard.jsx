@@ -15,9 +15,9 @@ import {
 } from "./data/CategoriesDashboard.data";
 import FilterCompanent from "@/04 items/ui/Filter/Filter";
 
-const ProjectDashboard = () => {
+const CategoriesDashboard = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState({});
   const [filter, setFilter] = useState("taskCategories");
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryType, setCategoryType] = useState("taskCategories");
@@ -59,7 +59,7 @@ const ProjectDashboard = () => {
   const sendNewCategoryHandler = (event) => {
     event.preventDefault();
     try {
-      const categoryData = { categorie: categoryInput, type: categoryType };
+      const categoryData = { category: categoryInput, type: categoryType };
       addNewCategory(JSON.stringify(categoryData));
     } catch (error) {
       console.log(
@@ -145,4 +145,4 @@ const ProjectDashboard = () => {
   );
 };
 
-export default ProjectDashboard;
+export default CategoriesDashboard;

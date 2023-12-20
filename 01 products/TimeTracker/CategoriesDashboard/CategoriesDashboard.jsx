@@ -66,8 +66,7 @@ const CategoriesDashboard = () => {
     setCategoryInput(value.title);
   };
 
-  const sendNewCategoryHandler = async (event) => {
-    event.preventDefault();
+  const sendNewCategoryHandler = async () => {
     try {
       const categoryData = { category: categoryInput, type: categoryType };
       await addNewCategory(JSON.stringify(categoryData));
@@ -77,6 +76,7 @@ const CategoriesDashboard = () => {
       );
     }
     setIsShownForm((prev) => !prev);
+    setCategoryInput("");
   };
 
   const filterChangeHandler = (filterValue) => {

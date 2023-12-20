@@ -112,6 +112,7 @@ export const saveDataArray = async (dataBaseName, where, data) => {
       const parsedData = JSON.parse(data);
       const categoryType = parsedData.type;
       const newCategory = parsedData.category;
+
       let path;
       switch (categoryType) {
         case "taskCategories":
@@ -122,7 +123,15 @@ export const saveDataArray = async (dataBaseName, where, data) => {
           break;
       }
 
-      await addJsonData(path, newCategory);
+      let currentCategories = [];
+      try {
+        currentCategories = await getJsonData(path);
+      } catch (error) {
+        console.log(`problem to get data in func  saveDataArray  ${error}`);
+        currentTasks = [];
+      }
+      currentCategories.push(newCategory);
+      await addJsonData(path, currentCategories);
     } else {
       console.log(
         "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"

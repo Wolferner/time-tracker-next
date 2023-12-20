@@ -13,23 +13,33 @@ import {
   getAllCategories,
   addNewCategory,
 } from "./data/CategoriesDashboard.data";
-import FilterCompanent from "@/04 items/ui/Filter/Filter";
+import FilterComponent from "@/04 items/ui/FilterCompanent/FilterCompanent";
 
 const CategoriesDashboard = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [categories, setCategories] = useState({});
+  const [categories, setCategories] = useState({
+    taskCategories: [],
+    projectCategories: [],
+  });
   const [filter, setFilter] = useState("taskCategories");
+
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryType, setCategoryType] = useState("taskCategories");
 
-  const {
-    isShownForm,
-    isShowEditingWindow,
-    valueDeleted,
-    editValueHandler,
-    hideFormHandler,
-    deleteValueHandler,
-  } = useModals(deleteCurrentCategory);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isShownForm, setIsShownForm] = useState(false);
+  const [valueDeleted, setValueDeleted] = useState(false);
+
+  const editValueHandler = () => {
+    setIsEditing((prev) => !prev);
+  };
+  const showFormHandler = () => {
+    setIsShownForm((prev) => !prev);
+  };
+  const deleteValueHandler = (id) => {
+    deleteCurrentCategory(id);
+    setValueDeleted((prev) => !prev);
+  };
 
   const fetchCategories = async () => {
     try {
@@ -42,30 +52,31 @@ const CategoriesDashboard = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, [isShownForm, isShowEditingWindow, valueDeleted]);
+  }, [isShownForm, isEditing, valueDeleted]);
 
   const searchInputHandler = (value) => {
-    setSearchInput(value);
+    setSearchInput(value.title);
   };
 
-  const categoryChangeHandler = (event) => {
-    setCategoryType(event.target.value);
+  const categoryChangeHandler = (type) => {
+    setCategoryType(type);
   };
 
   const categoryInputHandler = (value) => {
     setCategoryInput(value.title);
   };
 
-  const sendNewCategoryHandler = (event) => {
+  const sendNewCategoryHandler = async (event) => {
     event.preventDefault();
     try {
       const categoryData = { category: categoryInput, type: categoryType };
-      addNewCategory(JSON.stringify(categoryData));
+      await addNewCategory(JSON.stringify(categoryData));
     } catch (error) {
       console.log(
         `Problem with sending new Categorie in CategoriesDashboard.jsx`
       );
     }
+    setIsShownForm((prev) => !prev);
   };
 
   const filterChangeHandler = (filterValue) => {
@@ -73,75 +84,92 @@ const CategoriesDashboard = () => {
   };
 
   return (
-    <div className="row">
-      <div className="container">
-        <div className="col s12">
-          <TextField
-            placeholder={"Search"}
-            value={searchInput}
-            onBlurCallback={searchInputHandler}
-          />
-          <Button onClick={hideFormHandler} variant="contained">
-            Create New
-          </Button>
-          {isShownForm && (
-            <>
-              <div>
-                <label>Categorie</label>
-                <select onChange={categoryChangeHandler} value={categoryType}>
-                  <option value="taskCategories">Task</option>
-                  <option value="projectCategories">Project</option>
-                </select>
-              </div>
-              <TextField
-                placeholder={"Categorie"}
-                value={categoryInput}
-                onBlurCallback={categoryInputHandler}
-              />
-              <Button
-                onSubmit={sendNewCategoryHandler}
-                variant="contained"
-                type="submit"
-              >
+    <>
+      {console.log(categories[filter])}
+      <div className="row">
+        <div className="container">
+          <div className="col s12">
+            <TextField
+              placeholder={"Search"}
+              value={searchInput}
+              onBlurCallback={searchInputHandler}
+            />
+            {!isShownForm && (
+              <Button onClick={showFormHandler} variant="contained">
                 Create New
               </Button>
-            </>
-          )}
-        </div>
+            )}
 
-        <div className="col s12">
-          <IconButton onClick={editValueHandler} aria-label="edit" size="small">
-            <EditIcon fontSize="inherit" />
-          </IconButton>
+            {isShownForm && (
+              <>
+                <FilterComponent
+                  onChangeParametr={categoryChangeHandler}
+                  selectValue={categoryType}
+                  label="Category"
+                  options={{
+                    Task: "taskCategories",
+                    Project: "projectCategories",
+                  }}
+                />
 
-          <FilterCompanent
-            onChangeParametr={filterChangeHandler}
-            selectValue={filter}
-            label="Categories Type"
-            optionsArray={["Task", "Project"]}
-          />
-          <ul>
-            {categories[filter].map((category, index) => {
-              <li>
-                {isShowEditingWindow ? (
-                  <input type="text" value={category} />
-                ) : (
-                  category
-                )}
+                <TextField
+                  placeholder={"Categorie"}
+                  value={categoryInput}
+                  onBlurCallback={categoryInputHandler}
+                />
+                <Button onClick={sendNewCategoryHandler} variant="contained">
+                  Send
+                </Button>
+                <Button onClick={showFormHandler} variant="contained">
+                  Cancle
+                </Button>
+              </>
+            )}
+          </div>
 
-                <IconButton
-                  onClick={() => deleteValueHandler({ category, index })}
-                  aria-label="delete"
-                  size="small"
-                >
-                  <DeleteIcon fontSize="inherit" />
-                </IconButton>
-              </li>;
-            })}
-          </ul>
+          <div className="col s12">
+            <IconButton
+              onClick={editValueHandler}
+              aria-label="edit"
+              size="small"
+            >
+              <EditIcon fontSize="inherit" />
+            </IconButton>
+
+            <FilterComponent
+              onChangeParametr={filterChangeHandler}
+              selectValue={filter}
+              label="Categories Type"
+              options={{
+                Task: "taskCategories",
+                Project: "projectCategories",
+              }}
+            />
+            <ul>
+              {categories[filter].map((category, index) => {
+                return (
+                  <li key={index}>
+                    {isEditing ? (
+                      <input type="text" value={category} />
+                    ) : (
+                      <span>{category}</span>
+                    )}
+
+                    <IconButton
+                      onClick={() => deleteValueHandler({ category, index })}
+                      aria-label="delete"
+                      size="small"
+                    >
+                      <DeleteIcon fontSize="inherit" />
+                    </IconButton>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

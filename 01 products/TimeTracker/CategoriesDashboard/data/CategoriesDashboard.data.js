@@ -32,7 +32,7 @@ export const updateCreatedCategory = async (categoriesData) => {
     await saveData("node-json-db", "userCategories", categoriesData);
   } catch (error) {
     console.log(
-      `problemka v PCategoriesDashboard.data.js , updateCreatedCategorie!!!! error: ${error}`
+      `problemka v CategoriesDashboard.data.js , updateCreatedCategorie!!!! error: ${error}`
     );
   }
 };
@@ -43,7 +43,7 @@ export const getAllCategories = async () => {
     return response;
   } catch (error) {
     console.log(
-      `problemka v PCategoriesDashboard.data.js, getAllCategories!!!! error: ${error}`
+      `problemka v CategoriesDashboard.data.js, getAllCategories!!!! error: ${error}`
     );
   }
 };

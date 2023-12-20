@@ -99,8 +99,10 @@ export const getData = async (dataBaseName, where) => {
         "Need to use argument dataBaseName : getData( dataBaseName, where )"
       );
     }
-  } catch {
-    console.log(error);
+  } catch (error) {
+    console.log(
+      `Problema c connector,  getData(dataBaseName, where) error:${error}`
+    );
   }
 };
 

@@ -137,7 +137,7 @@ export const saveDataArray = async (dataBaseName, where, data) => {
         "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"
       );
     }
-  } catch {
+  } catch (error) {
     console.log(error);
   }
 };

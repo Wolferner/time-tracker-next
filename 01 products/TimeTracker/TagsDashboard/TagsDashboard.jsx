@@ -6,24 +6,24 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
-import {
-  deleteCurrentCategory,
-  getAllCategories,
-  addNewCategory,
-  updateCreatedCategory,
-} from "./data/TagsDashboard.data";
+// import {
+//   deleteCurrentTag,
+//   getAllTags,
+//   addNewTag,
+//   updateCreatedTag,
+// } from "./data/TagsDashboard.data";
 import FilterComponent from "@/04 items/ui/FilterCompanent/FilterCompanent";
 
-const CategoriesDashboard = () => {
+const TagsDashboard = () => {
   const [searchInput, setSearchInput] = useState("");
 
-  const [filter, setFilter] = useState("taskCategories");
-  const [categories, setCategories] = useState([]);
+  const [filter, setFilter] = useState("taskTags");
+  const [tags, setTags] = useState([]);
 
   const [isShownForm, setIsShownForm] = useState(false);
-  const [newCategory, setNewCategory] = useState({
-    filterCategory: "taskCategories",
-    inputCategory: "",
+  const [newTag, setNewTag] = useState({
+    filterTag: "taskTag",
+    inputTag: "",
   });
 
   const [isEditing, setIsEditing] = useState(null);
@@ -37,99 +37,95 @@ const CategoriesDashboard = () => {
     setFilter(filterValue);
   };
 
-  const fetchCategories = async () => {
+  const fetchTags = async () => {
     try {
-      const response = await getAllCategories();
-      setCategories(response[filter] || []);
+      const response = await getAllTags();
+      setTags(response[filter] || []);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
-    fetchCategories();
+    fetchTags();
   }, [filter]);
 
   const showFormHandler = () => {
     setIsShownForm((prev) => !prev);
   };
 
-  const newCategoryHandler = (value, type) => {
+  const newTagHandler = (value, type) => {
     switch (type) {
-      case "filterCategory":
-        setNewCategory((prev) => ({
-          filterCategory: value,
-          inputCategory: prev.inputCategory,
+      case "filterTag":
+        setNewTag((prev) => ({
+          filterTag: value,
+          inputTag: prev.inputTag,
         }));
         break;
-      case "inputCategory":
-        setNewCategory((prev) => ({
-          filterCategory: prev.filterCategory,
-          inputCategory: value.title,
+      case "inputTag":
+        setNewTag((prev) => ({
+          filterTag: prev.filterTag,
+          inputTag: value.title,
         }));
         break;
     }
   };
 
-  const sendNewCategoryHandler = async () => {
+  const sendNewTagHandler = async () => {
     try {
-      const categoryData = {
-        category: newCategory.inputCategory,
-        type: newCategory.filterCategory,
+      const tagData = {
+        Tag: newTag.inputTag,
+        type: newTag.filterTag,
       };
-      await addNewCategory(JSON.stringify(categoryData));
+      await addNewTag(JSON.stringify(tagData));
     } catch (error) {
-      console.log(
-        `Problem with sending new Categorie in CategoriesDashboard.jsx`
-      );
+      console.log(`Problem with sending new Categorie in TagsDashboard.jsx`);
     }
-    fetchCategories();
+    fetchTags();
     setIsShownForm((prev) => !prev);
-    setNewCategory((prev) => ({
-      filterCategory: prev.filterCategory,
-      inputCategory: "",
+    setNewTag((prev) => ({
+      filterTag: prev.filterTag,
+      inputTag: "",
     }));
   };
 
   const editValueHandler = (index) => {
     setIsEditing(index);
-    setEditValue(categories[index]);
+    setEditValue(tags[index]);
   };
 
   const saveHandler = async () => {
-    // const updatedCategories = [...categories];
-    // updatedCategories[isEditing] = editValue;
-    // setCategories(updatedCategories);
+    // const updatedTags = [...tags];
+    // updatedTags[isEditing] = editValue;
+    // setTags(updatedTags);
     // setIsEditing(null);
-    const updatedCategory = {
+    const updatedTag = {
       filter,
       index: isEditing,
       value: editValue,
     };
     try {
-      await updateCreatedCategory(JSON.stringify(updatedCategory));
+      await updateCreatedTag(JSON.stringify(updatedTag));
       console.log();
-      await fetchCategories();
+      await fetchTags();
     } catch (error) {
-      console.log(`problem in CategoriesDashboard - saveHandler - ${error}`);
+      console.log(`problem in TagsDashboard - saveHandler - ${error}`);
     }
     setIsEditing(null);
   };
 
-  const deleteCategoryHandler = async (index) => {
-    // const updatedCategories = [...categories];
-    // updatedCategories.slice(index, 1);
-    // setCategories(updatedCategories);
-    const categoryData = {
+  const deleteTagHandler = async (index) => {
+    // const updatedTags = [...Tags];
+    // updatedTags.slice(index, 1);
+    // setTags(updatedTags);
+    const tagData = {
       filter,
       index,
     };
     try {
-      await deleteCurrentCategory(JSON.stringify(categoryData));
-      await fetchCategories();
+      await deleteCurrentTag(JSON.stringify(tagData));
+      await fetchTags();
     } catch (error) {
-      console.log(
-        `problem in CategoriesDashboard - deleteCategoryHandler - ${error}`
-      );
+      console.log(`problem in TagsDashboard - deleteTagHandler - ${error}`);
     }
     setIsEditing(null);
   };
@@ -153,25 +149,21 @@ const CategoriesDashboard = () => {
             {isShownForm && (
               <>
                 <FilterComponent
-                  onChangeParametr={(val) =>
-                    newCategoryHandler(val, "filterCategory")
-                  }
-                  selectValue={newCategory.filterCategory}
-                  label="Category"
+                  onChangeParametr={(val) => newTagHandler(val, "filterTag")}
+                  selectValue={newTag.filterTag}
+                  label="Tag"
                   options={{
-                    Task: "taskCategories",
-                    Project: "projectCategories",
+                    Task: "taskTags",
+                    Project: "projectTags",
                   }}
                 />
 
                 <TextField
                   placeholder={"Categorie"}
-                  value={newCategory.inputCategory}
-                  onBlurCallback={(val) =>
-                    newCategoryHandler(val, "inputCategory")
-                  }
+                  value={newTag.inputTag}
+                  onBlurCallback={(val) => newTagHandler(val, "inputTag")}
                 />
-                <Button onClick={sendNewCategoryHandler} variant="contained">
+                <Button onClick={sendNewTagHandler} variant="contained">
                   Send
                 </Button>
                 <Button onClick={showFormHandler} variant="contained">
@@ -185,14 +177,14 @@ const CategoriesDashboard = () => {
             <FilterComponent
               onChangeParametr={filterChangeHandler}
               selectValue={filter}
-              label="Categories Type"
+              label="Tags Type"
               options={{
-                Task: "taskCategories",
-                Project: "projectCategories",
+                Task: "taskTags",
+                Project: "projectTags",
               }}
             />
             <ul>
-              {categories.map((category, index) => {
+              {Tags.map((tag, index) => {
                 return (
                   <li key={index}>
                     {isEditing === index ? (
@@ -205,7 +197,7 @@ const CategoriesDashboard = () => {
                         />
                       </>
                     ) : (
-                      <span>{category}</span>
+                      <span>{tag}</span>
                     )}
                     <IconButton
                       onClick={() => editValueHandler(index)}
@@ -216,7 +208,7 @@ const CategoriesDashboard = () => {
                     </IconButton>
 
                     <IconButton
-                      onClick={() => deleteCategoryHandler(index)}
+                      onClick={() => deleteTagHandler(index)}
                       aria-label="delete"
                       size="small"
                     >
@@ -233,4 +225,4 @@ const CategoriesDashboard = () => {
   );
 };
 
-export default CategoriesDashboard;
+export default TagsDashboard;

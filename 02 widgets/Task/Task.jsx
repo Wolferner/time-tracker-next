@@ -10,6 +10,8 @@ import MediaButtons from "@/04 items/ui/MediaButtons/MediaButtons";
 import InfoBlock from "./ui/InfoBlock/InfoBlock";
 import { addNewTask } from "./data/Task.data.js";
 import { dataSendHandler, getDataHandler } from "./logic/Task.logic";
+import ProjectTracker from "./ui/ProjectTracker/ProjectTracker";
+import IncidentTracker from "./ui/IncidentTracker/IncidentTracker";
 
 const Task = (props) => {
   console.log("Task Render");

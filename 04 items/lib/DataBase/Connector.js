@@ -3,6 +3,7 @@
 import {
   getJsonData,
   addJsonData,
+  delJsonData,
 } from "@/04 items/lib/DataBase/Connectors/node-json-db";
 import dayjs from "dayjs";
 
@@ -42,21 +43,133 @@ export const saveTask = async (dataBaseName, data) => {
   }
 };
 
-// export const saveData = async (dataBaseName, data) =>{
-//   try{
-//     if(dataBaseName === "node-json-db" ){
-//       try{
+export const saveData = async (dataBaseName, where, data) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const parsedData = JSON.parse(data);
+      let id;
+      let path;
+      switch (where) {
+        case "userClients":
+          id = parsedData.clientId;
+          path = `/${where}/${id}`;
+          break;
+        case "userProjects":
+          id = parsedData.project_business_id;
+          path = `/${where}/${id}`;
+          break;
+      }
 
-//       }catch(error){
+      await addJsonData(path, parsedData);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : saveClient( dataBaseName, data )"
+      );
+    }
+  } catch {
+    console.log(error);
+  }
+};
 
-//       }
-//       await addJsonData(path, currentTasks)
-//     }else{
-//       console.log(
-//         "Need to use argument dataBaseName : saveData( dataBaseName, data )"
-//       );
-//     }
-//   } catch(error) {
-//     console.log(error)
-//   }
-// }
+export const deleteData = async (dataBaseName, where, dataId) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      let path;
+      switch (where) {
+        case "userCategories":
+          const data = JSON.parse(dataId);
+          const category = data.filter;
+          const index = data.index;
+          path = `/${where}/${category}[${index}]`;
+          break;
+        default:
+          path = `/${where}/${dataId}`;
+          break;
+      }
+
+      await delJsonData(path);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : deleteData( dataBaseName, where ,data )"
+      );
+    }
+  } catch {
+    console.log(error);
+  }
+};
+
+export const getData = async (dataBaseName, where) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const path = `/${where}`;
+
+      const response = await getJsonData(path);
+      return response;
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : getData( dataBaseName, where )"
+      );
+    }
+  } catch (error) {
+    console.log(
+      `Problema c connector,  getData(dataBaseName, where) error:${error}`
+    );
+  }
+};
+
+export const saveDataArray = async (dataBaseName, where, data) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const parsedData = JSON.parse(data);
+      const categoryType = parsedData.type;
+      const newCategory = parsedData.category;
+
+      let path;
+      switch (categoryType) {
+        case "taskCategories":
+          path = `/${where}/${categoryType}`;
+          break;
+        case "projectCategories":
+          path = `/${where}/${categoryType}`;
+          break;
+      }
+
+      let currentCategories = [];
+      try {
+        currentCategories = await getJsonData(path);
+      } catch (error) {
+        console.log(`problem to get data in func  saveDataArray  ${error}`);
+        currentTasks = [];
+      }
+      currentCategories.push(newCategory);
+      await addJsonData(path, currentCategories);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveDataIndex = async (dataBaseName, where, data) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const parsedData = JSON.parse(data);
+      const categoryType = parsedData.filter;
+      const index = parsedData.index;
+      const currentCategory = parsedData.value;
+
+      const path = `/${where}/${categoryType}[${index}]`;
+
+      await addJsonData(path, currentCategory);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

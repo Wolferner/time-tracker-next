@@ -10,6 +10,7 @@ const Menu = () => {
     <div className={`${styles.menuBox2}`}>
       <MenuItem>
         <TextElement>Time Tracking</TextElement>
+        <TextElement url="/products/timetracker">Timetracker</TextElement>
         <TextElement url="s">Day</TextElement>
         <TextElement url="s">Week</TextElement>
         <TextElement url="s">Month</TextElement>
@@ -23,7 +24,12 @@ const Menu = () => {
 
       <MenuItem>
         <TextElement>Manage</TextElement>
-        <TextElement url="s">clients</TextElement>
+        <TextElement url="/products/timetracker/clients">Clients</TextElement>
+        <TextElement url="/products/timetracker/projects">Projects</TextElement>
+        <TextElement url="/products/timetracker/categories">
+          Categories
+        </TextElement>
+        <TextElement url="/products/timetracker/tags">Tags</TextElement>
         <TextElement url="s">Work</TextElement>
         <TextElement url="s">Team</TextElement>
         <TextElement url="s">Autamation</TextElement>

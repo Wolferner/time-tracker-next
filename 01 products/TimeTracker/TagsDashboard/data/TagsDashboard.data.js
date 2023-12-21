@@ -7,43 +7,43 @@ import {
   saveDataIndex,
 } from "@/04 items/lib/DataBase/Connector";
 
-export const addNewCategory = async (categoriesData) => {
+export const addNewTag = async (tagsData) => {
   try {
-    await saveDataArray("node-json-db", "userCategories", categoriesData);
+    await saveDataArray("node-json-db", "userTags", tagsData);
   } catch (error) {
     console.log(
-      `problemka v CategoriesDashboard.data.js  addNewCategorie!!!! error: ${error}`
+      `problemka v TagsDashboard.data.js  addNewTag!!!! error: ${error}`
     );
   }
 };
 
-export const deleteCurrentCategory = async (categoryData) => {
+export const deleteCurrentTag = async (TagData) => {
   try {
-    await deleteData("node-json-db", "userCategories", categoryData);
+    await deleteData("node-json-db", "userTags", TagData);
   } catch (error) {
     console.log(
-      `problemka v CategoriesDashboard.data.js, deleteCurrentCategorie !!!! error: ${error}`
+      `problemka v TagsDashboard.data.js, deleteCurrentTag !!!! error: ${error}`
     );
   }
 };
 
-export const updateCreatedCategory = async (categoriesData) => {
+export const updateCreatedTag = async (TagsData) => {
   try {
-    await saveDataIndex("node-json-db", "userCategories", categoriesData);
+    await saveDataIndex("node-json-db", "userTags", TagsData);
   } catch (error) {
     console.log(
-      `problemka v CategoriesDashboard.data.js , updateCreatedCategorie!!!! error: ${error}`
+      `problemka v TagsDashboard.data.js , updateCreatedTag!!!! error: ${error}`
     );
   }
 };
 
-export const getAllCategories = async () => {
+export const getAllTags = async () => {
   try {
-    const response = await getData("node-json-db", "userCategories");
+    const response = await getData("node-json-db", "userTags");
     return response;
   } catch (error) {
     console.log(
-      `problemka v CategoriesDashboard.data.js, getAllCategories!!!! error: ${error}`
+      `problemka v TagsDashboard.data.js, getAllTags!!!! error: ${error}`
     );
   }
 };

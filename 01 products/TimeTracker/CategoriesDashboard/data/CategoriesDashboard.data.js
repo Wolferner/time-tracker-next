@@ -4,6 +4,7 @@ import {
   saveDataArray,
   deleteData,
   getData,
+  saveDataIndex,
 } from "@/04 items/lib/DataBase/Connector";
 
 export const addNewCategory = async (categoriesData) => {
@@ -16,10 +17,9 @@ export const addNewCategory = async (categoriesData) => {
   }
 };
 
-export const deleteCurrentCategory = async (categoriesId) => {
+export const deleteCurrentCategory = async (categoryData) => {
   try {
-    console.log("work deleteCurentCategorie");
-    await deleteData("node-json-db", "userCategories", categoriesId);
+    await deleteData("node-json-db", "userCategories", categoryData);
   } catch (error) {
     console.log(
       `problemka v CategoriesDashboard.data.js, deleteCurrentCategorie !!!! error: ${error}`
@@ -29,7 +29,7 @@ export const deleteCurrentCategory = async (categoriesId) => {
 
 export const updateCreatedCategory = async (categoriesData) => {
   try {
-    await saveData("node-json-db", "userCategories", categoriesData);
+    await saveDataIndex("node-json-db", "userCategories", categoriesData);
   } catch (error) {
     console.log(
       `problemka v CategoriesDashboard.data.js , updateCreatedCategorie!!!! error: ${error}`

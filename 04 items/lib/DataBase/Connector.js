@@ -74,7 +74,18 @@ export const saveData = async (dataBaseName, where, data) => {
 export const deleteData = async (dataBaseName, where, dataId) => {
   try {
     if (dataBaseName === "node-json-db") {
-      const path = `/${where}/${dataId}`;
+      let path;
+      switch (where) {
+        case "userCategories":
+          const data = JSON.parse(dataId);
+          const category = data.filter;
+          const index = data.index;
+          path = `/${where}/${category}[${index}]`;
+          break;
+        default:
+          path = `/${where}/${dataId}`;
+          break;
+      }
 
       await delJsonData(path);
     } else {
@@ -132,6 +143,27 @@ export const saveDataArray = async (dataBaseName, where, data) => {
       }
       currentCategories.push(newCategory);
       await addJsonData(path, currentCategories);
+    } else {
+      console.log(
+        "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveDataIndex = async (dataBaseName, where, data) => {
+  try {
+    if (dataBaseName === "node-json-db") {
+      const parsedData = JSON.parse(data);
+      const categoryType = parsedData.filter;
+      const index = parsedData.index;
+      const currentCategory = parsedData.value;
+
+      const path = `/${where}/${categoryType}[${index}]`;
+
+      await addJsonData(path, currentCategory);
     } else {
       console.log(
         "Need to use argument dataBaseName : saveDataArray( dataBaseName, where, data )"

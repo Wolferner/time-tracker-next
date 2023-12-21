@@ -11,6 +11,7 @@ import {
   deleteCurrentCategory,
   getAllCategories,
   addNewCategory,
+  updateCreatedCategory,
 } from "./data/CategoriesDashboard.data";
 import FilterComponent from "@/04 items/ui/FilterCompanent/FilterCompanent";
 
@@ -18,10 +19,7 @@ const CategoriesDashboard = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const [filter, setFilter] = useState("taskCategories");
-  const [categories, setCategories] = useState({
-    taskCategories: [],
-    projectCategories: [],
-  });
+  const [categories, setCategories] = useState([]);
 
   const [isShownForm, setIsShownForm] = useState(false);
   const [newCategory, setNewCategory] = useState({
@@ -29,17 +27,12 @@ const CategoriesDashboard = () => {
     inputCategory: "",
   });
 
-  const [isEditing, setIsEditing] = useState(false);
-  // const [valueDeleted, setValueDeleted] = useState(false);
+  const [isEditing, setIsEditing] = useState(null);
+  const [editValue, setEditValue] = useState("");
 
   const searchInputHandler = (value) => {
     setSearchInput(value.title);
   };
-
-  // const deleteValueHandler = (id) => {
-  //   deleteCurrentCategory(id);
-  //   setValueDeleted((prev) => !prev);
-  // };
 
   const filterChangeHandler = (filterValue) => {
     setFilter(filterValue);
@@ -48,14 +41,18 @@ const CategoriesDashboard = () => {
   const fetchCategories = async () => {
     try {
       const response = await getAllCategories();
-      setCategories(response);
+      setCategories(response[filter] || []);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
     fetchCategories();
-  }, [isShownForm, isEditing]);
+  }, [filter]);
+
+  const showFormHandler = () => {
+    setIsShownForm((prev) => !prev);
+  };
 
   const newCategoryHandler = (value, type) => {
     switch (type) {
@@ -86,6 +83,7 @@ const CategoriesDashboard = () => {
         `Problem with sending new Categorie in CategoriesDashboard.jsx`
       );
     }
+    fetchCategories();
     setIsShownForm((prev) => !prev);
     setNewCategory((prev) => ({
       filterCategory: prev.filterCategory,
@@ -93,18 +91,48 @@ const CategoriesDashboard = () => {
     }));
   };
 
-  const editValueHandler = () => {
-    setIsEditing((prev) => !prev);
-  };
-  const showFormHandler = () => {
-    setIsShownForm((prev) => !prev);
+  const editValueHandler = (index) => {
+    setIsEditing(index);
+    setEditValue(categories[index]);
   };
 
-  const inputChangeHandler = (index, value, filter) => {
-    setCategories((prev) => ({
-      taskCategories: [...prev.taskCategories],
-      projectCategories: [...prev.projectCategories],
-    }));
+  const saveHandler = async () => {
+    // const updatedCategories = [...categories];
+    // updatedCategories[isEditing] = editValue;
+    // setCategories(updatedCategories);
+    // setIsEditing(null);
+    const updatedCategory = {
+      filter,
+      index: isEditing,
+      value: editValue,
+    };
+    try {
+      await updateCreatedCategory(JSON.stringify(updatedCategory));
+      console.log();
+      await fetchCategories();
+    } catch (error) {
+      console.log(`problem in CategoriesDashboard - saveHandler - ${error}`);
+    }
+    setIsEditing(null);
+  };
+
+  const deleteCategoryHandler = async (index) => {
+    // const updatedCategories = [...categories];
+    // updatedCategories.slice(index, 1);
+    // setCategories(updatedCategories);
+    const categoryData = {
+      filter,
+      index,
+    };
+    try {
+      await deleteCurrentCategory(JSON.stringify(categoryData));
+      await fetchCategories();
+    } catch (error) {
+      console.log(
+        `problem in CategoriesDashboard - deleteCategoryHandler - ${error}`
+      );
+    }
+    setIsEditing(null);
   };
 
   return (
@@ -155,13 +183,6 @@ const CategoriesDashboard = () => {
           </div>
 
           <div className="col s12">
-            <IconButton
-              onClick={editValueHandler}
-              aria-label="edit"
-              size="small"
-            >
-              <EditIcon fontSize="inherit" />
-            </IconButton>
             <FilterComponent
               onChangeParametr={filterChangeHandler}
               selectValue={filter}
@@ -172,31 +193,31 @@ const CategoriesDashboard = () => {
               }}
             />
             <ul>
-              {categories[filter].map((category, index) => {
+              {categories.map((category, index) => {
                 return (
                   <li key={index}>
-                    {isEditing ? (
+                    {isEditing === index ? (
                       <>
-                        <Button
-                          // onClick={}
-                          variant="contained"
-                        >
-                          Update
-                        </Button>
                         <input
                           type="text"
-                          value={category}
-                          onChange={(e) =>
-                            inputChangeHandler(index, e.target.value, filter)
-                          }
+                          value={editValue}
+                          onChange={(e) => setEditValue(e.target.value)}
+                          onBlur={saveHandler}
                         />
                       </>
                     ) : (
                       <span>{category}</span>
                     )}
+                    <IconButton
+                      onClick={() => editValueHandler(index)}
+                      aria-label="edit"
+                      size="small"
+                    >
+                      <EditIcon fontSize="inherit" />
+                    </IconButton>
 
                     <IconButton
-                      // onClick={() => deleteValueHandler({ category, index })}
+                      onClick={() => deleteCategoryHandler(index)}
                       aria-label="delete"
                       size="small"
                     >

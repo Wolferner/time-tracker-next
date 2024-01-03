@@ -1,3 +1,4 @@
+import InputField from '@/04 items/ui/InputField/InputField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
@@ -12,6 +13,9 @@ const ProjectTracker = ({
 	const [projectData, setProjectData] = useState({
 		projects: [],
 		projectTags: [],
+		projectId: '',
+		projectName: '',
+		projectAcronym: '',
 	});
 
 	useEffect(() => {
@@ -23,18 +27,29 @@ const ProjectTracker = ({
 	};
 	return (
 		<div hidden={!isShown}>
-			<input
+			<InputField
 				placeholder='Project ID'
-				onChange={e => inputChangeHandler('ProjectId', e.target.value)}
+				classNames=''
+				onBlurCallback={value => inputChangeHandler('projectId', value.title)}
+				value={projectData.projectId}
 			/>
-			<input
+
+			<InputField
 				placeholder='Project Name'
-				onChange={e => inputChangeHandler('ProjectName', e.target.value)}
+				classNames=''
+				onBlurCallback={value => inputChangeHandler('projectName', value.title)}
+				value={projectData.projectName}
 			/>
-			<input
+
+			<InputField
 				placeholder='Project Short Name'
-				onChange={e => inputChangeHandler('acronym', e.target.value)}
+				classNames=''
+				onBlurCallback={value =>
+					inputChangeHandler('projectAcronym', value.title)
+				}
+				value={projectData.projectAcronym}
 			/>
+
 			<Autocomplete
 				onChange={(e, allTags) => inputChangeHandler('projects', allTags)}
 				value={projectData.projects}

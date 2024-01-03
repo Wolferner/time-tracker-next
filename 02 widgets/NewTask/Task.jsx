@@ -1,8 +1,8 @@
 'use client';
 
 // import styles from '@/02 widgets/Task/Task.module.css';
+import InputField from '@/04 items/ui/InputField/InputField';
 import MediaButtons from '@/04 items/ui/MediaButtons/MediaButtons';
-import TextField from '@/04 items/ui/TextField/TextField';
 import Time from '@/04 items/ui/Time/Time';
 import Toggler from '@/04 items/ui/Toggler/Toggler';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -62,7 +62,7 @@ const Task = props => {
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<div className={`${styles.Task}`}>
 				<div className={`${styles.card} `}>
-					<TextField
+					<InputField
 						placeholder='Task Title'
 						classNames=''
 						onBlurCallback={getDataHandler}

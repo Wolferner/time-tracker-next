@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import styles from './TextField.module.css';
+import { useEffect, useState } from 'react'
+import styles from './InputField.module.css'
 
-const TextField = ({ placeholder, classNames, onBlurCallback, value }) => {
+const InputField = ({ placeholder, classNames, onBlurCallback, value }) => {
 	const [inputTitle, setInputTitle] = useState('');
 
 	useEffect(() => {
@@ -22,7 +22,7 @@ const TextField = ({ placeholder, classNames, onBlurCallback, value }) => {
 	return (
 		<input
 			placeholder={placeholder}
-			className={`${styles.TextField} ${classNames} `}
+			className={`${styles.InputField} ${classNames} `}
 			onChange={titleChangeHandler}
 			value={inputTitle}
 			onBlur={inputBlurHandler}
@@ -30,4 +30,4 @@ const TextField = ({ placeholder, classNames, onBlurCallback, value }) => {
 	);
 };
 
-export default TextField;
+export default InputField;

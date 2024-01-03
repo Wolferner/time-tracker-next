@@ -1,9 +1,9 @@
 'use client';
 
 import styles from '@/02 widgets/Task/Task.module.css';
+import InputField from '@/04 items/ui/InputField/InputField';
 import MediaButtons from '@/04 items/ui/MediaButtons/MediaButtons';
 import TextDescription from '@/04 items/ui/TextDescriprtion/TextDescription';
-import TextField from '@/04 items/ui/TextField/TextField';
 import Time from '@/04 items/ui/Time/Time';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -43,7 +43,7 @@ const Task = props => {
 			<div
 				className={`${styles.card} ${props.className}  card blue-grey darken-1`}
 			>
-				<TextField
+				<InputField
 					placeholder=''
 					classNames=''
 					onBlurCallback={fieldsValue => handleDataGet('title', fieldsValue)}

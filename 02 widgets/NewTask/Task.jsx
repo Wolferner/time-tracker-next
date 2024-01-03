@@ -1,13 +1,15 @@
 'use client';
 
-import styles from '@/02 widgets/Task/Task.module.css';
+// import styles from '@/02 widgets/Task/Task.module.css';
 import MediaButtons from '@/04 items/ui/MediaButtons/MediaButtons';
 import TextField from '@/04 items/ui/TextField/TextField';
 import Time from '@/04 items/ui/Time/Time';
+import Toggler from '@/04 items/ui/Toggler/Toggler';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import styles from './ui/Task.module.css';
 import TaskTabs from './ui/TaskTabs/TaskTabs';
 
 const Task = props => {
@@ -32,6 +34,7 @@ const Task = props => {
 	});
 
 	const [taskData, setTaskData] = useState(initialDataState);
+	const [isShownTabs, setIsShownTabs] = useState(true);
 
 	const dataSendHandler = async value => {
 		try {
@@ -47,44 +50,33 @@ const Task = props => {
 		}
 	};
 
-	const getDataHandler = (field, fieldsValue) => {
-		if (field === 'additionalInfo') {
-			setTaskData(prev => ({
-				...prev,
-				additionalInfo: {
-					...prev.additionalInfo,
-					...fieldsValue,
-				},
-			}));
-		} else {
-			setTaskData(prev => ({
-				...prev,
-				...fieldsValue,
-			}));
-		}
+	const getDataHandler = obj => {
+		setTaskData(prev => ({ ...prev, ...obj }));
+	};
+
+	const isShownTabsHandler = bool => {
+		setIsShownTabs(bool);
 	};
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<div className={`${styles.Task}`}>
-				<div className={`${styles.card} blue-grey darken-1`}>
+				<div className={`${styles.card} `}>
 					<TextField
 						placeholder='Task Title'
 						classNames=''
-						onBlurCallback={fieldsValue => getDataHandler('title', fieldsValue)}
+						onBlurCallback={getDataHandler}
 						value={taskData.title}
-					/>{' '}
-					<Time
-						onDateChange={fieldsValue =>
-							getDataHandler('timeStart', fieldsValue)
-						}
 					/>
+
+					<Time onDateChange={getDataHandler} />
 					<MediaButtons
 						onPressButton={dataSendHandler}
 						place=''
 						classNames=''
 					/>
-					<TaskTabs />
+					<Toggler getTogglerState={isShownTabsHandler} />
+					{isShownTabs && <TaskTabs onBlurCallback={getDataHandler} />}
 					<div className={``}>{props.children}</div>
 				</div>
 			</div>

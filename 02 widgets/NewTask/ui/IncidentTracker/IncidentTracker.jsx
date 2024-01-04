@@ -24,7 +24,33 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 
 	const { businessInfoArray, supportInfoArray } = loadedData;
 
-	const fieldsChangeHandler = () => {};
+	const fieldsChangeHandler = (field, value) => {
+		const businessObj = {};
+
+		const supportObj = {};
+
+		if (businessObj[field]) {
+			project = businessInfoArray.find(
+				info => info[fieldMappings[field]] === value
+			);
+			setProjectData(prev => ({
+				...prev,
+				...project,
+			}));
+		} else if (supportObj[field]) {
+			project = projectInfoArray.find(
+				info => info[fieldMappings[field]] === value
+			);
+			setProjectData(prev => ({
+				...prev,
+				...project,
+			}));
+		} else if (field === 'projectTags' || field === 'projectCategories') {
+			inputChangeHandler(field, value);
+		} else {
+			console.log('Incorrect field name in handleFieldType in ProjectTracker');
+		}
+	};
 
 	return (
 		<div hidden={!isShown}>

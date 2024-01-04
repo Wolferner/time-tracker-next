@@ -11,7 +11,8 @@ const Toggler = ({ getTogglerState }) => {
 		getTogglerState(isToggled);
 	}, [isToggled]);
 
-	const clickHandler = () => {
+	const clickHandler = event => {
+		event.preventDefault();
 		setIsToggled(prev => !prev);
 	};
 

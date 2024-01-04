@@ -53,8 +53,7 @@ const TaskTabs = () => {
 				<ProjectTracker
 					onGetProjectData={getTrackerDataHandler}
 					isShown={activeTab !== 'Project' ? false : true}
-					projectGroups={projectGroups}
-					projectTags={projectTags}
+					loadedData={loadedData}
 				/>
 				<IncidentTracker
 					onBlurCallback={getTrackerDataHandler}
@@ -70,7 +69,22 @@ const TaskTabs = () => {
 };
 
 export default TaskTabs;
+const loadedData = {
+	loadedProjectCategories: ['project1', 'project2'],
+	loadedProjectTags: ['pTag1', 'pTag2'],
+	loadedProjectId: ['ddddd', 'dddddfff', 'ghththth'],
+	loadedProjectName: ['dddddddddd', 'ddddddddfff', 'ghththddddddth'],
+	loadedProjectAcronym: ['as', 'gas', 'ik'],
+};
 const taskTags = ['tag1', 'tag2', 'tag3', 'mmmtag4', 'uuutag5'];
 const taskCategories = ['cat1', 'cat2', 'cat3', 'ssscat4'];
-const projectGroups = ['project1', 'project2'];
-const projectTags = ['pTag1', 'pTag2'];
+
+const loadedData2 = {
+	projectInfo: [
+		{ projectId: 'aa3', projectName: 'Oreon', projectAcronym: 'OR' },
+		{ projectId: 'azz3', projectName: 'Olron', projectAcronym: 'ON' },
+		{ projectId: 'afr5', projectName: 'Ofton', projectAcronym: 'OfN' },
+	],
+	loadedProjectCategories: ['project1', 'project2'],
+	loadedProjectTags: ['pTag1', 'pTag2'],
+};

@@ -1,22 +1,24 @@
-import InputField from '@/04 items/ui/InputField/InputField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 
-const ProjectTracker = ({
-	isShown,
-	projectGroups,
-	projectTags,
-	onGetProjectData,
-}) => {
+const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 	const [projectData, setProjectData] = useState({
-		projects: [],
+		projectCategories: [],
 		projectTags: [],
-		projectId: '',
-		projectName: '',
-		projectAcronym: '',
+		projectId: undefined,
+		projectName: undefined,
+		projectAcronym: undefined,
 	});
+
+	const {
+		loadedProjectCategories,
+		loadedProjectTags,
+		loadedProjectId,
+		loadedProjectName,
+		loadedProjectAcronym,
+	} = loadedData;
 
 	useEffect(() => {
 		onGetProjectData(projectData);
@@ -27,35 +29,46 @@ const ProjectTracker = ({
 	};
 	return (
 		<div hidden={!isShown}>
-			<InputField
-				placeholder='Project ID'
-				classNames=''
-				onBlurCallback={value => inputChangeHandler('projectId', value.title)}
+			<Autocomplete
+				disablePortal
+				id='combo-box-demo1'
+				options={loadedProjectId}
+				sx={{ width: 300 }}
+				renderInput={params => <TextField {...params} label='Project ID' />}
 				value={projectData.projectId}
-			/>
-
-			<InputField
-				placeholder='Project Name'
-				classNames=''
-				onBlurCallback={value => inputChangeHandler('projectName', value.title)}
-				value={projectData.projectName}
-			/>
-
-			<InputField
-				placeholder='Project Short Name'
-				classNames=''
-				onBlurCallback={value =>
-					inputChangeHandler('projectAcronym', value.title)
-				}
-				value={projectData.projectAcronym}
+				onChange={(e, value) => inputChangeHandler('projectId', value)}
 			/>
 
 			<Autocomplete
-				onChange={(e, allTags) => inputChangeHandler('projects', allTags)}
-				value={projectData.projects}
+				disablePortal
+				id='combo-box-demo2'
+				options={loadedProjectName}
+				sx={{ width: 300 }}
+				renderInput={params => <TextField {...params} label='Project Name' />}
+				value={projectData.projectName}
+				onChange={(e, value) => inputChangeHandler('projectName', value)}
+			/>
+
+			<Autocomplete
+				disablePortal
+				id='combo-box-demo3'
+				options={loadedProjectAcronym}
+				sx={{ width: 300 }}
+				renderInput={params => (
+					<TextField {...params} label='Project Short Name' />
+				)}
+				value={projectData.projectAcronym}
+				onChange={(e, value) => inputChangeHandler('projectAcronym', value)}
+			/>
+
+			<Autocomplete
+				onChange={(e, allTags) =>
+					inputChangeHandler('projectCategories', allTags)
+				}
+				value={projectData.projectCategories}
 				multiple
-				id='tags-filled'
-				options={projectGroups}
+				id='tags-filled1'
+				options={loadedProjectCategories}
 				defaultValue={[]}
 				freeSolo
 				renderTags={(value, getTagProps) =>
@@ -76,7 +89,7 @@ const ProjectTracker = ({
 					<TextField
 						{...params}
 						variant='filled'
-						label='Your Project Groups'
+						label='Your Project Categories'
 						placeholder=''
 					/>
 				)}
@@ -85,8 +98,8 @@ const ProjectTracker = ({
 				onChange={(e, allTags) => inputChangeHandler('projectTags', allTags)}
 				value={projectData.projectTags}
 				multiple
-				id='tags-filled'
-				options={projectTags}
+				id='tags-filled2'
+				options={loadedProjectTags}
 				defaultValue={[]}
 				freeSolo
 				renderTags={(value, getTagProps) =>
@@ -117,3 +130,37 @@ const ProjectTracker = ({
 };
 
 export default ProjectTracker;
+
+// const projectId = ['ddddd', 'dddddfff', 'ghththth'];
+// const projectName = ['dddddddddd', 'ddddddddfff', 'ghththddddddth'];
+// const projectAcronym = ['as', 'gas', 'ik'];
+
+{
+	/* <InputField
+				placeholder='Project ID'
+				classNames=''
+				onBlurCallback={value => inputChangeHandler('projectId', value.title)}
+				value={projectData.projectId}
+			/> */
+}
+
+{
+	/* <InputField
+				
+				placeholder='Project Name'
+				classNames=''
+				onBlurCallback={value => inputChangeHandler('projectName', value.title)}
+				value={projectData.projectName}
+			/> */
+}
+
+{
+	/* <InputField
+				placeholder='Project Short Name'
+				classNames=''
+				onBlurCallback={value =>
+					inputChangeHandler('projectAcronym', value.title)
+				}
+				value={projectData.projectAcronym}
+			/> */
+}

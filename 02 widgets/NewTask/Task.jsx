@@ -54,10 +54,6 @@ const Task = props => {
 		setTaskData(prev => ({ ...prev, ...obj }));
 	};
 
-	const isShownTabsHandler = bool => {
-		setIsShownTabs(bool);
-	};
-
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<div className={`${styles.Task}`}>
@@ -75,7 +71,7 @@ const Task = props => {
 						place=''
 						classNames=''
 					/>
-					<Toggler getTogglerState={isShownTabsHandler} />
+					<Toggler getTogglerState={() => setIsShownTabs(prev => !prev)} />
 					{isShownTabs && <TaskTabs onBlurCallback={getDataHandler} />}
 					<div className={``}>{props.children}</div>
 				</div>

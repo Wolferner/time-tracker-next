@@ -53,11 +53,12 @@ const TaskTabs = () => {
 				<ProjectTracker
 					onGetProjectData={getTrackerDataHandler}
 					isShown={activeTab !== 'Project' ? false : true}
-					loadedData={loadedData}
+					loadedData={loadedProjectData}
 				/>
 				<IncidentTracker
 					onBlurCallback={getTrackerDataHandler}
 					isShown={activeTab !== 'Incident' ? false : true}
+					loadedData={loadedIncidentData}
 				/>
 				<TimeTracker
 					onBlurCallback={getTrackerDataHandler}
@@ -72,7 +73,7 @@ export default TaskTabs;
 const taskTags = ['tag1', 'tag2', 'tag3', 'mmmtag4', 'uuutag5'];
 const taskCategories = ['cat1', 'cat2', 'cat3', 'ssscat4'];
 
-const loadedData = {
+const loadedProjectData = {
 	projectInfoArray: [
 		{ projectId: 'aa3', projectName: 'Oreon', projectAcronym: 'OR' },
 		{ projectId: 'azz3', projectName: 'Olron', projectAcronym: 'ON' },
@@ -80,4 +81,51 @@ const loadedData = {
 	],
 	loadedProjectCategories: ['project1', 'project2'],
 	loadedProjectTags: ['pTag1', 'pTag2'],
+};
+
+const loadedIncidentData = {
+	businessInfoArray: [
+		{
+			businessFirstName: 'sdas',
+			businessLastName: 'fffff',
+			businessEmail: 'asdas@asds',
+		},
+		{
+			businessFirstName: 'ffff',
+			businessLastName: 'fffffff',
+			businessEmail: 'fff@ff',
+		},
+		{
+			businessFirstName: 'aa',
+			businessLastName: 'aaaaaaaaaa',
+			businessEmail: 'aaa@aaa',
+		},
+		{
+			businessFirstName: 'ssss',
+			businessLastName: 'sssssssssss',
+			businessEmail: 'ss@ssss',
+		},
+	],
+	supportInfoArray: [
+		{
+			supportFirstName: 'sdas',
+			supportLastName: 'fffff',
+			supportEmail: 'asdas@asds',
+		},
+		{
+			supportFirstName: 'ffff',
+			supportLastName: 'fffffff',
+			supportEmail: 'fff@ff',
+		},
+		{
+			supportFirstName: 'aa',
+			supportLastName: 'aaaaaaaaaa',
+			supportEmail: 'aaa@aaa',
+		},
+		{
+			supportFirstName: 'ssss',
+			supportLastName: 'sssssssssss',
+			supportEmail: 'ss@ssss',
+		},
+	],
 };

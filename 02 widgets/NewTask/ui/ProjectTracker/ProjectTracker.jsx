@@ -55,6 +55,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 		switch (field) {
 			case 'projectId':
 				project = projectInfoArray.find(info => info.projectId === value);
+				console.log(project);
 				setProjectData(prev => ({
 					...prev,
 					...project,
@@ -79,6 +80,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				break;
 			case 'projectCategories':
 				inputChangeHandler('projectCategories', value);
+				break;
 			default:
 				console.log('incorect field name in handleFieldType in ProjectTracker');
 				break;
@@ -104,7 +106,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				sx={{ width: 300 }}
 				renderInput={params => <TextField {...params} label='Project Name' />}
 				value={projectData.projectName}
-				onChange={(e, value) => inputChangeHandler('projectName', value)}
+				onChange={(e, value) => handleFieldType('projectName', value)}
 			/>
 
 			<Autocomplete
@@ -116,13 +118,11 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 					<TextField {...params} label='Project Short Name' />
 				)}
 				value={projectData.projectAcronym}
-				onChange={(e, value) => inputChangeHandler('projectAcronym', value)}
+				onChange={(e, value) => handleFieldType('projectAcronym', value)}
 			/>
 
 			<Autocomplete
-				onChange={(e, allTags) =>
-					inputChangeHandler('projectCategories', allTags)
-				}
+				onChange={(e, allTags) => handleFieldType('projectCategories', allTags)}
 				value={projectData.projectCategories}
 				multiple
 				id='tags-filled1'
@@ -153,7 +153,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				)}
 			/>
 			<Autocomplete
-				onChange={(e, allTags) => inputChangeHandler('projectTags', allTags)}
+				onChange={(e, allTags) => handleFieldType('projectTags', allTags)}
 				value={projectData.projectTags}
 				multiple
 				id='tags-filled2'

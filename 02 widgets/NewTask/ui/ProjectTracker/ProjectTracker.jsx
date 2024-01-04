@@ -7,42 +7,100 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 	const [projectData, setProjectData] = useState({
 		projectCategories: [],
 		projectTags: [],
-		projectId: undefined,
-		projectName: undefined,
-		projectAcronym: undefined,
+		projectId: null,
+		projectName: null,
+		projectAcronym: null,
 	});
 
-	const {
-		loadedProjectCategories,
-		loadedProjectTags,
-		loadedProjectId,
-		loadedProjectName,
-		loadedProjectAcronym,
-	} = loadedData;
+	const { loadedProjectCategories, loadedProjectTags, projectInfoArray } =
+		loadedData;
+
+	// const loadedProjectId = projectInfoArray.forEach
 
 	useEffect(() => {
 		onGetProjectData(projectData);
 	}, [projectData]);
 
 	const inputChangeHandler = (field, value) => {
-		setProjectData(prev => ({ ...prev, [field]: value }));
+		setProjectData(prev => ({
+			...prev,
+			[field]: value,
+			// projectInfo: [...prev.projectInfo],
+		}));
 	};
+
+	// const handleFieldType = (field, value) => {
+	// 	const fieldMappings = {
+	// 		'projectId': 'projectId',
+	//       'projectName': 'projectName',
+	//       'projectAcronym': 'projectAcronym',
+	// 	}
+
+	// 	if(fieldMappings[field]){
+	// 		project = projectInfoArray.find(info => info[fieldMappings[field]] === value);
+	// 			setProjectData(prev => ({
+	// 				...prev,
+	// 				...project,
+	// 			}))
+	// 	}else if (field === 'projectTags'|| field === 'projectCategories'){
+	// 		inputChangeHandler(field, value);
+	// 	}else{
+	// 		console.log('Incorrect field name in handleFieldType in ProjectTracker');
+	// 	}
+	// }
+
+	//TODO: Переписать switch на if или что-нибудь оптимальнее
+	const handleFieldType = (field, value) => {
+		let project;
+		switch (field) {
+			case 'projectId':
+				project = projectInfoArray.find(info => info.projectId === value);
+				setProjectData(prev => ({
+					...prev,
+					...project,
+				}));
+				break;
+			case 'projectName':
+				project = projectInfoArray.find(info => info.projectName === value);
+				setProjectData(prev => ({
+					...prev,
+					...project,
+				}));
+				break;
+			case 'projectAcronym':
+				project = projectInfoArray.find(info => info.projectAcronym === value);
+				setProjectData(prev => ({
+					...prev,
+					...project,
+				}));
+				break;
+			case 'projectTags':
+				inputChangeHandler('projectTags', value);
+				break;
+			case 'projectCategories':
+				inputChangeHandler('projectCategories', value);
+			default:
+				console.log('incorect field name in handleFieldType in ProjectTracker');
+				break;
+		}
+	};
+
 	return (
 		<div hidden={!isShown}>
 			<Autocomplete
 				disablePortal
 				id='combo-box-demo1'
-				options={loadedProjectId}
+				options={projectInfoArray.map(data => data.projectId)}
 				sx={{ width: 300 }}
 				renderInput={params => <TextField {...params} label='Project ID' />}
 				value={projectData.projectId}
-				onChange={(e, value) => inputChangeHandler('projectId', value)}
+				onChange={(e, value) => handleFieldType('projectId', value)}
 			/>
 
 			<Autocomplete
 				disablePortal
 				id='combo-box-demo2'
-				options={loadedProjectName}
+				options={projectInfoArray.map(data => data.projectName)}
 				sx={{ width: 300 }}
 				renderInput={params => <TextField {...params} label='Project Name' />}
 				value={projectData.projectName}
@@ -52,7 +110,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 			<Autocomplete
 				disablePortal
 				id='combo-box-demo3'
-				options={loadedProjectAcronym}
+				options={projectInfoArray.map(data => data.projectAcronym)}
 				sx={{ width: 300 }}
 				renderInput={params => (
 					<TextField {...params} label='Project Short Name' />

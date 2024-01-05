@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-const IncidentTracker = ({ isShown, loadedData }) => {
+const IncidentTracker = ({ isShown, loadedData, onGetIncidentData, value }) => {
 	const [incidentData, setIncidentData] = useState({
 		incidentId: '',
 		incidentTitle: '',
@@ -20,35 +20,51 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 		crqId: '',
 		charmId: '',
 	});
+
 	const [systemChanged, setSystemChanged] = useState(false);
 
 	const { businessInfoArray, supportInfoArray } = loadedData;
 
 	const fieldsChangeHandler = (field, value) => {
-		const businessObj = {};
-
-		const supportObj = {};
-
-		if (businessObj[field]) {
-			project = businessInfoArray.find(
-				info => info[fieldMappings[field]] === value
-			);
-			setProjectData(prev => ({
-				...prev,
-				...project,
-			}));
-		} else if (supportObj[field]) {
-			project = projectInfoArray.find(
-				info => info[fieldMappings[field]] === value
-			);
-			setProjectData(prev => ({
-				...prev,
-				...project,
-			}));
-		} else if (field === 'projectTags' || field === 'projectCategories') {
-			inputChangeHandler(field, value);
-		} else {
-			console.log('Incorrect field name in handleFieldType in ProjectTracker');
+		let project;
+		switch (field) {
+			case 'businessFirstName':
+				project = businessInfoArray.find(
+					info => info.businessFirstName === value
+				);
+				break;
+			case 'businessLastName':
+				project = businessInfoArray.find(
+					info => info.businessLastName === value
+				);
+				break;
+			case 'businessEmail':
+				project = businessInfoArray.find(info => info.businessEmail === value);
+				break;
+			case 'supportFirstName':
+				project = supportInfoArray.find(
+					info => info.supportFirstName === value
+				);
+				break;
+			case 'supportLastName':
+				project = supportInfoArray.find(info => info.supportLastName === value);
+				break;
+			case 'supportEmail':
+				project = supportInfoArray.find(info => info.supportEmail === value);
+				break;
+			default:
+				break;
+		}
+		onGetIncidentData({ ...project });
+		if (
+			field === 'incidentId' ||
+			field === 'incidentTitle' ||
+			field === 'incidentDescription' ||
+			field === 'crqId' ||
+			field === 'rfcId' ||
+			field === 'charmId'
+		) {
+			onGetIncidentData({ [field]: value });
 		}
 	};
 
@@ -60,20 +76,26 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 					<InputField
 						placeholder='Incident Id'
 						classNames=''
-						onBlurCallback={fieldsChangeHandler}
-						value={incidentData.incidentId}
+						onBlurCallback={value =>
+							fieldsChangeHandler('incidentId', value.title)
+						}
+						value={value.incidentId}
 					/>
 					<InputField
 						placeholder='Incident Title'
 						classNames=''
-						onBlurCallback={fieldsChangeHandler}
-						value={incidentData.incidentTitle}
+						onBlurCallback={value =>
+							fieldsChangeHandler('incidentTitle', value.title)
+						}
+						value={value.incidentTitle}
 					/>
 					<TextDescription
 						placeholder='Description'
 						classNames=''
-						onBlurCallback={fieldsChangeHandler}
-						value={incidentData.description}
+						onBlurCallback={value =>
+							fieldsChangeHandler('incidentDescription', value.description)
+						}
+						value={value.description}
 					/>
 				</fieldset>
 
@@ -87,8 +109,10 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 						renderInput={params => (
 							<TextField {...params} label='Business First Name' />
 						)}
-						value={incidentData.businessFirstName}
-						onChange={(e, value) => handleFieldType('businessFirstName', value)}
+						value={value.businessFirstName}
+						onChange={(e, value) =>
+							fieldsChangeHandler('businessFirstName', value)
+						}
 					/>
 
 					<Autocomplete
@@ -99,9 +123,9 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 						renderInput={params => (
 							<TextField {...params} label='Business Last Name' />
 						)}
-						value={incidentData.businessLastName}
+						value={value.businessLastName}
 						onChange={(e, value) =>
-							fieldChangeHandler('businessLastName', value)
+							fieldsChangeHandler('businessLastName', value)
 						}
 					/>
 
@@ -113,8 +137,8 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 						renderInput={params => (
 							<TextField {...params} label='Business Email' />
 						)}
-						value={incidentData.businessEmail}
-						onChange={(e, value) => fieldChangeHandler('businessEmail', value)}
+						value={value.businessEmail}
+						onChange={(e, value) => fieldsChangeHandler('businessEmail', value)}
 					/>
 				</fieldset>
 
@@ -122,40 +146,42 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 					<legend>Support Team</legend>
 					<Autocomplete
 						disablePortal
-						id='combo-box-demo1'
+						id='combo-box-demo4'
 						options={supportInfoArray.map(data => data.supportFirstName)}
 						sx={{ width: 300 }}
 						renderInput={params => (
 							<TextField {...params} label='Support First Name' />
 						)}
-						value={incidentData.supportFirstName}
-						onChange={(e, value) => handleFieldType('supportFirstName', value)}
-					/>
-
-					<Autocomplete
-						disablePortal
-						id='combo-box-demo2'
-						options={supportInfoArray.map(data => data.supportLastName)}
-						sx={{ width: 300 }}
-						renderInput={params => (
-							<TextField {...params} label='Support Last Name' />
-						)}
-						value={incidentData.supportLastName}
+						value={value.supportFirstName}
 						onChange={(e, value) =>
-							fieldChangeHandler('supportLastName', value)
+							fieldsChangeHandler('supportFirstName', value)
 						}
 					/>
 
 					<Autocomplete
 						disablePortal
-						id='combo-box-demo3'
+						id='combo-box-demo5'
+						options={supportInfoArray.map(data => data.supportLastName)}
+						sx={{ width: 300 }}
+						renderInput={params => (
+							<TextField {...params} label='Support Last Name' />
+						)}
+						value={value.supportLastName}
+						onChange={(e, value) =>
+							fieldsChangeHandler('supportLastName', value)
+						}
+					/>
+
+					<Autocomplete
+						disablePortal
+						id='combo-box-demo6'
 						options={supportInfoArray.map(data => data.supportEmail)}
 						sx={{ width: 300 }}
 						renderInput={params => (
 							<TextField {...params} label='Support Email' />
 						)}
-						value={incidentData.supportEmail}
-						onChange={(e, value) => fieldChangeHandler('supportEmail', value)}
+						value={value.supportEmail}
+						onChange={(e, value) => fieldsChangeHandler('supportEmail', value)}
 					/>
 				</fieldset>
 
@@ -166,20 +192,26 @@ const IncidentTracker = ({ isShown, loadedData }) => {
 						<InputField
 							placeholder='RFC Id'
 							classNames=''
-							onBlurCallback={fieldsChangeHandler}
-							value={incidentData.rfcId}
+							onBlurCallback={value =>
+								fieldsChangeHandler('rfcId', value.title)
+							}
+							value={value.rfcId}
 						/>
 						<InputField
 							placeholder='CRQ Id'
 							classNames=''
-							onBlurCallback={fieldsChangeHandler}
-							value={incidentData.crqId}
+							onBlurCallback={value =>
+								fieldsChangeHandler('crqId', value.title)
+							}
+							value={value.crqId}
 						/>
 						<InputField
 							placeholder='Charm Id'
 							classNames=''
-							onBlurCallback={fieldsChangeHandler}
-							value={incidentData.charmId}
+							onBlurCallback={value =>
+								fieldsChangeHandler('charmId', value.title)
+							}
+							value={value.charmId}
 						/>
 					</div>
 				</fieldset>

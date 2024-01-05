@@ -1,16 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import IncidentTracker from '../IncidentTracker/IncidentTracker';
 import ProjectTracker from '../ProjectTracker/ProjectTracker';
 import TaskTracker from '../TaskTracker/TaskTracker';
 import TimeTracker from '../TimeTracker/TimeTracker';
 import styles from './TaskTabs.module.css';
 
-const TaskTabs = () => {
-	const initialDataState = {
-		description: '',
-		taskCategories: [],
-		taskTags: [],
-	};
+const TaskTabs = ({ loadedData, value, onGetTabData }) => {
+	// const initialDataState = {
+	// 	description: '',
+	// 	taskCategories: [],
+	// 	taskTags: [],
+	// 	projectCategories: [],
+	// 	projectTags: [],
+	// 	projectId: null,
+	// 	projectName: null,
+	// 	projectAcronym: null,
+	// 	incidentId: '',
+	// 	incidentTitle: '',
+	// 	incidentDescription: '',
+	// 	businessFirstName: null,
+	// 	businessLastName: null,
+	// 	businessEmail: null,
+	// 	supportFirstName: null,
+	// 	supportLastName: null,
+	// 	supportEmail: null,
+	// 	rfcId: '',
+	// 	crqId: '',
+	// 	charmId: '',
+	// };
 	const tabs = {
 		Task: 'Task',
 		Project: 'Project',
@@ -18,18 +35,20 @@ const TaskTabs = () => {
 		Time_Sets: 'Time Sets',
 	};
 	const [activeTab, setActiveTab] = useState('Task');
-	const [tabsData, setTabsData] = useState(initialDataState);
+	// const [tabsData, setTabsData] = useState(initialDataState);
 
-	useEffect(() => {
-		console.log(tabsData);
-	}, [tabsData]);
+	// useEffect(() => {
+	// 	console.log(tabsData);
+	// }, [tabsData]);
 
 	const getTrackerDataHandler = value => {
-		setTabsData(prev => ({ ...prev, ...value }));
+		// setTabsData(prev => ({ ...prev, ...value }));
+		onGetTabData(value);
 	};
 
 	return (
 		<div className={styles.tab}>
+			{/* <button onClick={() => setTabsData(initialDataState)}>click</button> */}
 			<div className={styles.tab_head}>
 				{Object.keys(tabs).map(tab => (
 					<div
@@ -47,18 +66,20 @@ const TaskTabs = () => {
 				<TaskTracker
 					onGetTaskData={getTrackerDataHandler}
 					isShown={activeTab !== 'Task' ? false : true}
-					taskCategories={taskCategories}
-					taskTags={taskTags}
+					loadedData={loadedData.loadedTaskData}
+					value={value}
 				/>
 				<ProjectTracker
 					onGetProjectData={getTrackerDataHandler}
 					isShown={activeTab !== 'Project' ? false : true}
-					loadedData={loadedProjectData}
+					loadedData={loadedData.loadedProjectData}
+					value={value}
 				/>
 				<IncidentTracker
-					onBlurCallback={getTrackerDataHandler}
+					onGetIncidentData={getTrackerDataHandler}
 					isShown={activeTab !== 'Incident' ? false : true}
-					loadedData={loadedIncidentData}
+					loadedData={loadedData.loadedIncidentData}
+					value={value}
 				/>
 				<TimeTracker
 					onBlurCallback={getTrackerDataHandler}
@@ -70,62 +91,3 @@ const TaskTabs = () => {
 };
 
 export default TaskTabs;
-const taskTags = ['tag1', 'tag2', 'tag3', 'mmmtag4', 'uuutag5'];
-const taskCategories = ['cat1', 'cat2', 'cat3', 'ssscat4'];
-
-const loadedProjectData = {
-	projectInfoArray: [
-		{ projectId: 'aa3', projectName: 'Oreon', projectAcronym: 'OR' },
-		{ projectId: 'azz3', projectName: 'Olron', projectAcronym: 'ON' },
-		{ projectId: 'afr5', projectName: 'Ofton', projectAcronym: 'OfN' },
-	],
-	loadedProjectCategories: ['project1', 'project2'],
-	loadedProjectTags: ['pTag1', 'pTag2'],
-};
-
-const loadedIncidentData = {
-	businessInfoArray: [
-		{
-			businessFirstName: 'sdas',
-			businessLastName: 'fffff',
-			businessEmail: 'asdas@asds',
-		},
-		{
-			businessFirstName: 'ffff',
-			businessLastName: 'fffffff',
-			businessEmail: 'fff@ff',
-		},
-		{
-			businessFirstName: 'aa',
-			businessLastName: 'aaaaaaaaaa',
-			businessEmail: 'aaa@aaa',
-		},
-		{
-			businessFirstName: 'ssss',
-			businessLastName: 'sssssssssss',
-			businessEmail: 'ss@ssss',
-		},
-	],
-	supportInfoArray: [
-		{
-			supportFirstName: 'sdas',
-			supportLastName: 'fffff',
-			supportEmail: 'asdas@asds',
-		},
-		{
-			supportFirstName: 'ffff',
-			supportLastName: 'fffffff',
-			supportEmail: 'fff@ff',
-		},
-		{
-			supportFirstName: 'aa',
-			supportLastName: 'aaaaaaaaaa',
-			supportEmail: 'aaa@aaa',
-		},
-		{
-			supportFirstName: 'ssss',
-			supportLastName: 'sssssssssss',
-			supportEmail: 'ss@ssss',
-		},
-	],
-};

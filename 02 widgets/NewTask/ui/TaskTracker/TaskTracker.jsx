@@ -2,23 +2,26 @@ import TextDescription from '@/04 items/ui/TextDescriprtion/TextDescription';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react';
 import style from './TaskTracker.module.css';
 
-const TaskTracker = ({ isShown, onGetTaskData, taskTags, taskCategories }) => {
-	const [taskData, setTaskData] = useState({
-		description: '',
-		taskTags: [],
-		taskCategories: [],
-	});
+const TaskTracker = ({ isShown, onGetTaskData, loadedData, value }) => {
+	// const [taskData, setTaskData] = useState({
+	// 	description: '',
+	// 	taskTags: [],
+	// 	taskCategories: [],
+	// });
 
-	useEffect(() => {
-		onGetTaskData(taskData);
-	}, [taskData]);
+	const { taskTags, taskCategories } = loadedData;
+
+	// useEffect(() => {
+	// 	if (value !== taskData) {
+	// 		setTaskData(value);
+	// 	}
+	// }, [value]);
 
 	const inputChangeHandler = (field, value) => {
-		setTaskData(prev => ({ ...prev, [field]: value }));
-		// console.log(taskData);
+		// setTaskData(prev => ({ ...prev, [field]: value }));
+		onGetTaskData({ [field]: value });
 	};
 
 	return (
@@ -29,11 +32,11 @@ const TaskTracker = ({ isShown, onGetTaskData, taskTags, taskCategories }) => {
 				onBlurCallback={fieldsValue =>
 					inputChangeHandler('description', fieldsValue.description)
 				}
-				value={taskData.description}
+				value={value.description}
 			/>
 			<Autocomplete
 				onChange={(e, allTags) => inputChangeHandler('taskTags', allTags)}
-				value={taskData.taskTags}
+				value={value.taskTags}
 				multiple
 				id='tags-filled'
 				options={taskTags}
@@ -67,7 +70,7 @@ const TaskTracker = ({ isShown, onGetTaskData, taskTags, taskCategories }) => {
 				onChange={(e, allCategories) =>
 					inputChangeHandler('taskCategories', allCategories)
 				}
-				value={taskData.taskCategories}
+				value={value.taskCategories}
 				multiple
 				id='tags-filled-cat'
 				options={taskCategories}

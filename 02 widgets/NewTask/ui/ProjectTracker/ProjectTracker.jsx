@@ -1,32 +1,32 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react';
 
-const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
-	const [projectData, setProjectData] = useState({
-		projectCategories: [],
-		projectTags: [],
-		projectId: null,
-		projectName: null,
-		projectAcronym: null,
-	});
+const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
+	// const [projectData, setProjectData] = useState({
+	// 	projectCategories: [],
+	// 	projectTags: [],
+	// 	projectId: null,
+	// 	projectName: null,
+	// 	projectAcronym: null,
+	// });
 
 	const { loadedProjectCategories, loadedProjectTags, projectInfoArray } =
 		loadedData;
 
 	// const loadedProjectId = projectInfoArray.forEach
 
-	useEffect(() => {
-		onGetProjectData(projectData);
-	}, [projectData]);
+	// useEffect(() => {
+	// 	onGetProjectData(projectData);
+	// }, [projectData]);
 
 	const inputChangeHandler = (field, value) => {
-		setProjectData(prev => ({
-			...prev,
-			[field]: value,
-			// projectInfo: [...prev.projectInfo],
-		}));
+		// setProjectData(prev => ({
+		// 	...prev,
+		// 	[field]: value,
+		// }));
+
+		onGetProjectData({ [field]: value });
 	};
 
 	// const handleFieldType = (field, value) => {
@@ -55,25 +55,26 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 		switch (field) {
 			case 'projectId':
 				project = projectInfoArray.find(info => info.projectId === value);
-				console.log(project);
-				setProjectData(prev => ({
-					...prev,
-					...project,
-				}));
+				// setProjectData(prev => ({
+				// 	...prev,
+				// 	...project,
+				// }));
+
 				break;
 			case 'projectName':
 				project = projectInfoArray.find(info => info.projectName === value);
-				setProjectData(prev => ({
-					...prev,
-					...project,
-				}));
+				// setProjectData(prev => ({
+				// 	...prev,
+				// 	...project,
+				// }));
+
 				break;
 			case 'projectAcronym':
 				project = projectInfoArray.find(info => info.projectAcronym === value);
-				setProjectData(prev => ({
-					...prev,
-					...project,
-				}));
+				// setProjectData(prev => ({
+				// 	...prev,
+				// 	...project,
+				// }));
 				break;
 			case 'projectTags':
 				inputChangeHandler('projectTags', value);
@@ -85,6 +86,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				console.log('incorect field name in handleFieldType in ProjectTracker');
 				break;
 		}
+		onGetProjectData({ ...project });
 	};
 
 	return (
@@ -95,7 +97,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				options={projectInfoArray.map(data => data.projectId)}
 				sx={{ width: 300 }}
 				renderInput={params => <TextField {...params} label='Project ID' />}
-				value={projectData.projectId}
+				value={value.projectId}
 				onChange={(e, value) => handleFieldType('projectId', value)}
 			/>
 
@@ -105,7 +107,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				options={projectInfoArray.map(data => data.projectName)}
 				sx={{ width: 300 }}
 				renderInput={params => <TextField {...params} label='Project Name' />}
-				value={projectData.projectName}
+				value={value.projectName}
 				onChange={(e, value) => handleFieldType('projectName', value)}
 			/>
 
@@ -117,13 +119,13 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 				renderInput={params => (
 					<TextField {...params} label='Project Short Name' />
 				)}
-				value={projectData.projectAcronym}
+				value={value.projectAcronym}
 				onChange={(e, value) => handleFieldType('projectAcronym', value)}
 			/>
 
 			<Autocomplete
 				onChange={(e, allTags) => handleFieldType('projectCategories', allTags)}
-				value={projectData.projectCategories}
+				value={value.projectCategories}
 				multiple
 				id='tags-filled1'
 				options={loadedProjectCategories}
@@ -154,7 +156,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData }) => {
 			/>
 			<Autocomplete
 				onChange={(e, allTags) => handleFieldType('projectTags', allTags)}
-				value={projectData.projectTags}
+				value={value.projectTags}
 				multiple
 				id='tags-filled2'
 				options={loadedProjectTags}

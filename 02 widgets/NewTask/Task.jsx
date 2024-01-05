@@ -8,7 +8,8 @@ import Toggler from '@/04 items/ui/Toggler/Toggler';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { addNewTask, getTaskData } from './data/Task.data';
 import styles from './ui/Task.module.css';
 import TaskTabs from './ui/TaskTabs/TaskTabs';
 
@@ -48,9 +49,14 @@ const Task = props => {
 	const [taskData, setTaskData] = useState(initialDataState);
 	const [isShownTabs, setIsShownTabs] = useState(true);
 
-	useEffect(() => {
-		console.log(taskData);
-	}, [taskData]);
+	const getAutocompleteData = () => {
+		let autocompleteData = {};
+		getTaskData();
+	};
+
+	// useEffect(() => {
+	// 	getAutocompleteData()
+	// }, []);
 
 	const dataSendHandler = async value => {
 		try {

@@ -6,28 +6,6 @@ import TimeTracker from '../TimeTracker/TimeTracker';
 import styles from './TaskTabs.module.css';
 
 const TaskTabs = ({ loadedData, value, onGetTabData }) => {
-	// const initialDataState = {
-	// 	description: '',
-	// 	taskCategories: [],
-	// 	taskTags: [],
-	// 	projectCategories: [],
-	// 	projectTags: [],
-	// 	projectId: null,
-	// 	projectName: null,
-	// 	projectAcronym: null,
-	// 	incidentId: '',
-	// 	incidentTitle: '',
-	// 	incidentDescription: '',
-	// 	businessFirstName: null,
-	// 	businessLastName: null,
-	// 	businessEmail: null,
-	// 	supportFirstName: null,
-	// 	supportLastName: null,
-	// 	supportEmail: null,
-	// 	rfcId: '',
-	// 	crqId: '',
-	// 	charmId: '',
-	// };
 	const tabs = {
 		Task: 'Task',
 		Project: 'Project',
@@ -35,20 +13,13 @@ const TaskTabs = ({ loadedData, value, onGetTabData }) => {
 		Time_Sets: 'Time Sets',
 	};
 	const [activeTab, setActiveTab] = useState('Task');
-	// const [tabsData, setTabsData] = useState(initialDataState);
-
-	// useEffect(() => {
-	// 	console.log(tabsData);
-	// }, [tabsData]);
 
 	const getTrackerDataHandler = value => {
-		// setTabsData(prev => ({ ...prev, ...value }));
 		onGetTabData(value);
 	};
 
 	return (
 		<div className={styles.tab}>
-			{/* <button onClick={() => setTabsData(initialDataState)}>click</button> */}
 			<div className={styles.tab_head}>
 				{Object.keys(tabs).map(tab => (
 					<div

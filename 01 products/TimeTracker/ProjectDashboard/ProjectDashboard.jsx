@@ -91,18 +91,16 @@ const ProjectDashboard = () => {
 											<EditIcon fontSize='inherit' />
 										</IconButton>
 									</td>
-									<td>{project.project_business_id}</td>
-									<td>{project.name}</td>
-									<td>{project.acronym}</td>
+									<td>{project.projectId}</td>
+									<td>{project.projectName}</td>
+									<td>{project.projectAcronym}</td>
 									<td>{project.planned_hours}</td>
 									<td>{project.clients}</td>
 									<td>{project.status}</td>
 									<td>{project.priority}</td>
 									<td>
 										<IconButton
-											onClick={() =>
-												deleteValueHandler(project.project_business_id)
-											}
+											onClick={() => deleteValueHandler(project.projectId)}
 											aria-label='delete'
 											size='small'
 										>

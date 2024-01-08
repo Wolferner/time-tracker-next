@@ -1,144 +1,170 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import styles from "./CreateClientForm.module.css";
-import Modal from "@/04 items/ui/Modal/Modal";
-import { addNewClient } from "../../data/ClientDashboard.data";
+import Modal from '@/04 items/ui/Modal/Modal';
+import { useState } from 'react';
+import { addNewClient } from '../../data/ClientDashboard.data';
+import styles from './CreateClientForm.module.css';
 
 const initialState = {
-  clientId: "",
-  name: "",
-  regNumber: "",
-  email: "",
-  phone: "",
-  status: "",
-  notes: "",
-  priority: "",
+	companyRegId: '',
+	companyName: '',
+	clientAcronym: '',
+	clientShortName: '',
+	clientLongName: '',
+	clientEmail: '',
+	clientPhone: '',
+	clientStatus: '',
+	clientNotes: '',
+	clientPriority: '',
 };
 
-const CreateClientForm = (props) => {
-  const [formData, setFormData] = useState(initialState);
+const CreateClientForm = props => {
+	const [formData, setFormData] = useState(initialState);
 
-  const changeFormDataHandler = (value, field) => {
-    setFormData((prev) => {
-      return {
-        ...prev,
-        [field]: value,
-      };
-    });
-  };
+	const changeFormDataHandler = (value, field) => {
+		setFormData(prev => {
+			return {
+				...prev,
+				[field]: value,
+			};
+		});
+	};
 
-  const sendFormHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await addNewClient(JSON.stringify(formData));
-      // console.log(formData);
-      setFormData(initialState);
-      props.onHideForm();
-    } catch {
-      console.log(`Problem with posting NewClient  error: ${error}`);
-    }
-  };
-  return (
-    <Modal onHideForm={props.onHideForm}>
-      <form onSubmit={sendFormHandler}>
-        <div className={styles.control}>
-          <label htmlFor="clientId">Client Id</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "clientId")}
-            value={formData.clientId}
-            id="clientId"
-            type="number"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+	const sendFormHandler = async e => {
+		e.preventDefault();
+		try {
+			await addNewClient(JSON.stringify(formData));
+			// console.log(formData);
+			setFormData(initialState);
+			props.onHideForm();
+		} catch {
+			console.log(`Problem with posting NewClient  error: ${error}`);
+		}
+	};
+	return (
+		<Modal onHideForm={props.onHideForm}>
+			<form onSubmit={sendFormHandler}>
+				<div className={styles.control}>
+					<label htmlFor='companyRegId'>Company Reg. Id</label>
+					<input
+						onChange={e =>
+							changeFormDataHandler(e.target.value, 'companyRegId')
+						}
+						value={formData.companyRegId}
+						id='companyRegId'
+						type='text'
+					></input>
+					{/* {hasNameInputError && <p>vvedite imja</p>} */}
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="name">Name</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "name")}
-            value={formData.name}
-            id="name"
-            type="text"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='companyName'>Company Name</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'companyName')}
+						value={formData.companyName}
+						id='companyName'
+						type='text'
+					></input>
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="regNumber">Reg.Number</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "regNumber")}
-            value={formData.regNumber}
-            id="regNumber"
-            type="number"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='clientAcronym'>Acronym</label>
+					<input
+						onChange={e =>
+							changeFormDataHandler(e.target.value, 'clientAcronym')
+						}
+						value={formData.clientAcronym}
+						id='clientAcronym'
+						type='text'
+					></input>
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="email">E-Mail</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "email")}
-            value={formData.email}
-            id="email"
-            type="email"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='shortName'>Short Name</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'shortName')}
+						value={formData.clientShortName}
+						id='shortName'
+						type='text'
+					></input>
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="phone">Phone</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "phone")}
-            value={formData.phone}
-            id="phone"
-            type="number"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='longName'>Long Name</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'longName')}
+						value={formData.clientLongName}
+						id='longName'
+						type='text'
+					></input>
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="status">Status</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "status")}
-            value={formData.status}
-            id="status"
-            type="text"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='clientEmail'>E-Mail</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'clientEmail')}
+						value={formData.clientEmail}
+						id='clientEmail'
+						type='email'
+					></input>
+					{/* {hasNameInputError && <p>vvedite imja</p>} */}
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="priority">Priority</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "priority")}
-            value={formData.priority}
-            id="priority"
-            type="text"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='clientPhone'>Phone</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'clientPhone')}
+						value={formData.clientPhone}
+						id='clientPhone'
+						type='number'
+					></input>
+					{/* {hasNameInputError && <p>vvedite imja</p>} */}
+				</div>
 
-        <div className={styles.control}>
-          <label htmlFor="notes">Notes</label>
-          <input
-            onChange={(e) => changeFormDataHandler(e.target.value, "notes")}
-            value={formData.notes}
-            id="notes"
-            type="text"
-          ></input>
-          {/* {hasNameInputError && <p>vvedite imja</p>} */}
-        </div>
+				<div className={styles.control}>
+					<label htmlFor='clientStatus'>Status</label>
+					<input
+						onChange={e =>
+							changeFormDataHandler(e.target.value, 'clientStatus')
+						}
+						value={formData.clientStatus}
+						id='clientStatus'
+						type='text'
+					></input>
+				</div>
 
-        <div className={styles.actions}>
-          <button className={styles.submit}>podtverditj</button>
-          <button type="button" onClick={props.onHideForm}>
-            otmenitj
-          </button>
-        </div>
-      </form>
-    </Modal>
-  );
+				<div className={styles.control}>
+					<label htmlFor='clientPriority'>Priority</label>
+					<input
+						onChange={e =>
+							changeFormDataHandler(e.target.value, 'clientPriority')
+						}
+						value={formData.clientPriority}
+						id='clientPriority'
+						type='text'
+					></input>
+					{/* {hasNameInputError && <p>vvedite imja</p>} */}
+				</div>
+
+				<div className={styles.control}>
+					<label htmlFor='clientNotes'>Notes</label>
+					<input
+						onChange={e => changeFormDataHandler(e.target.value, 'clientNotes')}
+						value={formData.clientNotes}
+						id='clientNotes'
+						type='text'
+					></input>
+				</div>
+
+				<div className={styles.actions}>
+					<button className={styles.submit}>podtverditj</button>
+					<button type='button' onClick={props.onHideForm}>
+						otmenitj
+					</button>
+				</div>
+			</form>
+		</Modal>
+	);
 };
 
 export default CreateClientForm;

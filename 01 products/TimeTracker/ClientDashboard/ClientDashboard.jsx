@@ -75,9 +75,13 @@ const ClientDashboard = () => {
 						<thead>
 							<tr>
 								<th>Edit</th>
-								<th>Client Id</th>
-								<th>Name</th>
-								<th>Reg. Number</th>
+
+								<th>Company Reg. Id</th>
+								<th>Company Name</th>
+								<th>Acronym</th>
+								<th>Short Name</th>
+								<th>Long Name</th>
+
 								<th>E-Mail</th>
 								<th>Phone</th>
 								<th>Status</th>
@@ -99,17 +103,20 @@ const ClientDashboard = () => {
 										</IconButton>
 									</td>
 
-									<td>{client.clientId}</td>
-									<td>{client.name}</td>
-									<td>{client.regNumber}</td>
-									<td>{client.email}</td>
-									<td>{client.phone}</td>
-									<td>{client.status}</td>
-									<td>{client.priority}</td>
-									<td>{client.notes}</td>
+									<td>{client.companyRegId}</td>
+									<td>{client.companyName}</td>
+									<th>{client.clientAcronym}</th>
+									<th>{client.clientShortName}</th>
+									<th>{client.clientLongName}</th>
+
+									<td>{client.clientEmail}</td>
+									<td>{client.clientPhone}</td>
+									<td>{client.clientStatus}</td>
+									<td>{client.clientPriority}</td>
+									<td>{client.clientNotes}</td>
 									<td>
 										<IconButton
-											onClick={() => deleteClientHandler(client.clientId)}
+											onClick={() => deleteClientHandler(client.companyRegId)}
 											aria-label='delete'
 											size='small'
 										>

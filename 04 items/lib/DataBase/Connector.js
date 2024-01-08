@@ -51,7 +51,7 @@ export const saveData = async (dataBaseName, where, data) => {
 			let path;
 			switch (where) {
 				case 'userClients':
-					id = parsedData.clientId;
+					id = parsedData.companyRegId;
 					path = `/${where}/${id}`;
 					break;
 				case 'userProjects':

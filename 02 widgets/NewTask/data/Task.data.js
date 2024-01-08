@@ -15,7 +15,8 @@ export const addNewTask = async taskData => {
 
 export const extractAutocompleteData = async where => {
 	try {
-		await getAutocompleteData('node-json-db', where);
+		const response = await getAutocompleteData('node-json-db', where);
+		return response;
 	} catch (error) {
 		console.log(
 			`problemka v Task.data.js extractAutocompleteData!!!! error: ${error}`

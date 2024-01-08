@@ -65,7 +65,7 @@ const Task = props => {
 		const fetchData = async () => {
 			try {
 				const res = await extractAutocompleteData('userProjects');
-				const projectInfoArray = await JSON.parse(res);
+				// const projectInfoArray = await JSON.parse(res);
 				// const clientInfoArray = await extractAutocompleteData('userClients');
 				// const allTags = await extractAutocompleteData('userTags');
 				// const allCategories = await extractAutocompleteData('userCategories');
@@ -75,7 +75,8 @@ const Task = props => {
 				// const allSupportInfo = await extractAutocompleteData('userSupportInfo');
 
 				setAllAutocompleteData({
-					projectInfoArray,
+					res,
+					// projectInfoArray,
 					// ...clientInfoArray,
 					// ...allTags,
 					// ...allCategories,

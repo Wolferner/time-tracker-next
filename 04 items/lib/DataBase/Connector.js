@@ -168,35 +168,59 @@ export const getAutocompleteData = async (dataBaseName, where) => {
 	if (dataBaseName === 'node-json-db') {
 		try {
 			const path = `/${where}`;
-			if (where === 'userProjects') {
-				const userProjects = await getJsonData(path);
-				const parsedUserProject = await JSON.parse(userProjects);
-				const projectArray = Object.keys(parsedUserProject).map(key => {
-					const project = parsedUserProject[key];
-					return JSON.stringify({
-						projectId: project.projectId,
-						projectName: project.projectName,
-						projectAcronym: project.projectAcronym,
-					});
+			if (where === 'userProjects' || where === 'userClients') {
+				const userValues = await getJsonData(path);
+				const parsedUserValues = await JSON.parse(userValues);
+				const valuesArray = Object.keys(parsedUserValues).map(key => {
+					const value = parsedUserValues[key];
+					if (where === 'userProjects') {
+						return JSON.stringify({
+							projectId: value.projectId,
+							projectName: value.projectName,
+							projectAcronym: value.projectAcronym,
+						});
+					} else if (where === 'userClients') {
+						return JSON.stringify({
+							clientRegNumber: value.clientRegNumber,
+							clientLongName: value.clientLongName,
+							clientShortName: value.clientShortName,
+						});
+					}
+					return JSON.stringify(valuesArray);
 				});
-				return JSON.stringify(projectArray);
-			}
-			if (where === 'userClients') {
-				const userClients = await getJsonData(path);
-				const clientsArray = Object.keys(userClients).map(key => {
-					const client = userClients[key];
-					//FIXME: Nado zamenitj regNumber - clientRegNumber
-					return {
-						clientRegNumber: client.clientRegNumber,
-						clientLongName: client.clientLongName,
-						clientShortName: client.clientShortName,
-					};
-				});
-				return clientsArray;
 			} else {
 				const userData = await getJsonData(path);
 				return userData;
 			}
+
+			// if (where === 'userProjects') {
+			// 	const userProjects = await getJsonData(path);
+			// 	const parsedUserProject = await JSON.parse(userProjects);
+			// 	const projectArray = Object.keys(parsedUserProject).map(key => {
+			// 		const project = parsedUserProject[key];
+			// 		return JSON.stringify({
+			// 			projectId: project.projectId,
+			// 			projectName: project.projectName,
+			// 			projectAcronym: project.projectAcronym,
+			// 		});
+			// 	});
+			// 	return JSON.stringify(projectArray);
+			// }
+			// if (where === 'userClients') {
+			// 	const userClients = await getJsonData(path);
+			// 	const clientsArray = Object.keys(userClients).map(key => {
+			// 		const client = userClients[key];
+			// 		return {
+			// 			clientRegNumber: client.clientRegNumber,
+			// 			clientLongName: client.clientLongName,
+			// 			clientShortName: client.clientShortName,
+			// 		};
+			// 	});
+			// 	return clientsArray;
+			// } else {
+			// 	const userData = await getJsonData(path);
+			// 	return userData;
+			// }
 		} catch (error) {
 			console.log(`problemka v Task.data.js getTaskData!!!! error: ${error}`);
 		}

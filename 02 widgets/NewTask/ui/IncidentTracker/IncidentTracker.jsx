@@ -6,20 +6,20 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
 const IncidentTracker = ({ isShown, loadedData, onGetIncidentData, value }) => {
-	const [incidentData, setIncidentData] = useState({
-		incidentId: '',
-		incidentTitle: '',
-		incidentDescription: '',
-		businessFirstName: null,
-		businessLastName: null,
-		businessEmail: null,
-		supportFirstName: null,
-		supportLastName: null,
-		supportEmail: null,
-		rfcId: '',
-		crqId: '',
-		charmId: '',
-	});
+	// const [incidentData, setIncidentData] = useState({
+	// 	incidentId: '',
+	// 	incidentTitle: '',
+	// 	incidentDescription: '',
+	// 	businessFirstName: null,
+	// 	businessLastName: null,
+	// 	businessEmail: null,
+	// 	supportFirstName: null,
+	// 	supportLastName: null,
+	// 	supportEmail: null,
+	// 	rfcId: '',
+	// 	crqId: '',
+	// 	charmId: '',
+	// });
 
 	const [systemChanged, setSystemChanged] = useState(false);
 

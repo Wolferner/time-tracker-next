@@ -3,51 +3,13 @@ import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 
 const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
-	// const [projectData, setProjectData] = useState({
-	// 	projectCategories: [],
-	// 	projectTags: [],
-	// 	projectId: null,
-	// 	projectName: null,
-	// 	projectAcronym: null,
-	// });
-
-	const { loadedProjectCategories, loadedProjectTags, projectInfoArray } =
-		loadedData;
-
-	// const loadedProjectId = projectInfoArray.forEach
-
-	// useEffect(() => {
-	// 	onGetProjectData(projectData);
-	// }, [projectData]);
+	const { projectInfoArray, allTags, allCategories } = loadedData;
+	const { projectTags } = allTags;
+	const { projectCategories } = allCategories;
 
 	const inputChangeHandler = (field, value) => {
-		// setProjectData(prev => ({
-		// 	...prev,
-		// 	[field]: value,
-		// }));
-
 		onGetProjectData({ [field]: value });
 	};
-
-	// const handleFieldType = (field, value) => {
-	// 	const fieldMappings = {
-	// 		'projectId': 'projectId',
-	//       'projectName': 'projectName',
-	//       'projectAcronym': 'projectAcronym',
-	// 	}
-
-	// 	if(fieldMappings[field]){
-	// 		project = projectInfoArray.find(info => info[fieldMappings[field]] === value);
-	// 			setProjectData(prev => ({
-	// 				...prev,
-	// 				...project,
-	// 			}))
-	// 	}else if (field === 'projectTags'|| field === 'projectCategories'){
-	// 		inputChangeHandler(field, value);
-	// 	}else{
-	// 		console.log('Incorrect field name in handleFieldType in ProjectTracker');
-	// 	}
-	// }
 
 	//TODO: Переписать switch на if или что-нибудь оптимальнее
 	const handleFieldType = (field, value) => {
@@ -55,26 +17,15 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
 		switch (field) {
 			case 'projectId':
 				project = projectInfoArray.find(info => info.projectId === value);
-				// setProjectData(prev => ({
-				// 	...prev,
-				// 	...project,
-				// }));
 
 				break;
 			case 'projectName':
 				project = projectInfoArray.find(info => info.projectName === value);
-				// setProjectData(prev => ({
-				// 	...prev,
-				// 	...project,
-				// }));
 
 				break;
 			case 'projectAcronym':
 				project = projectInfoArray.find(info => info.projectAcronym === value);
-				// setProjectData(prev => ({
-				// 	...prev,
-				// 	...project,
-				// }));
+
 				break;
 			case 'projectTags':
 				inputChangeHandler('projectTags', value);
@@ -128,7 +79,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
 				value={value.projectCategories}
 				multiple
 				id='tags-filled1'
-				options={loadedProjectCategories}
+				options={projectCategories}
 				defaultValue={[]}
 				freeSolo
 				renderTags={(value, getTagProps) =>
@@ -159,7 +110,7 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
 				value={value.projectTags}
 				multiple
 				id='tags-filled2'
-				options={loadedProjectTags}
+				options={projectTags}
 				defaultValue={[]}
 				freeSolo
 				renderTags={(value, getTagProps) =>
@@ -190,37 +141,3 @@ const ProjectTracker = ({ isShown, loadedData, onGetProjectData, value }) => {
 };
 
 export default ProjectTracker;
-
-// const projectId = ['ddddd', 'dddddfff', 'ghththth'];
-// const projectName = ['dddddddddd', 'ddddddddfff', 'ghththddddddth'];
-// const projectAcronym = ['as', 'gas', 'ik'];
-
-{
-	/* <InputField
-				placeholder='Project ID'
-				classNames=''
-				onBlurCallback={value => inputChangeHandler('projectId', value.title)}
-				value={projectData.projectId}
-			/> */
-}
-
-{
-	/* <InputField
-				
-				placeholder='Project Name'
-				classNames=''
-				onBlurCallback={value => inputChangeHandler('projectName', value.title)}
-				value={projectData.projectName}
-			/> */
-}
-
-{
-	/* <InputField
-				placeholder='Project Short Name'
-				classNames=''
-				onBlurCallback={value =>
-					inputChangeHandler('projectAcronym', value.title)
-				}
-				value={projectData.projectAcronym}
-			/> */
-}

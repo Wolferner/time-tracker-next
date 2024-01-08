@@ -8,10 +8,9 @@ import Toggler from '@/04 items/ui/Toggler/Toggler';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import { addNewTask } from './data/Task.data';
+import { useEffect, useState } from 'react';
+import { addNewTask, extractAutocompleteData } from './data/Task.data';
 import styles from './ui/Task.module.css';
-import TaskTabs from './ui/TaskTabs/TaskTabs';
 
 const Task = props => {
 	console.log('Task Render');
@@ -53,6 +52,43 @@ const Task = props => {
 
 	const [taskData, setTaskData] = useState(initialDataState);
 	const [isShownTabs, setIsShownTabs] = useState(true);
+	const [allAutocompleteData, setAllAutocompleteData] = useState({
+		// projectInfoArray: null,
+		// clientInfoArray: null,
+		// allTags: null,
+		// allCategories: null,
+		// allBusinessInfo: null,
+		// allSupportInfo: null,
+	});
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const projectInfoArray = await extractAutocompleteData('userProjects');
+				const clientInfoArray = await extractAutocompleteData('userClients');
+				const allTags = await extractAutocompleteData('userTags');
+				const allCategories = await extractAutocompleteData('userCategories');
+				const allBusinessInfo = await extractAutocompleteData(
+					'userBusinessInfo'
+				);
+				const allSupportInfo = await extractAutocompleteData('userSupportInfo');
+
+				setAllAutocompleteData({
+					...projectInfoArray,
+					...clientInfoArray,
+					...allTags,
+					...allCategories,
+					...allBusinessInfo,
+					...allSupportInfo,
+				});
+			} catch (error) {
+				console.log(
+					`problem in Task.jsx in extraction function error: ${error}`
+				);
+			}
+		};
+		fetchData();
+	}, []);
 
 	const dataSendHandler = async value => {
 		try {
@@ -90,13 +126,13 @@ const Task = props => {
 						classNames=''
 					/>
 					<Toggler getTogglerState={() => setIsShownTabs(prev => !prev)} />
-					{isShownTabs && (
+					{/* {isShownTabs && (
 						<TaskTabs
 							onGetTabData={getDataHandler}
 							value={taskData}
 							loadedData={allAutocompleteData}
 						/>
-					)}
+					)} */}
 					<div className={``}>{props.children}</div>
 				</div>
 			</div>
@@ -106,64 +142,64 @@ const Task = props => {
 
 export default Task;
 
-const allAutocompleteData = {
-	loadedTaskData: {
-		taskTags: ['tag1', 'tag2', 'tag3', 'mmmtag4', 'uuutag5'],
-		taskCategories: ['cat1', 'cat2', 'cat3', 'ssscat4'],
-	},
-	loadedProjectData: {
-		projectInfoArray: [
-			{ projectId: 'aa3', projectName: 'Oreon', projectAcronym: 'OR' },
-			{ projectId: 'azz3', projectName: 'Olron', projectAcronym: 'ON' },
-			{ projectId: 'afr5', projectName: 'Ofton', projectAcronym: 'OfN' },
-		],
-		loadedProjectCategories: ['project1', 'project2'],
-		loadedProjectTags: ['pTag1', 'pTag2'],
-	},
-	loadedIncidentData: {
-		businessInfoArray: [
-			{
-				businessFirstName: 'sdas',
-				businessLastName: 'fffff',
-				businessEmail: 'asdas@asds',
-			},
-			{
-				businessFirstName: 'ffff',
-				businessLastName: 'fffffff',
-				businessEmail: 'fff@ff',
-			},
-			{
-				businessFirstName: 'aa',
-				businessLastName: 'aaaaaaaaaa',
-				businessEmail: 'aaa@aaa',
-			},
-			{
-				businessFirstName: 'ssss',
-				businessLastName: 'sssssssssss',
-				businessEmail: 'ss@ssss',
-			},
-		],
-		supportInfoArray: [
-			{
-				supportFirstName: 'sdas',
-				supportLastName: 'fffff',
-				supportEmail: 'asdas@asds',
-			},
-			{
-				supportFirstName: 'ffff',
-				supportLastName: 'fffffff',
-				supportEmail: 'fff@ff',
-			},
-			{
-				supportFirstName: 'aa',
-				supportLastName: 'aaaaaaaaaa',
-				supportEmail: 'aaa@aaa',
-			},
-			{
-				supportFirstName: 'ssss',
-				supportLastName: 'sssssssssss',
-				supportEmail: 'ss@ssss',
-			},
-		],
-	},
-};
+// const allAutocompleteData = {
+// 	loadedTaskData: {
+// 		taskTags: ['tag1', 'tag2', 'tag3', 'mmmtag4', 'uuutag5'],
+// 		taskCategories: ['cat1', 'cat2', 'cat3', 'ssscat4'],
+// 	},
+// 	loadedProjectData: {
+// 		projectInfoArray: [
+// 			{ projectId: 'aa3', projectName: 'Oreon', projectAcronym: 'OR' },
+// 			{ projectId: 'azz3', projectName: 'Olron', projectAcronym: 'ON' },
+// 			{ projectId: 'afr5', projectName: 'Ofton', projectAcronym: 'OfN' },
+// 		],
+// 		loadedProjectCategories: ['project1', 'project2'],
+// 		loadedProjectTags: ['pTag1', 'pTag2'],
+// 	},
+// 	loadedIncidentData: {
+// 		businessInfoArray: [
+// 			{
+// 				businessFirstName: 'sdas',
+// 				businessLastName: 'fffff',
+// 				businessEmail: 'asdas@asds',
+// 			},
+// 			{
+// 				businessFirstName: 'ffff',
+// 				businessLastName: 'fffffff',
+// 				businessEmail: 'fff@ff',
+// 			},
+// 			{
+// 				businessFirstName: 'aa',
+// 				businessLastName: 'aaaaaaaaaa',
+// 				businessEmail: 'aaa@aaa',
+// 			},
+// 			{
+// 				businessFirstName: 'ssss',
+// 				businessLastName: 'sssssssssss',
+// 				businessEmail: 'ss@ssss',
+// 			},
+// 		],
+// 		supportInfoArray: [
+// 			{
+// 				supportFirstName: 'sdas',
+// 				supportLastName: 'fffff',
+// 				supportEmail: 'asdas@asds',
+// 			},
+// 			{
+// 				supportFirstName: 'ffff',
+// 				supportLastName: 'fffffff',
+// 				supportEmail: 'fff@ff',
+// 			},
+// 			{
+// 				supportFirstName: 'aa',
+// 				supportLastName: 'aaaaaaaaaa',
+// 				supportEmail: 'aaa@aaa',
+// 			},
+// 			{
+// 				supportFirstName: 'ssss',
+// 				supportLastName: 'sssssssssss',
+// 				supportEmail: 'ss@ssss',
+// 			},
+// 		],
+// 	},
+// };

@@ -5,8 +5,9 @@ import TextField from '@mui/material/TextField';
 import style from './TaskTracker.module.css';
 
 const TaskTracker = ({ isShown, onGetTaskData, loadedData, value }) => {
-	const { taskTags, taskCategories } = loadedData;
-
+	const { allTags, allCategories } = loadedData;
+	const { taskTags } = allTags;
+	const { taskCategories } = allCategories;
 	const inputChangeHandler = (field, value) => {
 		onGetTaskData({ [field]: value });
 	};

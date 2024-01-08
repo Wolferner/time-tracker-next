@@ -37,19 +37,29 @@ const TaskTabs = ({ loadedData, value, onGetTabData }) => {
 				<TaskTracker
 					onGetTaskData={getTrackerDataHandler}
 					isShown={activeTab !== 'Task' ? false : true}
-					loadedData={loadedData.loadedTaskData}
+					loadedData={{
+						allTags: loadedData.allTags,
+						allCategories: loadedData.allCategories,
+					}}
 					value={value}
 				/>
 				<ProjectTracker
 					onGetProjectData={getTrackerDataHandler}
 					isShown={activeTab !== 'Project' ? false : true}
-					loadedData={loadedData.loadedProjectData}
+					loadedData={{
+						projectInfoArray: loadedData.projectInfoArray,
+						allTags: loadedData.allTags,
+						allCategories: loadedData.allCategories,
+					}}
 					value={value}
 				/>
 				<IncidentTracker
 					onGetIncidentData={getTrackerDataHandler}
 					isShown={activeTab !== 'Incident' ? false : true}
-					loadedData={loadedData.loadedIncidentData}
+					loadedData={{
+						businessInfoArray: loadedData.allBusinessInfo,
+						supportInfoArray: loadedData.allSupportInfo,
+					}}
 					value={value}
 				/>
 				<TimeTracker

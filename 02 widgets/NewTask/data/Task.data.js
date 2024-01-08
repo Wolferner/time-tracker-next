@@ -1,6 +1,9 @@
 'use server';
 
-import { getData, saveTask } from '@/04 items/lib/DataBase/Connector';
+import {
+	getAutocompleteData,
+	saveTask,
+} from '@/04 items/lib/DataBase/Connector';
 
 export const addNewTask = async taskData => {
 	try {
@@ -10,10 +13,12 @@ export const addNewTask = async taskData => {
 	}
 };
 
-export const getTaskData = async (dataBaseName, where) => {
+export const extractAutocompleteData = where => {
 	try {
-		await getData(dataBaseName, where);
+		getAutocompleteData('node-json-db', where);
 	} catch (error) {
-		console.log(`problemka v Task.data.js getTaskData!!!! error: ${error}`);
+		console.log(
+			`problemka v Task.data.js extractAutocompleteData!!!! error: ${error}`
+		);
 	}
 };

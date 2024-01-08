@@ -27,20 +27,25 @@ const Task = props => {
 		description: '',
 		taskCategories: [],
 		taskTags: [],
+
 		projectCategories: [],
 		projectTags: [],
 		projectId: null,
 		projectName: null,
 		projectAcronym: null,
+
 		incidentId: '',
 		incidentTitle: '',
 		incidentDescription: '',
+
 		businessFirstName: null,
 		businessLastName: null,
 		businessEmail: null,
+
 		supportFirstName: null,
 		supportLastName: null,
 		supportEmail: null,
+
 		rfcId: '',
 		crqId: '',
 		charmId: '',
@@ -48,56 +53,6 @@ const Task = props => {
 
 	const [taskData, setTaskData] = useState(initialDataState);
 	const [isShownTabs, setIsShownTabs] = useState(true);
-
-	// const extractProjectsData = async () =>{
-	// 	try{
-	// 		const userProjects = await getTaskData('userProjests')
-	// 		const projectArray = Object.keys(userProjects).map((key)=>{
-	// 			const project = userProjects[key]
-	// 			return{
-	// 				projectId: project.projectId,
-	// 				projectName: project.projectName,
-	// 				projectAcronym: project.projectAcronym,
-	// 			}
-	// 		})
-	// 		return projectArray
-	// 	}catch (error){
-	// 		console.log(`problem in extractProjectsData in Task.jsx error: ${error}`)
-	// 	}
-	// }
-
-	// const extractClientsData = async () =>{
-	// 	try{
-	// 		const userClients = await getTaskData('userClients')
-	// 		const clientArray = Object.keys(userClients).map((key)=>{
-	// 			const client = userClients[key]
-	// 			return{
-	// 				clientRegNumber: client.clientRegNumber,
-	// 				clientName: client.clientName,
-	// 				clientAcronym: client.clientAcronym,
-	// 			}
-	// 		})
-	// 		return clientArray
-	// 	}catch (error){
-	// 		console.log(`problem in extractClientsData in Task.jsx error: ${error}`)
-	// 	}
-	// }
-
-	// const extractTagsData =
-
-	// const getAutocompleteData = async () => {
-	// 	let autocompleteData = {};
-	// 	const projects = await extractProjectsData()
-	// 	const clients = await extractClientsData()
-	// 	const tags = await extractTagsData()
-	// 	const categories = await extractCategoriesData()
-	// 	const businessInfo = await extractBusinessInfoData()
-	// 	const supportInfo = await extractSupportInfoData()
-	// };
-
-	// useEffect(() => {
-	// 	getAutocompleteData()
-	// }, []);
 
 	const dataSendHandler = async value => {
 		try {

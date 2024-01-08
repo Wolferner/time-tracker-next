@@ -98,6 +98,7 @@ const ClientDashboard = () => {
 											<EditIcon fontSize='inherit' />
 										</IconButton>
 									</td>
+
 									<td>{client.clientId}</td>
 									<td>{client.name}</td>
 									<td>{client.regNumber}</td>

@@ -1,7 +1,7 @@
 'use client';
 
 import FilterComponent from '@/04 items/ui/FilterCompanent/FilterCompanent';
-import TextField from '@/04 items/ui/TextField/TextField';
+import InputField from '@/04 items/ui/InputField/InputField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
@@ -139,7 +139,7 @@ const CategoriesDashboard = () => {
 			<div className='row'>
 				<div className='container'>
 					<div className='col s12'>
-						<TextField
+						<InputField
 							placeholder={'Search'}
 							value={searchInput}
 							onBlurCallback={searchInputHandler}
@@ -164,7 +164,7 @@ const CategoriesDashboard = () => {
 									}}
 								/>
 
-								<TextField
+								<InputField
 									placeholder={'Categorie'}
 									value={newCategory.inputCategory}
 									onBlurCallback={val =>

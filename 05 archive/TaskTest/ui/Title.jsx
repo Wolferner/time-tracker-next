@@ -1,7 +1,7 @@
-import TextField from "@/04 items/ui/TextField/TextField";
+import InputField from '@/04 items/ui/InputField/InputField';
 
 const Title = ({ onChange }) => {
-  return <TextField placeholder="Yor Title" onBlurCallback={onChange} />;
+	return <InputField placeholder='Yor Title' onBlurCallback={onChange} />;
 };
 
 export default Title;

@@ -5,71 +5,52 @@ import TaskTracker from '../TaskTracker/TaskTracker';
 import TimeTracker from '../TimeTracker/TimeTracker';
 import styles from './TaskTabs.module.css';
 
-const TaskTabs = () => {
-	const initialDataState = {
-		description: '',
-		taskCategories: [],
-		taskTags: [],
+const TaskTabs = ({ loadedData, value, onGetTabData }) => {
+	const tabs = {
+		Task: 'Task',
+		Project: 'Project',
+		Incident: 'Incident',
+		Time_Sets: 'Time Sets',
 	};
 	const [activeTab, setActiveTab] = useState('Task');
-	const [tabsData, setTabsData] = useState(initialDataState);
 
 	const getTrackerDataHandler = value => {
-		setTabsData(prev => ({ ...prev, ...value }));
+		onGetTabData(value);
 	};
 
 	return (
 		<div className={styles.tab}>
 			<div className={styles.tab_head}>
-				<div
-					className={`${styles.tab_header} ${
-						activeTab === 'Task' && styles.active
-					}`}
-					onClick={() => setActiveTab('Task')}
-					key='Task'
-				>
-					Task
-				</div>
-				<div
-					className={`${styles.tab_header} ${
-						activeTab === 'Project' && styles.active
-					}`}
-					onClick={() => setActiveTab('Project')}
-					key='Project'
-				>
-					Project
-				</div>
-				<div
-					className={`${styles.tab_header} ${
-						activeTab === 'Incident' && styles.active
-					}`}
-					onClick={() => setActiveTab('Incident')}
-					key='Incident'
-				>
-					Incident
-				</div>
-				<div
-					className={`${styles.tab_header} ${
-						activeTab === 'Time_Sets' && styles.active
-					}`}
-					onClick={() => setActiveTab('Time_Sets')}
-					key='Time_Sets'
-				>
-					Time Sets
-				</div>
+				{Object.keys(tabs).map(tab => (
+					<div
+						key={tab}
+						onClick={() => setActiveTab(tab)}
+						className={`${styles.tab_header} ${
+							activeTab === tab ? styles.active : ''
+						}`}
+					>
+						{tabs[tab]}
+					</div>
+				))}
 			</div>
 			<div className={`${styles.tab_body}`}>
 				<TaskTracker
-					onBlurCallback={getTrackerDataHandler}
+					onGetTaskData={getTrackerDataHandler}
 					isShown={activeTab !== 'Task' ? false : true}
+					loadedData={loadedData.loadedTaskData}
+					value={value}
 				/>
 				<ProjectTracker
-					onBlurCallback={getTrackerDataHandler}
+					onGetProjectData={getTrackerDataHandler}
 					isShown={activeTab !== 'Project' ? false : true}
+					loadedData={loadedData.loadedProjectData}
+					value={value}
 				/>
 				<IncidentTracker
-					onBlurCallback={getTrackerDataHandler}
+					onGetIncidentData={getTrackerDataHandler}
 					isShown={activeTab !== 'Incident' ? false : true}
+					loadedData={loadedData.loadedIncidentData}
+					value={value}
 				/>
 				<TimeTracker
 					onBlurCallback={getTrackerDataHandler}

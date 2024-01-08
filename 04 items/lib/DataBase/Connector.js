@@ -163,3 +163,44 @@ export const saveDataIndex = async (dataBaseName, where, data) => {
 		console.log(error);
 	}
 };
+
+export const getAutocompleteData = async (dataBaseName, where) => {
+	if (dataBaseName === 'node-json-db') {
+		try {
+			if (where === 'userProjects') {
+				const userProjects = await getJsonData(dataBaseName, 'userProjects');
+				const projectArray = Object.keys(userProjects).map(key => {
+					const project = userProjects[key];
+					return {
+						projectId: project.projectId,
+						projectName: project.projectName,
+						projectAcronym: project.projectAcronym,
+					};
+				});
+				return projectArray;
+			}
+			if (where === 'userClients') {
+				const userClients = await getJsonData(dataBaseName, 'userClients');
+				const clientsArray = Object.keys(userClients).map(key => {
+					const client = userClients[key];
+					//FIXME: Nado zamenitj regNumber - clientRegNumber
+					return {
+						clientRegNumber: client.clientRegNumber,
+						clientLongName: client.clientLongName,
+						clientShortName: client.clientShortName,
+					};
+				});
+				return clientsArray;
+			} else {
+				const userData = await getJsonData(dataBaseName, where);
+				return userData;
+			}
+		} catch (error) {
+			console.log(`problemka v Task.data.js getTaskData!!!! error: ${error}`);
+		}
+	} else {
+		console.log(
+			'Need to use argument dataBaseName : extractAutocompleteData( dataBaseName, where )'
+		);
+	}
+};

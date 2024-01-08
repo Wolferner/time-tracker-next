@@ -167,20 +167,22 @@ export const saveDataIndex = async (dataBaseName, where, data) => {
 export const getAutocompleteData = async (dataBaseName, where) => {
 	if (dataBaseName === 'node-json-db') {
 		try {
+			const path = `/${where}`;
 			if (where === 'userProjects') {
-				const userProjects = await getJsonData(dataBaseName, 'userProjects');
-				const projectArray = Object.keys(userProjects).map(key => {
-					const project = userProjects[key];
-					return {
+				const userProjects = await getJsonData(path);
+				const parsedUserProject = await JSON.parse(userProjects);
+				const projectArray = Object.keys(parsedUserProject).map(key => {
+					const project = parsedUserProject[key];
+					return JSON.stringify({
 						projectId: project.projectId,
 						projectName: project.projectName,
 						projectAcronym: project.projectAcronym,
-					};
+					});
 				});
-				return projectArray;
+				return JSON.stringify(projectArray);
 			}
 			if (where === 'userClients') {
-				const userClients = await getJsonData(dataBaseName, 'userClients');
+				const userClients = await getJsonData(path);
 				const clientsArray = Object.keys(userClients).map(key => {
 					const client = userClients[key];
 					//FIXME: Nado zamenitj regNumber - clientRegNumber
@@ -192,7 +194,7 @@ export const getAutocompleteData = async (dataBaseName, where) => {
 				});
 				return clientsArray;
 			} else {
-				const userData = await getJsonData(dataBaseName, where);
+				const userData = await getJsonData(path);
 				return userData;
 			}
 		} catch (error) {

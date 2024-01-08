@@ -64,22 +64,23 @@ const Task = props => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const projectInfoArray = await extractAutocompleteData('userProjects');
-				const clientInfoArray = await extractAutocompleteData('userClients');
-				const allTags = await extractAutocompleteData('userTags');
-				const allCategories = await extractAutocompleteData('userCategories');
-				const allBusinessInfo = await extractAutocompleteData(
-					'userBusinessInfo'
-				);
-				const allSupportInfo = await extractAutocompleteData('userSupportInfo');
+				const res = await extractAutocompleteData('userProjects');
+				const projectInfoArray = await JSON.parse(res);
+				// const clientInfoArray = await extractAutocompleteData('userClients');
+				// const allTags = await extractAutocompleteData('userTags');
+				// const allCategories = await extractAutocompleteData('userCategories');
+				// const allBusinessInfo = await extractAutocompleteData(
+				// 	'userBusinessInfo'
+				// );
+				// const allSupportInfo = await extractAutocompleteData('userSupportInfo');
 
 				setAllAutocompleteData({
-					...projectInfoArray,
-					...clientInfoArray,
-					...allTags,
-					...allCategories,
-					...allBusinessInfo,
-					...allSupportInfo,
+					projectInfoArray,
+					// ...clientInfoArray,
+					// ...allTags,
+					// ...allCategories,
+					// ...allBusinessInfo,
+					// ...allSupportInfo,
 				});
 			} catch (error) {
 				console.log(
@@ -88,7 +89,11 @@ const Task = props => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [allAutocompleteData]);
+
+	useEffect(() => {
+		console.log(allAutocompleteData);
+	}, [allAutocompleteData]);
 
 	const dataSendHandler = async value => {
 		try {
